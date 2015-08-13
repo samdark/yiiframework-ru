@@ -48,6 +48,7 @@ class PostController extends Controller
              ],
          ]);
 
+        $this->layout = 'front';
         return $this->render('index', [
             'provider' => $provider,
         ]);
