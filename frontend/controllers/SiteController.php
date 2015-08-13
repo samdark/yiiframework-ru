@@ -324,4 +324,9 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionLegacy()
+    {
+        return $this->render('legacy');
+    }
 }
