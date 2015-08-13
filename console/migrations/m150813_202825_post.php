@@ -10,7 +10,7 @@ class m150813_202825_post extends Migration
             'id' => $this->primaryKey(),
             'title' => $this->string()->notNull(),
             'body' => 'MEDIUMTEXT NOT NULL',
-            'link' => $this->string()->notNull(),
+            'link' => $this->string(),
             'user_id' => $this->integer()->notNull(),
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
