@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "070ceda271c6b13bcc2f039c95f19077",
+    "hash": "04cb20167e802466f3adaf026525d2de",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -315,6 +315,52 @@
                 "html"
             ],
             "time": "2013-11-30 08:25:19"
+        },
+        {
+            "name": "ijackua/yii2-lepture-markdown-editor-widget",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iJackUA/yii2-lepture-markdown-editor-widget.git",
+                "reference": "c270e33f6df4b50ab493ee14fb40403e024fb522"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iJackUA/yii2-lepture-markdown-editor-widget/zipball/c270e33f6df4b50ab493ee14fb40403e024fb522",
+                "reference": "c270e33f6df4b50ab493ee14fb40403e024fb522",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "ijackua\\lepture\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Evgeniy Kuzminov",
+                    "email": "kyzminov@gmail.com",
+                    "homepage": "http://stdout.in"
+                }
+            ],
+            "description": "Yii2 widget for Lepture Markdown Editor (https://github.com/lepture/editor) - A markdown editor you really want",
+            "homepage": "https://github.com/iJackUA/yii2-lepture-markdown-editor-widget",
+            "keywords": [
+                "editor",
+                "extension",
+                "lepture",
+                "markdown",
+                "widget",
+                "yii"
+            ],
+            "time": "2014-03-29 19:06:57"
         },
         {
             "name": "swiftmailer/swiftmailer",
