@@ -71,9 +71,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left"><?= Html::a(Yii::t('app', 'Leave feedback'), 'http://yiiframework.ru/forum/viewforum.php?f=5') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right">© 2009 — <?= date('Y') ?>, Yii community</p>
     </div>
 </footer>
 
