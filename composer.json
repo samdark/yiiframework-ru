@@ -1,40 +1,27 @@
 {
     "name": "samdark/yiiframework-ru",
-    "description": "Yii framework russian site",
+    "description": "yiiframework.ru",
+    "keywords": ["yii", "yiiframework.ru"],
     "homepage": "http://www.yiiframework.ru/",
     "type": "project",
     "license": "BSD-3-Clause",
     "support": {
         "issues": "https://github.com/samdark/yiiframework-ru/issues?state=open",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/samdark/yiiframework-ru"
+        "forum": "http://yiiframework.ru/forum/",
+        "source": "https://github.com/samdark/yiiframework-ru/"
     },
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": ">=2.0.6",
         "yiisoft/yii2-bootstrap": "*",
-        "yiisoft/yii2-swiftmailer": "*",
-
-        "rmrevin/yii2-fontawesome": "~2.10",
-        "rmrevin/yii2-socicon": "~1.0",
-        "rmrevin/yii2-minify-view": "~1.9",
-        "rmrevin/yii2-rbac-command": "~1.3",
-        "rmrevin/yii2-favicon-widget": "~1.0",
-
-        "samdark/sitemap": "2.0.*"
+        "yiisoft/yii2-swiftmailer": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*",
-        "yiisoft/yii2-faker": "*",
-        "codeception/codeception": "2.0.*",
-        "codeception/phpbuiltinserver": "1.2.*",
-        "codeception/specify": "0.4.*",
-        "codeception/verify": "0.2.*"
+        "yiisoft/yii2-faker": "*"
     },
     "config": {
         "process-timeout": 1800

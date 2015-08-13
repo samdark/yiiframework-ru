@@ -7,10 +7,16 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-console',
+    'id' => 'yiiframework-ru-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'console\controllers',
+    'controllerMap' => [
+        'migrate' => [
+            'class' => 'yii\console\controllers\MigrateController',
+            'templateFile' => '@common/views/migration.php',
+        ],
+    ],
     'components' => [
         'log' => [
             'targets' => [

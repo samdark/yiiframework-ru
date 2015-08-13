@@ -1,8 +1,8 @@
-This directory contains various tests for the advanced applications.
+This directory contains various tests.
 
 Tests in `codeception` directory are developed with [Codeception PHP Testing Framework](http://codeception.com/).
 
-After creating and setting up the advanced application, follow these steps to prepare for the tests:
+After creating and setting up the application, follow these steps to prepare for the tests:
 
 1. Install Codeception if it's not yet installed:
 
@@ -25,7 +25,7 @@ After creating and setting up the advanced application, follow these steps to pr
    composer require --dev yiisoft/yii2-faker:*
    ```
 
-3. Create `yii2_advanced_tests` database then update it by applying migrations:
+3. Create `yiiframework_ru` database then update it by applying migrations:
 
    ```
    codeception/bin/yii migrate
