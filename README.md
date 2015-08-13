@@ -12,7 +12,41 @@ Overview
 Project includes three tiers: front end, back end, and console, each of which
 is a separate Yii application.
 
-DIRECTORY STRUCTURE
+Installation
+------------
+
+### 1. Install framework and dependencies
+
+If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
+at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
+
+You can then install this application template using the following command:
+
+```
+composer global require "fxp/composer-asset-plugin"
+composer install
+```
+
+### 2. Initialize configs
+
+Run `init` in the root directory. Choose development environment.
+
+### 3. Database
+
+Create a database. By this moment you should have `common/config/main-local.php`. Specify your database connection there.
+
+Then apply migrations by running:
+
+```
+yii migrate
+```
+
+### 4. Setup webserver
+
+Create two hosts. One should point to `frontend/web`, another to `backend/web`.
+There's [nginx config you can check](https://github.com/samdark/yiiframework-ru/tree/development/server/nginx).
+
+Directory structure
 -------------------
 
 ```
