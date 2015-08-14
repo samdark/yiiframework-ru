@@ -77,5 +77,8 @@ return [
             'backend/config/main-local.php',
             'frontend/config/main-local.php',
         ],
+        'skipFiles' => [
+            '.env.php'
+        ],
     ],
 ];
