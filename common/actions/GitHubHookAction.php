@@ -14,7 +14,7 @@ use yii\web\ForbiddenHttpException;
 use yii\web\MethodNotAllowedHttpException;
 
 /**
- * Action for hooks (Getting reliease) from Yii1/Yii2 framework repositories.
+ * Action handles GitHub hooks. Currently it's getting release info from Yii 1 and Yii 2 repositories.
  * You can use it in any controller as:
  *
  *  public function actions()
@@ -29,7 +29,7 @@ use yii\web\MethodNotAllowedHttpException;
  *
  * In Webhooks/Manage on Github you should configure:
  *
- *      Payload URL - https://yiiframework.ru/site/hooks&version=yii2
+ *      Payload URL - https://yiiframework.ru/site/hooks&version=yii2 or https://yiiframework.ru/site/hooks&version=yii1
  *      Content type - application/json
  *      Secret - configure in common/config/params-local.php as "hook-hub-secret"
  *      Which events would you like to trigger this webhook? - only "Release"
