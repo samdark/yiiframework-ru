@@ -3,12 +3,12 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use yii\helpers\Html;
+use common\widgets\Alert;
+use frontend\assets\AppAsset;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
-use frontend\assets\AppAsset;
-use common\widgets\Alert;
 
 AppAsset::register($this);
 ?>
@@ -26,46 +26,48 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => 'yiiframework.ru',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => '1.1', 'url' => ['/site/legacy']],
-        ['label' => 'Twitter', 'url' => 'http://twitter.com/yiiframework_ru'],
-        ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html'],
-        ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html'],
-        ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/'],
-        ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus'],
-        ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/'],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = [
-            'label' => Yii::t('app', 'Logout ({username})', ['username' => Yii::$app->user->identity->username]),
-            'url' => ['/site/logout'],
-            'linkOptions' => ['data-method' => 'post']
+    <header>
+        <?php
+        NavBar::begin([
+            'brandLabel' => '<span>yii</span>framework.ru',
+            'brandUrl' => Yii::$app->homeUrl,
+            'options' => [
+                'class' => 'navbar navbar-default drop navbar-fixed-top',
+            ],
+        ]);
+        $menuItems = [
+            ['label' => '1.1', 'url' => ['/site/legacy']],
+            ['label' => 'Twitter', 'url' => 'http://twitter.com/yiiframework_ru'],
+            ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html'],
+            ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html'],
+            ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/'],
+            ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus'],
+            ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/'],
         ];
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
+        if (Yii::$app->user->isGuest) {
+            $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
+            $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
+        } else {
+            $menuItems[] = [
+                'label' => Yii::t('app', 'Logout ({username})', ['username' => Yii::$app->user->identity->username]),
+                'url' => ['/site/logout'],
+                'linkOptions' => ['data-method' => 'post']
+            ];
+        }
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => $menuItems,
+        ]);
+        NavBar::end();
+        ?>
+    </header>
 
     <div class="container">
 
         <div class="text-right">
             Последняя стабильная версия:
-            <?= Html::a(\Yii::$app->params['yii1-tag-name'],\Yii::$app->params['yii1-html-url']) ?> /
-            <?= Html::a(\Yii::$app->params['yii2-tag-name'],\Yii::$app->params['yii2-html-url']) ?>
+            <?= Html::a(\Yii::$app->params['yii1-tag-name'], \Yii::$app->params['yii1-html-url']) ?> /
+            <?= Html::a(\Yii::$app->params['yii2-tag-name'], \Yii::$app->params['yii2-html-url']) ?>
         </div>
 
         <?= Breadcrumbs::widget([
@@ -77,11 +79,52 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
+<footer>
     <div class="container">
-        <p class="pull-left"><?= Html::a(Yii::t('app', 'Leave feedback'), 'http://yiiframework.ru/forum/viewforum.php?f=5') ?></p>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="widget">
+                    <h5 class="widgetheading">Yii framework.</h5>
 
-        <p class="pull-right">© 2009 — <?= date('Y') ?>, Yii community</p>
+                    <p>Yii is a high-performance PHP framework best for developing Web 2.0 applications.</p>
+
+                    <div class="copyright">
+                        <p><span>© 2009 — <?= date('Y') ?>, Yii community</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget">
+                    <h5 class="widgetheading">Navigation</h5>
+                    <ul class="link-list">
+                        <?
+                        foreach ($menuItems as $item) {
+                            $anchor = Html::a($item['label'], $item['url']);
+
+                            echo Html::tag('li', $anchor);
+                        }
+                        ?>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget">
+                    <h5 class="widgetheading">Support</h5>
+                    <ul class="link-list">
+                        <li><?= Html::a(Yii::t('app', 'Leave feedback'), 'http://yiiframework.ru/forum/viewforum.php?f=5', ['target' => '_blank']) ?></li>
+                        <li><?= Html::a(Yii::t('app', 'Public chat'), 'https://gitter.im/yiisoft/yii2/rus', ['target' => '_blank']) ?></li>
+                        <li><?= Html::a(Yii::t('app', 'Report a bug'), 'https://github.com/samdark/yiiframework-ru/issues', ['target' => '_blank']) ?></li>
+                        <li><?= Html::a(Yii::t('app', 'Twitter'), 'https://twitter.com/yiiframework_ru', ['target' => '_blank']) ?></li>
+                        <li><?= Html::a(Yii::t('app', 'Forum'), ['/forum']) ?></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="widget">
+
+                </div>
+            </div>
+        </div>
     </div>
 </footer>
 
