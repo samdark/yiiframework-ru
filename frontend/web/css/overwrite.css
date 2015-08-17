@@ -1008,8 +1008,7 @@ font-size: 10px;
 }
 
 .breadcrumb {
-  float:left;
-  padding:10px 20px;
+  padding:5px 10px;
   margin:0;
   list-style: none;
   background: none;
