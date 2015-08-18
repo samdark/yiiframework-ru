@@ -32,7 +32,7 @@ class ProjectImage extends ActiveRecord
         return [
             [['project_id', 'name'], 'required'],
             [['project_id'], 'integer'],
-            [['name'], 'string', 'max' => 255]
+            [['name'], 'string', 'max' => 32]
         ];
     }
 

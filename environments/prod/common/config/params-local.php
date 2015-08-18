@@ -1,4 +1,4 @@
 <?php
 return [
-    'hook-hub-secret'=>''
+    'hook-hub-secret' => '',
 ];

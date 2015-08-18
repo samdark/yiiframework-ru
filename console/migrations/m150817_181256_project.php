@@ -20,7 +20,7 @@ class m150817_181256_project extends Migration
         $this->createTable('project_image', [
             'id' => $this->primaryKey(),
             'project_id' => $this->integer()->notNull(),
-            'name'=>$this->string()->notNull(),
+            'name'=>$this->string(32)->notNull(),
         ]);
 
         $this->addForeignKey('fk-project-user_id-user-id', 'project', 'user_id', 'user', 'id');

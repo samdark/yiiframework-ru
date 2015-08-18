@@ -2,16 +2,18 @@
 
 namespace frontend\controllers;
 
+use frontend\models\ProjectForm;
 use Yii;
 use common\models\Project;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 class ProjectController extends Controller
 {
-    const PAGE_SIZE = 3;
+    const PAGE_SIZE = 10;
 
     public function behaviors()
     {
@@ -85,10 +87,16 @@ class ProjectController extends Controller
      */
     public function actionCreate()
     {
-        $project = new Project();
+        $project = new ProjectForm();
 
-        if ($project->load(Yii::$app->request->post()) && $project->save()) {
-            return $this->redirect(['view', 'id' => $project->id]);
+        if ($project->load(Yii::$app->request->post())) {
+
+            $project->imageFiles = UploadedFile::getInstances($project, 'imageFiles');
+
+            if ($project->validate()) {
+                $project->save();
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('create', ['project' => $project,]);
