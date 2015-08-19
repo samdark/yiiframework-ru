@@ -53,10 +53,10 @@ header .nav li.active ul.dropdown-menu li.active a{
 }
 
 
-.breadcrumb { background-color: #68A4C4; color: white }
-.breadcrumb a { color: white; }
+.breadcrumb { border-left: 4px solid #68A4C4; }
+.breadcrumb a { }
 .breadcrumb a:focus, .breadcrumb a:hover { color: #ddd; }
-.breadcrumb > .active { color: white; }
+.breadcrumb > .active { }
 
 /* === border color === */
 .pagination ul > li.active > a,
