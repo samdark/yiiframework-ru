@@ -24,8 +24,8 @@ class m150817_181256_project extends Migration
             'name' => $this->string(32)->notNull(),
         ]);
 
-        $this->addForeignKey('fk-project-user_id-user-id', 'project', 'user_id', 'user', 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('fk-image-project_id-project-id', 'project_image', 'project_id', 'project', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('fk-project-user_id-user-id', 'project', 'user_id', 'user', 'id');
+        $this->addForeignKey('fk-image-project_id-project-id', 'project_image', 'project_id', 'project', 'id');
     }
 
     public function down()
