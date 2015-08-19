@@ -14,8 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-md-12">
-            <p><?= Yii::t('app', 'Email') ?>: <?= $profile->email ?> (<?= $profile->email_verified ? Yii::t('app', 'Verified') : Yii::t('app', 'Not verified') ?>)</p>
-            <p><?= Yii::t('app', 'Site') ?>: <?= $profile->site ? Html::a($profile->site, $profile->site) : Yii::t('app', 'no site') ?></p>
+            <p><?= Yii::t('app', 'Email') ?>: <?= Html::encode($profile->email) ?> (<?= $profile->email_verified ? Yii::t('app', 'Verified') : Yii::t('app', 'Not verified') ?>)</p>
+            <p><?= Yii::t('app', 'Site') ?>: <?= Html::encode($profile->site) ? Html::a(Html::encode($profile->site), Html::encode($profile->site)) : Yii::t('app', 'no site') ?></p>
             <p><?= Yii::t('app', 'Registration') ?>: <?= Yii::$app->formatter->asDatetime($profile->created_at, 'long') ?></p>
         </div>
     </div>
