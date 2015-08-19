@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Project;
 use yii\helpers\Html;
 use yii\widgets\ListView;
 
@@ -20,8 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
         'itemOptions' => ['class' => 'item'],
-        'itemView' => function ($model, $key, $index, $widget) {
-            return Html::a(Html::encode($model->title), ['view', 'id' => $model->id]);
+        'itemView' => function (Project $model, $key, $index, $widget) {
+            return $this->render('_project', ['project' => $model]);
         },
     ]) ?>
 

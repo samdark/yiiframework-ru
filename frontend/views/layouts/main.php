@@ -43,6 +43,7 @@ AppAsset::register($this);
             ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/'],
             ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus'],
             ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/'],
+            ['label' => Yii::t('app', 'Projects'), 'url' => ['/project/']],
         ];
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
