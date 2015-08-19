@@ -32,7 +32,7 @@ AppAsset::register($this);
             'brandLabel' => '<span>yii</span>framework.ru',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
-                'class' => 'navbar navbar-default drop navbar-fixed-top',
+                'class' => 'navbar navbar-default drop navbar-static-top',
             ],
         ]);
         $menuItems = [
