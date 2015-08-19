@@ -2,9 +2,9 @@
 
 namespace frontend\controllers;
 
+use common\models\Project;
 use frontend\models\ProjectForm;
 use Yii;
-use common\models\Project;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -87,19 +87,20 @@ class ProjectController extends Controller
      */
     public function actionCreate()
     {
-        $project = new ProjectForm();
+        $ProjectForm = new ProjectForm(['Project' => new Project()]);
 
-        if ($project->load(Yii::$app->request->post())) {
+        if ($ProjectForm->load(Yii::$app->request->post())) {
 
-            $project->imageFiles = UploadedFile::getInstances($project, 'imageFiles');
+            $ProjectForm->imageFiles = UploadedFile::getInstances($ProjectForm, 'imageFiles');
 
-            if ($project->validate()) {
-                $project->save();
+            $ProjectForm->validate() && $ProjectForm->save();
+
+            if (!$ProjectForm->hasErrors()) {
                 return $this->redirect(['index']);
             }
         }
 
-        return $this->render('create', ['project' => $project,]);
+        return $this->render('create', ['project' => $ProjectForm]);
     }
 
     /**
@@ -111,7 +112,8 @@ class ProjectController extends Controller
      */
     public function actionUpdate($id)
     {
-        $project = Project::find()
+        /** @var Project $Project */
+        $Project = Project::find()
             ->with(['images'])
             ->where([
                 'project.id' => $id,
@@ -119,14 +121,23 @@ class ProjectController extends Controller
             ])
             ->one();
 
-        if ($project === null) {
+        if ($Project === null) {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
 
-        if ($project->load(Yii::$app->request->post()) && $project->save()) {
-            return $this->redirect(['view', 'id' => $project->id]);
+        $ProjectForm = new ProjectForm(['Project' => $Project]);
+
+        if ($ProjectForm->load(Yii::$app->request->post())) {
+
+            $ProjectForm->imageFiles = UploadedFile::getInstances($ProjectForm, 'imageFiles');
+
+            $ProjectForm->validate() && $ProjectForm->save();
+
+            if (!$ProjectForm->hasErrors()) {
+                return $this->redirect(['view', 'id' => $ProjectForm->Project->id]);
+            }
         }
 
-        return $this->render('update', ['project' => $project,]);
+        return $this->render('update', ['project' => $ProjectForm]);
     }
 }

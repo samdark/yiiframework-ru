@@ -8,7 +8,6 @@ use common\models\ProjectImage;
 use Yii;
 use yii\base\Exception;
 use yii\base\Model;
-use yii\db\Query;
 use yii\web\UploadedFile;
 
 /**
@@ -36,12 +35,18 @@ class ProjectForm extends Model
     /**
      * @var Project
      */
-    protected $project;
+    public $Project;
 
-    /**
-     * @var ProjectImage
-     */
-    protected $image;
+    public function init()
+    {
+        parent::init();
+
+        $Project = $this->Project;
+
+        $this->title = $Project->title;
+        $this->link = $Project->link;
+        $this->body = $Project->body;
+    }
 
     /**
      * @inheritdoc
@@ -92,39 +97,40 @@ class ProjectForm extends Model
      */
     public function save()
     {
-        $project = new Project(
-            ['title' => $this->title, 'body' => $this->body, 'link' => $this->link]
-        );
+        $this->Project->setAttributes([
+            'title' => $this->title,
+            'body' => $this->body,
+            'link' => $this->link,
+        ]);
 
-        $project->save(false);
+        $this->Project->save(false);
 
-        if (!empty($this->imageFiles)) {
-            $this->saveImages($project->id);
-        }
+        $this->saveImages();
     }
 
     /**
-     * @param integer $projectID
      * @throws Exception
      */
-    public function saveImages($projectID)
+    public function saveImages()
     {
-        $query = new Query();
-        $command = $query->createCommand();
+        if (!empty($this->imageFiles)) {
+            $path = rtrim(Yii::getAlias(Yii::$app->params['path.to.project.images']), '/');
 
-        foreach ($this->imageFiles as $file) {
+            foreach ($this->imageFiles as $file) {
+                $fileName = Generator::fileName($file->extension, $path);
 
-            $fileName = Generator::fileName($file->extension, Yii::$app->params['path.to.project.images']);
+                if ($file->saveAs($path . DIRECTORY_SEPARATOR . $fileName)) {
+                    $ProjectImage = new ProjectImage;
+                    $ProjectImage->setAttributes([
+                        'project_id' => $this->Project->id,
+                        'name' => $fileName,
+                    ]);
 
-            if ($file->saveAs(Yii::$app->params['path.to.project.images'] . $fileName)) {
-                $command->insert(ProjectImage::tableName(), [
-                    'project_id' => $projectID,
-                    'name' => $fileName,
-                ])->execute();
-            } else {
-                throw new Exception('Image could not be saved');
-            };
-
+                    $ProjectImage->validate() && $ProjectImage->save();
+                } else {
+                    throw new Exception('Image could not be saved');
+                };
+            }
         }
     }
 }

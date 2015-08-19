@@ -12,7 +12,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Update post');;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Projects'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $project->title, 'url' => ['view', 'id' => $project->id]];
+$this->params['breadcrumbs'][] = ['label' => $project->Project->title, 'url' => ['view', 'id' => $project->Project->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="project-update">
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                     <?php
 
                     $images = [];
-                    foreach ($project->images as $image) {
+                    foreach ($project->Project->images as $image) {
                         $images[] = ArrayHelper::getValue(
                             $image,
                             function ($image) {
@@ -69,6 +69,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                         );
                     }
                     //TODO: Edit "update" action of controller and create ajax action for delete and upload images
+                    /*
                     echo FileInput::widget(
                         [
                             'name' => 'imageFiles[]',
@@ -78,6 +79,22 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                             ]
                         ]
                     );
+                    //*/
+
+                    echo FileInput::widget([
+                        'model' => $project,
+                        'attribute' => 'imageFiles[]',
+                        'options' => [
+                            'multiple' => true,
+                            'accept' => 'image/*',
+                            'maxFileCount' => 7,
+                            'previewFileType' => 'any',
+                        ],
+                        'pluginOptions' => [
+                            'showPreview' => true,
+                            'initialPreview' => $images,
+                        ],
+                    ]);
                     ?>
                     <p class="hint"><?= $project->getAttributeHint('imageFiles') ?></p>
                     <?= Html::error($project, 'imageFiles', ['class' => 'text-danger']) ?>

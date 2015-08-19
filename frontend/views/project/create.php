@@ -1,8 +1,8 @@
 <?php
 
-use yii\helpers\Html;
 use ijackua\lepture\Markdowneditor;
 use kartik\file\FileInput;
+use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -56,14 +56,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $project,
                         'attribute' => 'imageFiles[]',
                         'options' => [
-                            'pluginOptions' => [
-                                'showPreview' => true,
-                            ],
                             'multiple' => true,
                             'accept' => 'image/*',
                             'maxFileCount' => 7,
                             'previewFileType' => 'any',
-                        ]
+                        ],
+                        'pluginOptions' => [
+                            'showPreview' => true,
+                        ],
                     ]);
                     ?>
                     <p class="hint"><?= $project->getAttributeHint('imageFiles') ?></p>
