@@ -476,7 +476,7 @@ dd {
 
 a.btn,.btn:focus {
 	outline:0;
-	
+
 }
 
 .btn-medium {
@@ -914,11 +914,11 @@ font-size: 10px;
    background-color: none;
   background-image: none;
   background-repeat: repeat-x;
-  filter: none; 
+  filter: none;
   text-decoration: none;
   -webkit-box-shadow: none;
      -moz-box-shadow: none;
-          box-shadow: none;		  
+          box-shadow: none;
 }
 .navbar .nav > .active > a,
 .navbar .nav > .active > a:hover,
@@ -926,7 +926,7 @@ font-size: 10px;
   color: #fff;
    background-image: none;
   background-image: none;
-  filter: none;  
+  filter: none;
   text-decoration: none;
   -webkit-box-shadow: none;
      -moz-box-shadow: none;
@@ -967,7 +967,7 @@ font-size: 10px;
 
 .dropdown-menu li > a:hover,
 .dropdown-menu li > a:focus,
-.dropdown-submenu:hover > a, 
+.dropdown-submenu:hover > a,
 .dropdown-menu .active > a,
 .dropdown-menu .active > a:hover {
   color: #ffffff;
@@ -1021,7 +1021,7 @@ font-size: 10px;
   display: inline-block;
   *display: inline;
   text-shadow: none;
-  font-size:12px;
+  font-size: 1em;
   *zoom: 1;
   margin:0;
 }

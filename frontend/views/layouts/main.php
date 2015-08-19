@@ -32,7 +32,7 @@ AppAsset::register($this);
             'brandLabel' => '<span>yii</span>framework.ru',
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
-                'class' => 'navbar navbar-default drop navbar-fixed-top',
+                'class' => 'navbar navbar-default drop navbar-static-top',
             ],
         ]);
         $menuItems = [
@@ -65,15 +65,18 @@ AppAsset::register($this);
 
     <div class="container">
 
-        <div class="text-right">
-            Последняя стабильная версия:
-            <?= Html::a(\Yii::$app->params['yii1-tag-name'], \Yii::$app->params['yii1-html-url']) ?> /
-            <?= Html::a(\Yii::$app->params['yii2-tag-name'], \Yii::$app->params['yii2-html-url']) ?>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
+                <?= Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]) ?>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 text-right">
+                Последняя стабильная версия:
+                <?= Html::a(\Yii::$app->params['yii1-tag-name'], \Yii::$app->params['yii1-html-url']) ?> /
+                <?= Html::a(\Yii::$app->params['yii2-tag-name'], \Yii::$app->params['yii2-html-url']) ?>
+            </div>
         </div>
-
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
 
         <?= Alert::widget() ?>
         <?= $content ?>
