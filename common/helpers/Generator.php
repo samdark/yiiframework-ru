@@ -1,7 +1,13 @@
 <?php
+
 namespace common\helpers;
 
-class Generator {
+/**
+ * Class Generator
+ * @package common\helpers
+ */
+class Generator
+{
 
     /**
      * Generate filename
@@ -12,10 +18,12 @@ class Generator {
      */
     public static function fileName($ext, $path, $length = 28)
     {
-        $name = \Yii::$app->security->generateRandomString($length);
-        while (is_file($path . $name . '.' . $ext)) {
-            $name = \Yii::$app->security->generateRandomString($length);
-        }
-        return $name . '.' . $ext;
+        $path = rtrim($path, '/');
+
+        do {
+            $filename = sprintf('%s.%s', \Yii::$app->security->generateRandomString($length), $ext);
+        } while (is_file($path . DIRECTORY_SEPARATOR . $filename));
+
+        return $filename;
     }
 }
