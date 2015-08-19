@@ -24,6 +24,7 @@ use yii\db\ActiveRecord;
  */
 class Project extends ActiveRecord
 {
+
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
 
@@ -33,12 +34,14 @@ class Project extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'link', 'body',], 'required'],
-            [['body'], 'string'],
-            [['status'], 'default', 'value' => self::STATUS_ACTIVE],
-            [['status'], 'integer'],
             [['title', 'link'], 'string', 'max' => 255],
+            [['body'], 'string'],
+            [['status'], 'integer'],
+
+            [['title', 'link', 'body',], 'required'],
             [['link'], 'url'],
+
+            [['status'], 'default', 'value' => self::STATUS_ACTIVE],
         ];
     }
 
