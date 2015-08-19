@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'My profile');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profile-update">
-    <h1><?= Html::encode($this->title) ?> : <?= $profile->username ?></h1>
+    <h1><?= Html::encode($this->title) ?> : <?= Html::encode($profile->username) ?></h1>
 
     <div class="row">
 
