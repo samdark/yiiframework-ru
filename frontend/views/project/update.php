@@ -69,18 +69,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                         );
                     }
                     //TODO: Edit "update" action of controller and create ajax action for delete and upload images
-                    /*
-                    echo FileInput::widget(
-                        [
-                            'name' => 'imageFiles[]',
-                            'options' => ['multiple' => true],
-                            'pluginOptions' => [
-                                'initialPreview' => $images,
-                            ]
-                        ]
-                    );
-                    //*/
-
                     echo FileInput::widget([
                         'model' => $project,
                         'attribute' => 'imageFiles[]',
