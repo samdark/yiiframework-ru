@@ -73,8 +73,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
                     echo FileInput::widget(
                         [
-                            'model' => $project,
-                            'attribute' => 'imageFiles[]',
+                            'name' => 'imageFiles[]',
                             'options' => [
                                 'multiple' => true,
                                 'maxFileCount' => 7,

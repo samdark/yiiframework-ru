@@ -200,7 +200,7 @@ class ProjectController extends Controller
 
         $projectForm = new ProjectForm(['Project' => $projectModel]);
 
-        $projectForm->imageFiles = UploadedFile::getInstances($projectForm, 'imageFiles');
+        $projectForm->imageFiles = UploadedFile::getInstancesByName('imageFiles');
 
         Yii::$app->response->format = Response::FORMAT_JSON;
 
