@@ -60,13 +60,47 @@ class ProjectForm extends Model
             [['link'], 'url'],
             [
                 ['imageFiles'],
-                'file',
+                'image',
                 'skipOnEmpty' => true,
-                'extensions' => 'png, jpg',
+                'extensions' => 'png, jpg, jpeg',
                 'mimeTypes' => 'image/jpeg, image/png',
-                'maxFiles' => 7
+                'maxFiles' => 7,
+                'minWidth' => 300,
+                'minHeight' => 300,
+            ],
+            [
+                'imageFiles',
+                'fileLimit',
+                'skipOnEmpty' => true,
+                'params' => ['maxFiles' => 7],
             ],
         ];
+    }
+
+    /**
+     * Validate limit images
+     * @param string $attribute the attribute currently being validated
+     * @param mixed $params the value of the "params" given in the rule
+     * @return bool
+     */
+    public function fileLimit($attribute, $params)
+    {
+        $countUpload = count($this->$attribute);
+        $countAll = $countUpload + $this->Project->getImages()->count();
+
+        if ($countAll > 7) {
+            $this->addError(
+                'imageFiles',
+                Yii::t(
+                    'yii',
+                    'You can upload at most {limit, number} {limit, plural, one{file} other{files}}.',
+                    ['limit' => $params['maxFiles']]
+                )
+            );
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -97,11 +131,13 @@ class ProjectForm extends Model
      */
     public function save()
     {
-        $this->Project->setAttributes([
-            'title' => $this->title,
-            'body' => $this->body,
-            'link' => $this->link,
-        ]);
+        $this->Project->setAttributes(
+            [
+                'title' => $this->title,
+                'body' => $this->body,
+                'link' => $this->link,
+            ]
+        );
 
         $this->Project->save(false);
 
@@ -121,12 +157,19 @@ class ProjectForm extends Model
 
                 if ($file->saveAs($path . DIRECTORY_SEPARATOR . $fileName)) {
                     $ProjectImage = new ProjectImage;
-                    $ProjectImage->setAttributes([
-                        'project_id' => $this->Project->id,
-                        'name' => $fileName,
-                    ]);
+                    $ProjectImage->setAttributes(
+                        [
+                            'project_id' => $this->Project->id,
+                            'name' => $fileName,
+                        ]
+                    );
 
-                    $ProjectImage->validate() && $ProjectImage->save();
+                    if ($ProjectImage->save() === false) {
+                        if (unlink($path . DIRECTORY_SEPARATOR . $fileName) === false) {
+                            throw new \Exception('Cannot delete a file ' . $path . DIRECTORY_SEPARATOR . $fileName);
+                        }
+                    }
+
                 } else {
                     throw new Exception('Image could not be saved');
                 };

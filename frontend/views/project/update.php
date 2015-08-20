@@ -1,11 +1,10 @@
 <?php
 
-use common\models\ProjectImage;
 use ijackua\lepture\Markdowneditor;
 use kartik\file\FileInput;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $project \frontend\models\ProjectForm */
@@ -56,33 +55,48 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                     <?php
 
                     $images = [];
+                    $initialPreviewConfig = [];
+
                     foreach ($project->Project->images as $image) {
-                        $images[] = ArrayHelper::getValue(
-                            $image,
-                            function ($image) {
-                                /* @var $image ProjectImage */
-                                return Html::img(
-                                    Yii::$app->params['url.to.project.images'] . $image->name,
-                                    ['class' => 'file-preview-image']
-                                );
-                            }
+
+                        $images[] = Html::img(
+                            Yii::$app->params['url.to.project.images'] . $image->name,
+                            ['class' => 'file-preview-image']
                         );
+
+                        $initialPreviewConfig[] = [
+                            'url' => Url::to(['/project/delete-image']),
+                            'key' => $image->id,
+                            'caption' => sprintf('<a href="%s">%s</a>', $image->filename, Yii::t('app', 'Link')),
+                        ];
                     }
-                    //TODO: Edit "update" action of controller and create ajax action for delete and upload images
-                    echo FileInput::widget([
-                        'model' => $project,
-                        'attribute' => 'imageFiles[]',
-                        'options' => [
-                            'multiple' => true,
-                            'accept' => 'image/*',
-                            'maxFileCount' => 7,
-                            'previewFileType' => 'any',
-                        ],
-                        'pluginOptions' => [
-                            'showPreview' => true,
-                            'initialPreview' => $images,
-                        ],
-                    ]);
+
+                    echo FileInput::widget(
+                        [
+                            'model' => $project,
+                            'attribute' => 'imageFiles[]',
+                            'options' => [
+                                'multiple' => true,
+                                'maxFileCount' => 7,
+                                'id' => 'file-upload'
+                            ],
+                            'pluginOptions' => [
+                                'showPreview' => true,
+                                'showCaption' => true,
+                                'showRemove' => false,
+                                'showUpload' => true,
+                                'initialPreview' => $images,
+                                'initialPreviewConfig' => $initialPreviewConfig,
+                                'overwriteInitial' => false,
+                                'uploadUrl' => Url::to(['/project/add-image', 'id' => $project->Project->id]),
+                            ],
+                            'pluginEvents' => [
+                                'filepredelete' => "function(event, key) {
+                                    return (!confirm('Are you sure you want to delete ?'));
+                                }",
+                            ]
+                        ]
+                    );
                     ?>
                     <p class="hint"><?= $project->getAttributeHint('imageFiles') ?></p>
                     <?= Html::error($project, 'imageFiles', ['class' => 'text-danger']) ?>

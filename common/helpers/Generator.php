@@ -13,10 +13,10 @@ class Generator
      * Generate filename
      * @param string $ext extension
      * @param string $path to folder
-     * @param int $length
+     * @param int $length new filename (without extension)
      * @return string filename (with extension)
      */
-    public static function fileName($ext, $path, $length = 28)
+    public static function fileName($ext, $path, $length = 27)
     {
         $path = rtrim($path, '/');
 

@@ -11,6 +11,8 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $project_id
  * @property string $name
+ * @property string $filename
+ * @property string $path
  *
  * @property Project $project
  */
@@ -54,5 +56,45 @@ class ProjectImage extends ActiveRecord
     public function getProject()
     {
         return $this->hasOne(Project::className(), ['id' => 'project_id']);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete()) {
+            if (unlink($this->path)) {
+                return true;
+            } else {
+                throw new \Exception('Cannot delete a file ' . $this->path);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Get url to image file
+     * @return null|string
+     */
+    public function getFilename()
+    {
+        if ($this->name) {
+            return Yii::$app->params['url.to.project.images'] . $this->name;
+        }
+        return null;
+    }
+
+    /**
+     * Get full path to image file
+     * @return null|string
+     */
+    public function getPath()
+    {
+        if ($this->name) {
+            return Yii::$app->params['path.to.project.images'] . $this->name;
+        }
+        return null;
     }
 }

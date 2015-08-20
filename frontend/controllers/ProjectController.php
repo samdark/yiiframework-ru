@@ -3,12 +3,15 @@
 namespace frontend\controllers;
 
 use common\models\Project;
+use common\models\ProjectImage;
 use frontend\models\ProjectForm;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\web\UploadedFile;
 
 class ProjectController extends Controller
@@ -23,10 +26,17 @@ class ProjectController extends Controller
                 'only' => ['create', 'update'],
                 'rules' => [
                     [
-                        'actions' => ['create', 'update'],
+                        'actions' => ['create', 'update', 'delete-image', 'add-image'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete-image' => ['DELETE'],
+                    'add-image' => ['POST'],
                 ],
             ],
         ];
@@ -40,21 +50,28 @@ class ProjectController extends Controller
     {
         $query = Project::find()
             ->with(['user'])
-            ->andWhere([
-                'project.status' => Project::STATUS_ACTIVE,
-            ])
+            ->andWhere(
+                [
+                    'project.status' => Project::STATUS_ACTIVE,
+                ]
+            )
             ->orderBy('project.created_at DESC');
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => self::PAGE_SIZE,
-            ],
-        ]);
+        $dataProvider = new ActiveDataProvider(
+            [
+                'query' => $query,
+                'pagination' => [
+                    'pageSize' => self::PAGE_SIZE,
+                ],
+            ]
+        );
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render(
+            'index',
+            [
+                'dataProvider' => $dataProvider,
+            ]
+        );
     }
 
     /**
@@ -140,4 +157,59 @@ class ProjectController extends Controller
 
         return $this->render('update', ['project' => $ProjectForm]);
     }
+
+    /**
+     * Delete image file and model
+     * @return int id image
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @internal param $id
+     */
+    public function actionDeleteImage()
+    {
+        /** @var ProjectImage $imageModel */
+        $imageModel = ProjectImage::findOne(Yii::$app->request->post('key'));
+
+        if ($imageModel === null) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        if ($imageModel->delete()) {
+            return $imageModel->id;
+        } else {
+            throw new \Exception('Cannot delete a image');
+        }
+    }
+
+    /**
+     * Add image file and model to project
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \yii\base\Exception
+     */
+    public function actionAddImage($id)
+    {
+        /** @var Project $Project */
+        $projectModel = Project::findOne($id);
+
+        if ($projectModel === null) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        $projectForm = new ProjectForm(['Project' => $projectModel]);
+
+        $projectForm->imageFiles = UploadedFile::getInstances($projectForm, 'imageFiles');
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if ($projectForm->validate(['imageFiles'])) {
+            $projectForm->saveImages();
+            return [];
+        }
+
+        return ['error' => $projectForm->getFirstError('imageFiles')];
+    }
+
 }
