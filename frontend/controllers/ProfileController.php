@@ -73,11 +73,11 @@ class ProfileController extends Controller
         $modelChangePassword = new ChangePasswordForm();
 
         if ($profile->load(Yii::$app->request->post()) && $profile->save()) {
-            $this->redirect(['index']);
+            return $this->redirect(['index']);
         }
 
         if ($modelChangePassword->load(Yii::$app->request->post()) && $modelChangePassword->change()) {
-            $this->redirect(['index']);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
