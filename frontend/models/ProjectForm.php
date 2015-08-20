@@ -78,7 +78,8 @@ class ProjectForm extends Model
     }
 
     /**
-     * Validate limit images
+     * Validate limit images.
+     * Default 7, you can change this from $params['maxFiles']
      * @param string $attribute the attribute currently being validated
      * @param mixed $params the value of the "params" given in the rule
      * @return bool
@@ -87,14 +88,15 @@ class ProjectForm extends Model
     {
         $countUpload = count($this->$attribute);
         $countAll = $countUpload + $this->Project->getImages()->count();
+        $limit = isset($params['maxFiles']) ? $params['maxFiles'] : 7;
 
-        if ($countAll > 7) {
+        if ($countAll > $limit) {
             $this->addError(
                 'imageFiles',
                 Yii::t(
                     'yii',
                     'You can upload at most {limit, number} {limit, plural, one{file} other{files}}.',
-                    ['limit' => $params['maxFiles']]
+                    ['limit' => $limit]
                 )
             );
             return false;
