@@ -11,4 +11,14 @@ return [
         'updated_at' => '1392559490',
         'email' => 'sfriesen@jenkins.info',
     ],
+    [
+        'username' => 'frau',
+        'auth_key' => 'twu1qHcde1diwUol3xeI-18MuHkkprQI',
+        // password_0
+        'password_hash' => '$2y$13$nJ1WDlBaGcbCdbNC5.5l4.sgy.OMEKCqtDQOdQ2OWpgiKRWYyzzne',
+        'password_reset_token' => 'AkD_Jw0_7HEedzLk7MM-ZKEFfYR7VbMr_1392559490',
+        'created_at' => '1392559490',
+        'updated_at' => '1392559490',
+        'email' => 'jojo@jenkins.info',
+    ],
 ];
