@@ -17,7 +17,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-2">
+            <?= \common\widgets\Gravatar::widget([
+                'email' => Html::encode($profile->email),
+                'size' => 150,
+                'options' => [
+                    'class' => 'img-thumbnail',
+                    'title' => Html::encode($profile->username),
+                    'alt' => Html::encode($profile->username)
+                ]
+            ]) ?>
+            <?= Html::a(Yii::t('app', 'Change picture'), 'https://gravatar.com/', ['target' => '_blank']) ?>
+        </div>
+
+        <div class="col-md-4">
             <h2><?= Yii::t('app', 'Basic information') ?></h2>
             <?php $form = ActiveForm::begin(['id' => 'form-profile-update']); ?>
 
