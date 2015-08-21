@@ -76,9 +76,11 @@ AppAsset::register($this);
                 ]) ?>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 text-right">
-                Последняя стабильная версия:
-                <?= Html::a(\Yii::$app->params['yii1-tag-name'], \Yii::$app->params['yii1-html-url']) ?> /
-                <?= Html::a(\Yii::$app->params['yii2-tag-name'], \Yii::$app->params['yii2-html-url']) ?>
+                <div class="versions">
+                    <?= Yii::t('app', 'Get last stable version:') ?>
+                    <?= Html::a(\Yii::$app->params['yii1-tag-name'], \Yii::$app->params['yii1-html-url']) ?> /
+                    <?= Html::a(\Yii::$app->params['yii2-tag-name'], \Yii::$app->params['yii2-html-url']) ?>
+                </div>
             </div>
         </div>
 
