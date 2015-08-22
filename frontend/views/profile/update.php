@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $profile common\models\User */
+/* @var $userForm \frontend\models\UserForm */
 /* @var $modelChangePassword frontend\models\ChangePasswordForm */
 
 use yii\helpers\Html;
@@ -13,18 +13,18 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'My profile');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profile-update">
-    <h1><?= Html::encode($this->title) ?> : <?= Html::encode($profile->username) ?></h1>
+    <h1><?= Html::encode($this->title) ?> : <?= Html::encode($userForm->user->username) ?></h1>
 
     <div class="row">
 
         <div class="col-md-2">
             <?= \common\widgets\Gravatar::widget([
-                'email' => Html::encode($profile->email),
+                'email' => Html::encode($userForm->user->email),
                 'size' => 150,
                 'options' => [
                     'class' => 'img-thumbnail',
-                    'title' => Html::encode($profile->username),
-                    'alt' => Html::encode($profile->username)
+                    'title' => Html::encode($userForm->user->username),
+                    'alt' => Html::encode($userForm->user->username)
                 ]
             ]) ?>
             <?= Html::a(Yii::t('app', 'Change picture'), 'https://gravatar.com/', ['target' => '_blank']) ?>
@@ -34,8 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <h2><?= Yii::t('app', 'Basic information') ?></h2>
             <?php $form = ActiveForm::begin(['id' => 'form-profile-update']); ?>
 
-            <?= $form->field($profile, 'email') ?>
-            <?= $form->field($profile, 'site') ?>
+            <?= $form->field($userForm, 'email') ?>
+            <?= $form->field($userForm, 'site') ?>
 
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app', 'Update'), ['class' => 'btn btn-primary', 'name' => 'update-button']) ?>

@@ -3,7 +3,8 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\Controller;
-use frontend\models\User;
+use common\models\User;
+use frontend\models\UserForm;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
@@ -11,6 +12,12 @@ use frontend\models\ChangePasswordForm;
 
 class ProfileController extends Controller
 {
+    /**
+     * number user on page
+     */
+    const PAGE_SIZE = 25;
+
+
     /**
      * @inheritdoc
      */
@@ -37,11 +44,11 @@ class ProfileController extends Controller
     public function actionIndex()
     {
         $profile = User::find()
-        ->where([
-            'user.id' => Yii::$app->user->identity->getId(),
-            'user.status' => User::STATUS_ACTIVE
-        ])
-        ->one();
+            ->where([
+                'user.id' => Yii::$app->user->identity->getId(),
+                'user.status' => User::STATUS_ACTIVE
+            ])
+            ->one();
 
         if ($profile === null) {
             throw new NotFoundHttpException();
@@ -57,31 +64,20 @@ class ProfileController extends Controller
      */
     public function actionUpdate()
     {
-        $profile = User::find()
-            ->where([
-                'user.id' => Yii::$app->user->identity->getId(),
-                'user.status' => User::STATUS_ACTIVE
-            ])
-            ->one();
+        $userForm = new UserForm();
 
-        if ($profile === null) {
-            throw new NotFoundHttpException();
-        }
-
-        $profile->scenario = User::SCENARIO_UPDATE;
-
-        $modelChangePassword = new ChangePasswordForm();
-
-        if ($profile->load(Yii::$app->request->post()) && $profile->save()) {
+        if ($userForm->load(Yii::$app->request->post()) && $userForm->save()) {
             return $this->redirect(['index']);
         }
+
+        $modelChangePassword = new ChangePasswordForm();
 
         if ($modelChangePassword->load(Yii::$app->request->post()) && $modelChangePassword->change()) {
             return $this->redirect(['index']);
         }
 
         return $this->render('update', [
-            'profile' => $profile,
+            'userForm' => $userForm,
             'modelChangePassword' => $modelChangePassword
         ]);
     }
@@ -121,7 +117,7 @@ class ProfileController extends Controller
         $provider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => User::PAGE_COUNT,
+                'pageSize' => $this::PAGE_SIZE,
             ],
         ]);
 

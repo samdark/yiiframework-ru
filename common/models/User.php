@@ -60,7 +60,14 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             ['username', 'required'],
             [['username', 'email', 'github', 'site'], 'string', 'max' => 255],
-            [['email'], 'unique'],
+
+            ['email', 'filter', 'filter' => 'trim'],
+            ['email', 'required'],
+            ['email', 'email'],
+            ['email', 'unique'],
+
+            ['site', 'filter', 'filter' => 'trim'],
+            ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']]
         ];
     }
 
