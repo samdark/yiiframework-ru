@@ -69,7 +69,7 @@ class Project extends ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
             'link' => Yii::t('app', 'Link'),
-            'body' => Yii::t('app', 'Body'),
+            'body' => Yii::t('app', 'Description'),
             'user_id' => Yii::t('app', 'User ID'),
             'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),

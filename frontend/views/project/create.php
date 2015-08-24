@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-md-7">
 
                 <div class="form-group">
-                    <label class="control-label">Add screenshots</label>
+                    <label class="control-label"><?= Yii::t('app', 'Add screenshots') ?></label>
                     <?=
                     FileInput::widget([
                         'model' => $project,

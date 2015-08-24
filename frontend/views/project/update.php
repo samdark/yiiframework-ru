@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             <div class="col-md-7">
 
                 <div class="form-group">
-                    <label class="control-label">Add screenshots</label>
+                    <label class="control-label"><?= Yii::t('app', 'Add screenshots') ?></label>
                     <?php
 
                     $images = [];

@@ -113,7 +113,7 @@ class ProjectForm extends Model
         return [
             'title' => Yii::t('app', 'Title'),
             'link' => Yii::t('app', 'Link'),
-            'body' => Yii::t('app', 'Body'),
+            'body' => Yii::t('app', 'Description'),
             'imageFiles' => Yii::t('app', 'Image files'),
         ];
     }

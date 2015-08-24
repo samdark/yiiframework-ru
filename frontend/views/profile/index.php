@@ -5,7 +5,7 @@
 
 use yii\helpers\Html;
 
-$this->title = Yii::t('app', 'My Profile');
+$this->title = Yii::t('app', 'My profile');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profile-index">

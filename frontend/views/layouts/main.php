@@ -53,7 +53,7 @@ AppAsset::register($this);
             $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
         } else {
             $menuItems[] = [
-                'label' => Yii::t('app', '{username}', ['username' => Yii::$app->user->identity->username]),
+                'label' => Yii::$app->user->identity->username,
                 'url' => '#',
                 'items' => [
                     ['label' => Yii::t('app', 'My profile'), 'url' => ['/profile/index']],
@@ -120,16 +120,16 @@ AppAsset::register($this);
                         <img src="https://camo.githubusercontent.com/d10ea4bd497025fc11f5d609258752fe68345290/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f506f77657265645f62792d5969695f4672616d65776f726b2d677265656e2e7376673f7374796c653d666c6174"></p>
                     </h5>
 
-                    <p>Yii is a high-performance PHP framework best for developing Web 2.0 applications.</p>
+                    <p><?= Yii::t('app', 'Yii is a high-performance PHP framework best for developing Web 2.0 applications.') ?></p>
 
                     <div class="copyright">
-                        <p><span>© 2009 — <?= date('Y') ?>, Yii community</span>
+                        <p><span>© 2009 — <?= date('Y') ?>, <?= Yii::t('app', 'Yii community') ?></span>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="widget">
-                    <h5 class="widgetheading">Navigation</h5>
+                    <h5 class="widgetheading"><?= Yii::t('app', 'Navigation') ?></h5>
                     <ul class="link-list">
                         <?
                         foreach ($menuItems as $item) {
@@ -143,14 +143,15 @@ AppAsset::register($this);
             </div>
             <div class="col-lg-3">
                 <div class="widget">
-                    <h5 class="widgetheading">Support</h5>
+                    <h5 class="widgetheading"><?= Yii::t('app', 'Support') ?></h5>
                     <ul class="link-list">
                         <li>
                             <?= Html::a(
                                 Yii::t('app', 'Leave feedback'),
                                 'http://yiiframework.ru/forum/viewforum.php?f=5',
                                 ['target' => '_blank']
-                            ) ?>                        </li>
+                            ) ?>
+                        </li>
                         <li>
                             <?= Html::a(
                                 Yii::t('app', 'Public chat'),
