@@ -26,4 +26,28 @@ class Generator
 
         return $filename;
     }
+
+    /**
+     * Generate short text.
+     * @param string $str full text
+     * @param int $limit Limits a phrase to a given number of words.
+     * @param null $endChar Default ... (&#8230; html code)
+     * @return null|string
+     */
+    public static function limitWords($str, $limit = 100, $endChar = NULL)
+    {
+        $limit = (int)$limit;
+        $endChar = ($endChar === NULL) ? '&#8230;' : $endChar;
+
+        if (trim($str) === '')
+            return $str;
+
+        if ($limit <= 0)
+            return $endChar;
+
+        preg_match('/^\s*+(?:\S++\s*+){1,' . $limit . '}/u', $str, $matches);
+
+        return rtrim($matches[0]) . (strlen($matches[0]) === strlen($str) ? '' : $endChar);
+    }
+
 }
