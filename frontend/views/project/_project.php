@@ -5,45 +5,63 @@
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
+use common\helpers\Generator;
 
-$fullView = isset($fullView) ? $fullView : false;
-
-if ($fullView) {
-    $this->title = $project->title;
-}
+$this->title = $project->title;
 ?>
 
 <div class="post">
 
-    <h2>
-        <?php
-        if ($fullView) {
-            echo Html::a('<span class="glyphicon glyphicon-pencil"></span> ', ['/project/update', 'id' => $project->id]);
-            echo Html::encode($project->title);
-
-        } else {
-            echo Html::a(Html::encode($project->title), ['/project/view', 'id' => $project->id]);
-        } ?>
-    </h2>
-
-    <section class="body">
-        <?= HtmlPurifier::process(Markdown::process($project->body, 'gfm-comment')) ?>
-    </section>
+    <h4>
+        <?= Html::a(Html::encode($project->title), ['/project/view', 'id' => $project->id]); ?>
+    </h4>
 
     <div class="row">
-        <?php foreach ($project->images as $image) : ?>
-            <div class="col-md-3">
-                <div class="img-thumbnail">
+        <div class="col-md-2">
 
-                    <a href="<?= Yii::$app->params['url.to.project.images'] . $image->name ?>">
+            <?php if ($project->images) : ?>
+                <div class="img-thumbnail">
+                    <a href="<?= Yii::$app->params['url.to.project.images'] . $project->images[0]->name ?>">
                         <?= Html::img(
-                            Yii::$app->params['url.to.project.images'] . $image->name,
+                            Yii::$app->params['url.to.project.images'] . $project->images[0]->name,
                             ['class' => 'img-responsive']
                         ) ?>
                     </a>
-
                 </div>
+            <?php endif ?>
+
+        </div>
+
+        <div class="col-md-10">
+
+            <section class="body">
+                <?= HtmlPurifier::process(Markdown::process(Generator::limitWords($project->body, 40), 'gfm-comment')) ?>
+            </section>
+
+            <div class="bottom-article">
+                <ul class="meta-post">
+
+                    <li>
+                        <i class="glyphicon glyphicon-calendar"></i><?= Yii::$app->formatter->asDate($project->created_at); ?>
+                    </li>
+
+                    <li>
+                        <i class="glyphicon glyphicon-user"></i>
+                        <?= Html::a(Html::encode($project->user->username), ['profile/view', 'id' => $project->user->id]); ?>
+                    </li>
+
+                    <?php if ($project->link) : ?>
+                        <li>
+                            <i class="glyphicon glyphicon-link"></i>
+                            <?= Html::a(Yii::t('app', 'To web'), $project->link); ?>
+                        </li>
+                    <?php endif; ?>
+
+                </ul>
             </div>
-        <?php endforeach ?>
+
+        </div>
+
     </div>
+
 </div>
