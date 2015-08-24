@@ -45,21 +45,6 @@ h1, h2, h3, h4, h5, h6 {
 	padding:0;
 }
 
-
-.row,.row-fluid {
-	margin-bottom:30px;
-}
-
-.row .row,.row-fluid .row-fluid{
-	margin-bottom:30px;
-}
-
-.row.nomargin,.row-fluid.nomargin {
-	margin-bottom:0;
-}
-
-
-
 /* ===================================
 3. Responsive media
 ==================================== */
