@@ -101,7 +101,7 @@ AppAsset::register($this);
 
 <footer>
     <div class="container">
-        <div class="row">
+        <div class="row marginbot30">
             <div class="col-lg-3">
                 <div class="widget">
                     <h5 class="widgetheading">Yii framework.</h5>
