@@ -5,10 +5,11 @@
 ?>
 <?php $this->beginContent('@frontend/views/layouts/main.php') ?>
 <div class="row">
-    <div class="col-xs-6">
+    <div class="col-md-6">
         <?= $content ?>
     </div>
-    <div class="col-xs-6">
+    <div class="col-md-6">
+
         <h1>Что такое Yii?</h1>
 
         <p>Yii — это высокоэффективный основанный на компонентной структуре PHP-фреймворк
