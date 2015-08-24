@@ -4,13 +4,19 @@
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 
-$this->title = 'New posts';
+$this->title = \Yii::t('app', 'Posts');
 ?>
 
 <div class="post-index">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= Html::a(Yii::t('app', 'Publish post'), ['/post/create']) ?>
+    <h4 class="pull-right">
+        <?= Html::a(
+            Yii::t('app', 'Publish post'),
+            ['/post/create']
+        ) ?>
+    </h4>
+
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <section class="list">
         <div class="items">

@@ -12,12 +12,27 @@ if ($fullView) {
 }
 ?>
 
-<div class="post">
-    <h2>
-        <?= $fullView ? Html::encode($post->title) : Html::a(Html::encode($post->title), ['/post/view', 'id' => $post->id]) ?>
-    </h2>
+<article class="post">
+    <div class="post-image">
+        <div class="post-heading">
+            <h3> <?= $fullView ? Html::encode($post->title) : Html::a(
+                    Html::encode($post->title),
+                    ['/post/view', 'id' => $post->id]
+                ) ?></h3>
+        </div>
+    </div>
 
-    <section class="body">
+    <div class="body">
         <?= HtmlPurifier::process(Markdown::process($post->body, 'gfm-comment')) ?>
-    </section>
-</div>
+    </div>
+
+    <div class="bottom-article">
+        <ul class="meta-post">
+            <li><i class="glyphicon glyphicon-calendar"></i><?= Yii::$app->formatter->asDate($post->updated_at); ?></li>
+            <li>
+                <i class="glyphicon glyphicon-user"></i>
+                <?= Html::a(Html::encode($post->user->username), ['profile/view', 'id' => $post->user->id]); ?>
+            </li>
+        </ul>
+    </div>
+</article>
