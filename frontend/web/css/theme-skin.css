@@ -6,8 +6,8 @@ ul.meta-post li a:hover, ul.cat li a:hover, ul.recent li h6 a:hover, ul.portfoli
 	color:#68A4C4;
 }
 
-.navbar-brand span{
-    color: #68A4C4;
+.navbar-default .navbar-brand {
+    color: #777;
 }
 
 header .nav li a:hover,

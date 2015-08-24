@@ -11,7 +11,7 @@ body {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding: 10px 15px;
 }
 
 .footer {
@@ -90,6 +90,21 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
+.versions {
+    padding: 5px 10px;
+}
+
+.text-orange {
+    color: #D74D25;
+}
+
+.text-green {
+    color: #85B743;
+}
+
+.text-blue {
+    color: #68A4C4;
+}
 .project-form .CodeMirror {
     height: 150px;
 }
