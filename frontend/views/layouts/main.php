@@ -75,24 +75,34 @@ AppAsset::register($this);
         ?>
     </header>
 
-    <div class="container">
+    <div id="inner-headline">
+        <div class="container">
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
-                <?= Breadcrumbs::widget(
-                    [
-                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                    ]
-                ) ?>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 text-right">
-                <div class="versions">
-                    <?= Yii::t('app', 'Get last stable version:') ?>
-                    <?= Html::a(\Yii::$app->params['yii1-tag-name'], \Yii::$app->params['yii1-html-url']) ?> /
-                    <?= Html::a(\Yii::$app->params['yii2-tag-name'], \Yii::$app->params['yii2-html-url']) ?>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
+                    <?= Breadcrumbs::widget(
+                        [
+                            'homeLink' => [
+                                'label' => '<i class="glyphicon glyphicon-home"></i>',
+                                'url' => \yii\helpers\Url::home(),
+                                'encode' => false,
+                            ],
+                            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                        ]
+                    ) ?>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 text-right">
+                    <div class="versions">
+                        <?= Yii::t('app', 'Get last stable version:') ?>
+                        <?= Html::a(\Yii::$app->params['yii1-tag-name'], \Yii::$app->params['yii1-html-url']) ?> /
+                        <?= Html::a(\Yii::$app->params['yii2-tag-name'], \Yii::$app->params['yii2-html-url']) ?>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="container">
 
         <?= Alert::widget() ?>
         <?= $content ?>
@@ -104,12 +114,15 @@ AppAsset::register($this);
         <div class="row marginbot30">
             <div class="col-lg-3">
                 <div class="widget">
-                    <h5 class="widgetheading">Yii framework.</h5>
+
+                    <h5 class="widgetheading">
+                        <img src="https://camo.githubusercontent.com/d10ea4bd497025fc11f5d609258752fe68345290/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f506f77657265645f62792d5969695f4672616d65776f726b2d677265656e2e7376673f7374796c653d666c6174"></p>
+                    </h5>
 
                     <p>Yii is a high-performance PHP framework best for developing Web 2.0 applications.</p>
 
                     <div class="copyright">
-                        <p><span>© 2009 — <?= date('Y') ?>, Yii community</span></p>
+                        <p><span>© 2009 — <?= date('Y') ?>, Yii community</span>
                     </div>
                 </div>
             </div>
