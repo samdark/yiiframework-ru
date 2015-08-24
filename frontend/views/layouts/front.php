@@ -12,11 +12,13 @@
 
         <h1>Что такое Yii?</h1>
 
-        <p>Yii — это высокоэффективный основанный на компонентной структуре PHP-фреймворк
-        для разработки масштабных веб-приложений. Он позволяет максимально применить концепцию повторного
-        использования кода и может существенно ускорить процесс веб-разработки.
-        Название Yii (произносится как Yee или [ji:]) означает простой (easy),
-        эффективный (efficient) и расширяемый (extensible).</p>
+        <p>
+            Yii — это высокоэффективный основанный на компонентной структуре PHP-фреймворк
+            для разработки масштабных веб-приложений. Он позволяет максимально применить концепцию повторного
+            использования кода и может существенно ускорить процесс веб-разработки.
+            Название Yii (произносится как Yee или [ji:]) означает простой (easy),
+            эффективный (efficient) и расширяемый (extensible).
+        </p>
 
         <br>
 
@@ -28,17 +30,18 @@
            data-widget-id="344811392374820865">
         </a>
 
-        <script>
-            !function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+        <?php $this->registerJs(
+            '!function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? "http" : "https";
                 if (!d.getElementById(id)) {
                     js = d.createElement(s);
                     js.id = id;
                     js.src = p + "://platform.twitter.com/widgets.js";
                     fjs.parentNode.insertBefore(js, fjs);
                 }
-            }(document, "script", "twitter-wjs");
-        </script>
+            }(document, "script", "twitter-wjs");'
+        ); ?>
+
     </div>
 </div>
 <?php $this->endContent() ?>
