@@ -433,13 +433,11 @@ section.callaction {
 
 /* --- breadcrumbs --- */
 #inner-headline ul.breadcrumb {
-	margin:30px 0 0;
-	float:left;
+	margin: 0;
 }
 
 #inner-headline ul.breadcrumb li {
 	margin-bottom:0;
-	padding-bottom:0;
 }
 #inner-headline ul.breadcrumb li {
 	font-size:13px;
@@ -454,7 +452,8 @@ section.callaction {
 	color:#fff;
 }
 
-ul.breadcrumb li a:hover {
+#inner-headline ul.breadcrumb li a:hover, #inner-headline ul.breadcrumb li i:hover {
+	color:#68A4C4;
 	text-decoration:none;
 }
 
