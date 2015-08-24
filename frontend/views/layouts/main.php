@@ -28,13 +28,15 @@ AppAsset::register($this);
 <div class="wrap">
     <header>
         <?php
-        NavBar::begin([
-            'brandLabel' => '<span>yii</span>framework.ru',
-            'brandUrl' => Yii::$app->homeUrl,
-            'options' => [
-                'class' => 'navbar navbar-default drop navbar-static-top',
-            ],
-        ]);
+        NavBar::begin(
+            [
+                'brandLabel' => '<span class="animated flash text-orange">y</span><span class="animated flash text-green">i</span><span class="animated flash text-blue">i</span>framework.ru',
+                'brandUrl' => Yii::$app->homeUrl,
+                'options' => [
+                    'class' => 'navbar navbar-default drop navbar-static-top',
+                ],
+            ]
+        );
         $menuItems = [
             ['label' => '1.1', 'url' => ['/site/legacy']],
             ['label' => 'Twitter', 'url' => 'http://twitter.com/yiiframework_ru'],
@@ -49,20 +51,26 @@ AppAsset::register($this);
             $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
             $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
         } else {
-            $menuItems[] = ['label' => Yii::t('app', '{username}', ['username' => Yii::$app->user->identity->username]), 'url' => '#', 'items' => [
-                ['label' => Yii::t('app', 'My profile'), 'url' => ['/profile/index']],
-                ['label' => Yii::t('app', 'Edit profile'), 'url' => ['/profile/update']],
-                [
-                    'label' => Yii::t('app', 'Logout'),
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
+            $menuItems[] = [
+                'label' => Yii::t('app', '{username}', ['username' => Yii::$app->user->identity->username]),
+                'url' => '#',
+                'items' => [
+                    ['label' => Yii::t('app', 'My profile'), 'url' => ['/profile/index']],
+                    ['label' => Yii::t('app', 'Edit profile'), 'url' => ['/profile/update']],
+                    [
+                        'label' => Yii::t('app', 'Logout'),
+                        'url' => ['/site/logout'],
+                        'linkOptions' => ['data-method' => 'post']
+                    ]
                 ]
-            ]];
+            ];
         }
-        echo Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
-            'items' => $menuItems,
-        ]);
+        echo Nav::widget(
+            [
+                'options' => ['class' => 'navbar-nav navbar-right'],
+                'items' => $menuItems,
+            ]
+        );
         NavBar::end();
         ?>
     </header>
@@ -71,9 +79,11 @@ AppAsset::register($this);
 
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
-                <?= Breadcrumbs::widget([
-                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                ]) ?>
+                <?= Breadcrumbs::widget(
+                    [
+                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                    ]
+                ) ?>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 text-right">
                 <div class="versions">
@@ -121,11 +131,36 @@ AppAsset::register($this);
                 <div class="widget">
                     <h5 class="widgetheading">Support</h5>
                     <ul class="link-list">
-                        <li><?= Html::a(Yii::t('app', 'Leave feedback'), 'http://yiiframework.ru/forum/viewforum.php?f=5', ['target' => '_blank']) ?></li>
-                        <li><?= Html::a(Yii::t('app', 'Public chat'), 'https://gitter.im/yiisoft/yii2/rus', ['target' => '_blank']) ?></li>
-                        <li><?= Html::a(Yii::t('app', 'Report a bug'), 'https://github.com/samdark/yiiframework-ru/issues', ['target' => '_blank']) ?></li>
-                        <li><?= Html::a(Yii::t('app', 'Twitter'), 'https://twitter.com/yiiframework_ru', ['target' => '_blank']) ?></li>
-                        <li><?= Html::a(Yii::t('app', 'Forum'), ['/forum']) ?></li>
+                        <li>
+                            <?= Html::a(
+                                Yii::t('app', 'Leave feedback'),
+                                'http://yiiframework.ru/forum/viewforum.php?f=5',
+                                ['target' => '_blank']
+                            ) ?>                        </li>
+                        <li>
+                            <?= Html::a(
+                                Yii::t('app', 'Public chat'),
+                                'https://gitter.im/yiisoft/yii2/rus',
+                                ['target' => '_blank']
+                            ) ?>
+                        </li>
+                        <li>
+                            <?= Html::a(
+                                Yii::t('app', 'Report a bug'),
+                                'https://github.com/samdark/yiiframework-ru/issues',
+                                ['target' => '_blank']
+                            ) ?>
+                        </li>
+                        <li>
+                            <?= Html::a(
+                                Yii::t('app', 'Twitter'),
+                                'https://twitter.com/yiiframework_ru',
+                                ['target' => '_blank']
+                            ) ?>
+                        </li>
+                        <li>
+                            <?= Html::a(Yii::t('app', 'Forum'), ['/forum']) ?>
+                        </li>
                     </ul>
                 </div>
             </div>
