@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "04cb20167e802466f3adaf026525d2de",
+    "hash": "ea107833a86106bb5c1a5ea87281ab3e",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -361,6 +361,150 @@
                 "yii"
             ],
             "time": "2014-03-29 19:06:57"
+        },
+        {
+            "name": "kartik-v/bootstrap-fileinput",
+            "version": "v4.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
+                "reference": "e8a712d4840ba9abe7c1302808e86e55e91aab7f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/e8a712d4840ba9abe7c1302808e86e55e91aab7f",
+                "reference": "e8a712d4840ba9abe7c1302808e86e55e91aab7f",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\plugins\\fileinput\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "An enhanced HTML 5 file input for Bootstrap 3.x with features for file preview for many file types, multiple selection, ajax uploads, and more.",
+            "homepage": "https://github.com/kartik-v/bootstrap-fileinput",
+            "keywords": [
+                "ajax",
+                "bootstrap",
+                "delete",
+                "file",
+                "image",
+                "input",
+                "jquery",
+                "multiple",
+                "preview",
+                "progress",
+                "upload"
+            ],
+            "time": "2015-07-26 20:29:14"
+        },
+        {
+            "name": "kartik-v/yii2-krajee-base",
+            "version": "v1.7.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-krajee-base.git",
+                "reference": "c0adff9d9762f4fd3bf0e7cd0000fcab0bf00f19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/c0adff9d9762f4fd3bf0e7cd0000fcab0bf00f19",
+                "reference": "c0adff9d9762f4fd3bf0e7cd0000fcab0bf00f19",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2-bootstrap": "@dev"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\base\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Base library and foundation components for all Yii2 Krajee extensions.",
+            "homepage": "https://github.com/kartik-v/yii2-krajee-base",
+            "keywords": [
+                "base",
+                "extension",
+                "foundation",
+                "krajee",
+                "widget",
+                "yii2"
+            ],
+            "time": "2015-06-16 05:19:57"
+        },
+        {
+            "name": "kartik-v/yii2-widget-fileinput",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-widget-fileinput.git",
+                "reference": "bfed1b4201cc5fb3ac11563e1269f0ca64071e0b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-fileinput/zipball/bfed1b4201cc5fb3ac11563e1269f0ca64071e0b",
+                "reference": "bfed1b4201cc5fb3ac11563e1269f0ca64071e0b",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/bootstrap-fileinput": "~4.2",
+                "kartik-v/yii2-krajee-base": "~1.7"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\file\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "An enhanced FileInput widget for Bootstrap 3.x with file preview, multiple selection, and more features (sub repo split from yii2-widgets)",
+            "homepage": "https://github.com/kartik-v/yii2-widget-fileinput",
+            "keywords": [
+                "extension",
+                "file",
+                "form",
+                "input",
+                "jquery",
+                "plugin",
+                "upload",
+                "widget",
+                "yii2"
+            ],
+            "time": "2015-06-26 20:23:24"
         },
         {
             "name": "swiftmailer/swiftmailer",

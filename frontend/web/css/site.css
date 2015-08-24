@@ -105,3 +105,6 @@ a.desc:after {
 .text-blue {
     color: #68A4C4;
 }
+.project-form .CodeMirror {
+    height: 150px;
+}
