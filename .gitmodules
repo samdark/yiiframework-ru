@@ -1,0 +1,3 @@
+[submodule "cookbook/ru"]
+	path = cookbook/ru
+	url = git@github.com:samdark/yiiframework_ru_cookbook.git
