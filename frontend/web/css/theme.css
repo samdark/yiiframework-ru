@@ -719,7 +719,7 @@ ul.portfolio-categ li.active a:hover, ul.portfolio-categ li a:hover,ul.portfolio
 blockquote {
 	font-size:16px;
 	font-weight:400;
-	font-family:'Noto Serif', serif;
+	font-family:'PT Sans', serif;
 	font-style:italic;
 	padding-left:0;
 	color:#a2a2a2;
@@ -738,7 +738,7 @@ blockquote cite a:visited 				{ color:#555; }
 .pullquote-left {
 	display:block;
 	color:#a2a2a2;
-	font-family:'Noto Serif', serif;
+	font-family:'PT Sans', serif;
 	font-size:14px;
 	line-height:1.6em;
 	padding-left:20px;
@@ -747,7 +747,7 @@ blockquote cite a:visited 				{ color:#555; }
 .pullquote-right {
 	display:block;
 	color:#a2a2a2;
-	font-family:'Noto Serif', serif;
+	font-family:'PT Sans', serif;
 	font-size:14px;
 	line-height:1.6em;
 	padding-right:20px;
@@ -1024,7 +1024,7 @@ border: 1px solid #e6e6e6;
 	margin-top:10px;
 	color:#fff;
 
-	font-family:'Noto Serif', serif;
+	font-family:'PT Sans', serif;
 }
 
 .pricing-box-alt .icon .price-circled {
@@ -1148,7 +1148,7 @@ article .post-heading h3 a:hover {
 .post-quote blockquote {
 	font-size:16px;
 	color:#999;
-	font-family:'Noto Serif', serif;
+	font-family:'PT Sans', serif;
 	font-style:italic;
 	line-height:1.6em;
 }
@@ -1174,10 +1174,11 @@ ul.meta-post{
 ul.meta-post li{
 	float:left;
 	margin:0 10px 0 0;
-	padding:0;
 	list-style:none;
 	border-right:1px dotted #e9e9e9;
-	padding-right:10px;
+	padding: 0 10px 0 0;
+	font-size: 12px;
+	font-weight: 600;
 }
 
 ul.meta-post li i {
