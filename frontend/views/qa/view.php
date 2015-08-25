@@ -12,15 +12,14 @@ use yii\helpers\Markdown;
 
 $this->title = $question->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
+
+<h1><?= Html::encode($question->title) ?></h1>
 
 <div class="row">
     <div class="col-md-8">
         <div class="question-view">
-
-            <h1><?= Html::encode($question->title) ?></h1>
 
             <article class="post">
 
@@ -28,39 +27,40 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= HtmlPurifier::process(Markdown::process($question->body, 'gfm-comment')) ?>
                 </div>
 
-                <div class="bottom-article">
-                    <ul class="meta-post">
-                        <li><i class="glyphicon glyphicon-calendar"></i><?= Yii::$app->formatter->asDate(
-                                $question->updated_at
-                            ); ?></li>
-                        <li>
-                            <i class="glyphicon glyphicon-user"></i>
-                            <?= Html::a(
-                                Html::encode($question->user->username),
-                                ['profile/view', 'id' => $question->user->id]
-                            ); ?>
-                        </li>
-                        <li>
-                            <?= Html::a(
-                                Yii::t('app', 'Update'),
-                                ['update', 'id' => $question->id],
-                                ['class' => 'btn btn-primary btn-xs']
-                            ) ?>
-                        </li>
-                        <li>
-                            <?= Html::a(
-                                Yii::t('app', 'Delete'),
-                                ['delete', 'id' => $question->id],
-                                [
-                                    'class' => 'btn btn-danger btn-xs',
-                                    'data' => [
-                                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                                        'method' => 'post',
-                                    ],
-                                ]
-                            ) ?>
-                        </li>
-                    </ul>
+                <?= Html::a(
+                    Yii::t('app', 'Update'),
+                    ['update', 'id' => $question->id],
+                    ['class' => 'btn btn-link btn-xs']
+                ) ?>
+
+                <?= Html::a(
+                    Yii::t('app', 'Delete'),
+                    ['delete', 'id' => $question->id],
+                    [
+                        'class' => 'btn btn-link btn-xs',
+                        'data' => [
+                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                            'method' => 'post',
+                        ],
+                    ]
+                ) ?>
+
+                <div class="text-right">
+                    <?= \common\widgets\Gravatar::widget(
+                        [
+                            'email' => Html::encode($question->user->email),
+                            'size' => 64,
+                            'options' => [
+                                'class' => 'img-thumbnail',
+                                'title' => Html::encode($question->user->username),
+                                'alt' => Html::encode($question->user->username)
+                            ]
+                        ]
+                    ) ?>
+                    <?= Html::a(
+                        Html::encode($question->user->username),
+                        ['profile/view', 'id' => $question->user->id]
+                    ); ?>
                 </div>
 
             </article>
@@ -135,6 +135,17 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <div class="col-md-4">
+        <p>
+            <i class="glyphicon glyphicon-calendar"></i> создан
+            <?= Yii::$app->formatter->asDatetime($question->created_at); ?>
+        </p>
+
+        <?php if ($question->updated_at !== $question->created_at) : ?>
+            <p>
+                <i class="glyphicon glyphicon-calendar"></i> изменён
+                <?= Yii::$app->formatter->asDatetime($question->updated_at); ?>
+            </p>
+        <?php endif; ?>
 
     </div>
 
