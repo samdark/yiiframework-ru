@@ -162,8 +162,8 @@ header  .navbar-nav > li > a {
 }
 
 header .nav .caret {
-    border-bottom-color: #f5f5f5;
-    border-top-color: #f5f5f5;
+    border-bottom-color: #111;
+    border-top-color: #111;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,

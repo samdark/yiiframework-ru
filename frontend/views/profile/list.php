@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <tr>
             <th><?= Yii::t('app', 'Username') ?></th>
             <th><?= Yii::t('app', 'Registration') ?></th>
-            <th><?= Yii::t('app', '---') ?></th>
+            <th>---</th>
         </tr>
         </thead>
         <tbody>

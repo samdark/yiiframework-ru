@@ -32,6 +32,6 @@ $I->see('This email address has already been taken.', '.help-block');
 
 $I->amGoingTo('submit basic form with correct data');
 $profilePage->update('second@email.ru','https://get.org');
-$I->see('My Profile : erau');
+$I->see('My profile : erau');
 $I->see('Email: second@email.ru (Not verified)');
 $I->see('https://get.org');
