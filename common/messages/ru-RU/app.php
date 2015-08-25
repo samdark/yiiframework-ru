@@ -92,5 +92,6 @@ return [
     'Your Answer' => 'Ваш ответ',
     'Your answer published' => 'Ваш ответ опубликован',
     'no site' => 'нет сайта',
-    '{n, plural, =0{No answers} =1{One answer} other{# answers}}' => '{n, plural, =0{Нет ответов} =1{Один ответ} other{# ответов}}',
+    '{n, plural, =0{No answers} =1{One answer} other{# answers}}' => '{n, plural, =0{Нет ответов} =1{Один ответ} one{# ответ} few{# ответов} many{# ответов} other{# ответа}}',
+    '{n, plural, =0{answers} =1{answer} other{answers}}' => '{n, plural, =0{ответов} =1{ответ} one{ответ} few{ответов} many{ответов} other{ответа}}',
 ];
