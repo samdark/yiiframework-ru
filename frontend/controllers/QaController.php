@@ -69,7 +69,7 @@ class QaController extends Controller
         $question = $this->findModel($id);
         $newAnswer = new Answer(['question_id' => $question->id]);
 
-        if ($newAnswer->load(Yii::$app->request->post()) && $newAnswer->save()) {
+        if ($newAnswer->load(Yii::$app->request->post()) && $newAnswer->save(true, ['body'])) {
             Yii::$app->session->setFlash('success', Yii::t('app', 'Your answer published'));
             return $this->refresh();
         }
@@ -140,7 +140,7 @@ class QaController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
 
-        if ($answer->load(Yii::$app->request->post()) && $answer->save()) {
+        if ($answer->load(Yii::$app->request->post()) && $answer->save(true, ['body'])) {
             return $this->redirect(['view', 'id' => $answer->question->id]);
         } else {
             return $this->render(
