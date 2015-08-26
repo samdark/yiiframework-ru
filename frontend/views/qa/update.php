@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $question common\models\Question */
 
-$this->title = Yii::t('app', 'Update question');
+$this->title = Yii::t('app', 'Update Question');
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $question->title, 'url' => ['view', 'id' => $question->id]];

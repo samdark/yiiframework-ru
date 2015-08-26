@@ -142,7 +142,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' =
 
             <div class="form-group">
                 <div>
-                    <?= Html::submitButton(Yii::t('app', 'Post Your Answer'), ['class' => 'btn btn-success']) ?>
+                    <?= Html::submitButton(Yii::t('app', 'Post Your Answer'), ['class' => 'btn btn-success','name'=>'submit-answer']) ?>
                 </div>
             </div>
 

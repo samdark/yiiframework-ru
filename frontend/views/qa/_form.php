@@ -25,7 +25,10 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <div>
-            <?= Html::submitButton(Yii::t('app', 'Publish'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton(
+                Yii::t('app', 'Publish'),
+                ['class' => 'btn btn-primary', 'name' => 'submit-question']
+            ) ?>
         </div>
     </div>
 

@@ -11,7 +11,10 @@ use yii\widgets\ActiveForm;
 $this->title = Yii::t('app', 'Update answer');
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $answer->question->title, 'url' => ['view', 'id' => $answer->question->id]];
+$this->params['breadcrumbs'][] = [
+    'label' => $answer->question->title,
+    'url' => ['view', 'id' => $answer->question->id]
+];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -35,7 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="form-group">
                     <div>
-                        <?= Html::submitButton(Yii::t('app', 'Save edits'), ['class' => 'btn btn-primary']) ?>
+                        <?= Html::submitButton(
+                            Yii::t('app', 'Save edits'),
+                            ['class' => 'btn btn-primary', 'name' => 'submit-answer']
+                        ) ?>
                     </div>
                 </div>
 
