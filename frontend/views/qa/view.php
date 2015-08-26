@@ -138,12 +138,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' =
 
             <?php $form = ActiveForm::begin(); ?>
 
-            <?= Markdowneditor::widget(
-                [
-                    'model' => $newAnswer,
-                    'attribute' => 'body',
-                ]
-            ) ?>
+            <?= Markdowneditor::widget(['name' => 'answer',]) ?>
 
             <div class="form-group">
                 <div>

@@ -69,9 +69,14 @@ class QaController extends Controller
         $question = $this->findModel($id);
         $newAnswer = new Answer(['question_id' => $question->id]);
 
-        if ($newAnswer->load(Yii::$app->request->post()) && $newAnswer->save(true, ['body'])) {
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Your answer published'));
-            return $this->refresh();
+        if (Yii::$app->request->isPost) {
+
+            $newAnswer->body = Yii::$app->request->post('answer');
+
+            if ($newAnswer->save()) {
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Your answer published'));
+                return $this->refresh();
+            }
         }
 
         return $this->render(
