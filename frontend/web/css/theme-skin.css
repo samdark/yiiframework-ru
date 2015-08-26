@@ -51,12 +51,6 @@ header .nav li.active ul.dropdown-menu li.active a{
   background-color: #68A4C4;
 }
 
-
-.breadcrumb { border-left: 4px solid #68A4C4; }
-.breadcrumb a { }
-.breadcrumb a:focus, .breadcrumb a:hover { color: #ddd; }
-.breadcrumb > .active { }
-
 /* === border color === */
 .pagination ul > li.active > a,
 .pagination ul > li.active > span, a.thumbnail:hover, input[type="text"].search-form:focus {
