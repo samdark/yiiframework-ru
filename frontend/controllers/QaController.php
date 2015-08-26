@@ -24,7 +24,7 @@ class QaController extends Controller
                 'only' => ['create', 'update'],
                 'rules' => [
                     [
-                        'actions' => ['create', 'update', 'delete'],
+                        'actions' => ['create', 'update-question', 'delete-question', 'update-answer', 'delete-answer'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -110,7 +110,7 @@ class QaController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdateQuestion($id)
     {
         $model = $this->findModel($id);
 
@@ -127,16 +127,59 @@ class QaController extends Controller
     }
 
     /**
+     * Updates an existing Answer model.
+     * If update is successful, the browser will be redirected to the 'view' question page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException
+     */
+    public function actionUpdateAnswer($id)
+    {
+        /* @var $answer Answer */
+        if (($answer = Answer::findOne($id)) === null) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        if ($answer->load(Yii::$app->request->post()) && $answer->save()) {
+            return $this->redirect(['view', 'id' => $answer->question->id]);
+        } else {
+            return $this->render(
+                'update-answer',
+                ['answer' => $answer,]
+            );
+        }
+    }
+
+    /**
      * Deletes an existing Question model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDeleteQuestion($id)
     {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Deletes an existing Answer model.
+     * If deletion is successful, the browser will be redirected to the 'Question' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException
+     */
+    public function actionDeleteAnswer($id)
+    {
+        /* @var $answer Answer */
+        if (($answer = Answer::findOne($id)) === null) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        $answer->delete();
+
+        return $this->redirect(['view', 'id' => $answer->question->id]);
     }
 
     /**

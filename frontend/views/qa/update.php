@@ -12,11 +12,17 @@ $this->params['breadcrumbs'][] = ['label' => $question->title, 'url' => ['view',
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="question-update">
+    <div class="row">
+        <div class="col-md-8">
+            <h1><?= Html::encode($this->title) ?></h1>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+            <?= $this->render(
+                '_form',
+                [
+                    'question' => $question,
+                ]
+            ) ?>
 
-    <?= $this->render('_form', [
-        'question' => $question,
-    ]) ?>
-
+        </div>
+    </div>
 </div>

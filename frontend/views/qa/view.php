@@ -14,8 +14,9 @@ $this->title = $question->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' => ['index']];
 ?>
 
-
-<h1><?= Html::encode($question->title) ?></h1>
+<div class="page-header">
+    <h1><?= Html::encode($question->title) ?></h1>
+</div>
 
 <div class="row">
     <div class="col-md-8">
@@ -29,13 +30,13 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' =
 
                 <?= Html::a(
                     Yii::t('app', 'Update'),
-                    ['update', 'id' => $question->id],
+                    ['update-question', 'id' => $question->id],
                     ['class' => 'btn btn-link btn-xs']
                 ) ?>
 
                 <?= Html::a(
                     Yii::t('app', 'Delete'),
-                    ['delete', 'id' => $question->id],
+                    ['delete-question', 'id' => $question->id],
                     [
                         'class' => 'btn btn-link btn-xs',
                         'data' => [
@@ -67,50 +68,73 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' =
 
         </div>
 
-        <div class="answers">
-
-            <h2><?= \Yii::t(
+        <div class="page-header">
+            <h3><?= \Yii::t(
                     'app',
                     '{n, plural, =0{No answers} =1{One answer} other{# answers}}',
                     array(
                         'n' => count($question->answers),
                     )
-                ) ?></h2>
+                ) ?>:</h3>
+        </div>
+
+        <div class="answers">
 
             <?php foreach ($question->answers as $answer) : ?>
 
-                <article class="post">
+                <div class="body">
+                    <?= HtmlPurifier::process(Markdown::process($answer->body, 'gfm-comment')) ?>
+                </div>
 
-                    <div class="body">
-                        <?= HtmlPurifier::process(Markdown::process($answer->body, 'gfm-comment')) ?>
-                    </div>
+                <small class="text-muted">
+                    <?= Yii::$app->formatter->asDatetime($answer->updated_at); ?>
+                </small>
 
-                    <div class="bottom-article">
-                        <ul class="meta-post">
-                            <li><i class="glyphicon glyphicon-calendar"></i><?= Yii::$app->formatter->asDate(
-                                    $answer->updated_at
-                                ); ?></li>
-                            <li>
-                                <i class="glyphicon glyphicon-user"></i>
-                                <?= Html::a(
-                                    Html::encode($answer->user->username),
-                                    ['profile/view', 'id' => $answer->user->id]
-                                ); ?>
-                            </li>
-                        </ul>
-                    </div>
+                <?= Html::a(
+                Yii::t('app', 'Update'),
+                ['update-answer', 'id' => $answer->id],
+                ['class' => 'btn btn-link btn-xs']
+            ) ?>
 
-                </article>
+                <?= Html::a(
+                Yii::t('app', 'Delete'),
+                ['delete-answer', 'id' => $answer->id],
+                [
+                    'class' => 'btn btn-link btn-xs',
+                    'data' => [
+                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                        'method' => 'post',
+                    ],
+                ]
+            ) ?>
+
+                <div class="text-right">
+                    <?= \common\widgets\Gravatar::widget(
+                        [
+                            'email' => Html::encode($answer->user->email),
+                            'size' => 48,
+                            'options' => [
+                                'class' => 'img-thumbnail',
+                                'title' => Html::encode($answer->user->username),
+                                'alt' => Html::encode($answer->user->username)
+                            ]
+                        ]
+                    ) ?>
+                    <?= Html::a(
+                        Html::encode($answer->user->username),
+                        ['profile/view', 'id' => $answer->user->id]
+                    ); ?>
+                </div>
+
+                <hr>
 
             <?php endforeach ?>
 
         </div>
 
-        <hr>
+        <h3><?= Yii::t('app', 'Your Answer'); ?></h3>
 
         <div class="answer">
-
-            <h3><?= Yii::t('app', 'Your Answer'); ?></h3>
 
             <?php $form = ActiveForm::begin(); ?>
 
@@ -130,7 +154,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' =
             <?php ActiveForm::end(); ?>
 
         </div>
-
 
     </div>
 
