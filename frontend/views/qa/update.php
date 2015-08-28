@@ -3,12 +3,12 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $question common\models\Question */
+/* @var $questionForm \frontend\models\QuestionForm */
 
 $this->title = Yii::t('app', 'Update Question');
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $question->title, 'url' => ['view', 'id' => $question->id]];
+$this->params['breadcrumbs'][] = ['label' => $questionForm->title, 'url' => ['view', 'id' => $questionForm->question->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="question-update">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             <?= $this->render(
                 '_form',
                 [
-                    'question' => $question,
+                    'questionForm' => $questionForm,
                 ]
             ) ?>
 

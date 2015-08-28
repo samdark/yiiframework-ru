@@ -20,6 +20,8 @@ use yii\db\ActiveRecord;
  *
  * @property Answer[] $answers
  * @property User $user
+ * @property Tag[] $tags
+ * @property QuestionsTags[] $questionTags
  */
 class Question extends ActiveRecord
 {
@@ -85,5 +87,22 @@ class Question extends ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
+    {
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+            ->viaTable(QuestionsTags::tableName(), ['question_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getQuestionTags()
+    {
+        return $this->hasMany(QuestionsTags::className(), ['question_id' => 'id']);
     }
 }

@@ -18,11 +18,13 @@ class QAPage extends BasePage
     /**
      * @param string $title
      * @param string $body
+     * @param array $tags
      */
-    public function submit($title, $body)
+    public function submit($title, $body, $tags)
     {
-        $this->actor->fillField('input[name="Question[title]"]', $title);
-        $this->actor->fillField('textarea[name="Question[body]"]', $body);
+        $this->actor->fillField('input[name="QuestionForm[title]"]', $title);
+        $this->actor->fillField('textarea[name="QuestionForm[body]"]', $body);
+        $this->actor->selectOption('select[name="QuestionForm[tags][]"]', $tags);
         $this->actor->click('submit-question');
     }
 

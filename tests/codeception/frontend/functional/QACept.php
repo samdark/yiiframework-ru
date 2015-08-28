@@ -17,16 +17,20 @@ $I->seeLink('My profile');
 $I->expectTo('question create page works');
 $qaPage = QAPage::openBy($I);
 $I->seeInTitle('Create Question');
-$qaPage->submit('Title answer', 'My answer is good!');
+$qaPage->submit('Title answer', 'My answer is good!', ['yii1', 'yii2']);
 $I->see('Title answer');
 $I->see('My answer is good!');
+$I->see('yii1', 'span.label');
+$I->see('yii2', 'span.label');
 
 $I->expectTo('question update page works');
 $I->click('Update');
 $I->seeInTitle('Update Question');
-$qaPage->submit('Changed title answer', 'I am feel good!');
+$qaPage->submit('Changed title answer', 'I am feel good!', ['yii2']);
 $I->see('Changed title answer');
 $I->see('I am feel good');
+$I->dontSee('yii1', 'span.label');
+$I->see('yii2', 'span.label');
 
 $I->expectTo('answer create page works');
 $qaPage->submitAnswer('My answer: Have fun!');

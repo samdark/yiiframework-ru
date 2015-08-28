@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\Answer;
+use frontend\models\QuestionForm;
 use Yii;
 use common\models\Question;
 use yii\data\ActiveDataProvider;
@@ -95,15 +96,21 @@ class QaController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Question();
+        $questionModel = new Question();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $questionForm = new QuestionForm(
+            [
+                'question' => $questionModel
+            ]
+        );
+
+        if ($questionForm->load(Yii::$app->request->post()) && $questionForm->save()) {
+            return $this->redirect(['view', 'id' => $questionForm->question->id]);
         } else {
             return $this->render(
                 'create',
                 [
-                    'question' => $model,
+                    'questionForm' => $questionForm,
                 ]
             );
         }
@@ -117,15 +124,20 @@ class QaController extends Controller
      */
     public function actionUpdateQuestion($id)
     {
-        $model = $this->findModel($id);
+        $question = $this->findModel($id);
+        $questionForm = new QuestionForm(
+            [
+                'question' => $question
+            ]
+        );
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($questionForm->load(Yii::$app->request->post()) && $questionForm->save()) {
+            return $this->redirect(['view', 'id' => $questionForm->question->id]);
         } else {
             return $this->render(
                 'update',
                 [
-                    'question' => $model,
+                    'questionForm' => $questionForm,
                 ]
             );
         }

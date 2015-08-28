@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $question common\models\Question */
+/* @var $questionForm \frontend\models\QuestionForm */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -13,14 +13,19 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($question, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($questionForm, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= Html::activeLabel($question, 'body') ?>
+    <?= Html::activeLabel($questionForm, 'body') ?>
     <?= Markdowneditor::widget(
         [
-            'model' => $question,
+            'model' => $questionForm,
             'attribute' => 'body',
         ]
+    ) ?>
+
+    <?= $form->field($questionForm, 'tags')->dropDownList(
+        $questionForm->listTags,
+        ['multiple' => true]
     ) ?>
 
     <div class="form-group">

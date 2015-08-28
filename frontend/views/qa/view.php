@@ -46,6 +46,10 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' =
                     ]
                 ) ?>
 
+                <?php foreach ($question->tags as $tag) : ?>
+                    <span class="label label-default" style="background-color: <?= $tag->color ?>"><?= Html::encode($tag->name) ?></span>&nbsp;
+                <?php endforeach ?>
+
                 <div class="text-right">
                     <?= \common\widgets\Gravatar::widget(
                         [
@@ -142,7 +146,10 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' =
 
             <div class="form-group">
                 <div>
-                    <?= Html::submitButton(Yii::t('app', 'Post Your Answer'), ['class' => 'btn btn-success','name'=>'submit-answer']) ?>
+                    <?= Html::submitButton(
+                        Yii::t('app', 'Post Your Answer'),
+                        ['class' => 'btn btn-success', 'name' => 'submit-answer']
+                    ) ?>
                 </div>
             </div>
 
