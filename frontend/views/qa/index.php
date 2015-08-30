@@ -27,10 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-md-9">
             <?php foreach ($dataProvider->getModels() as $question): ?>
-                <div class="panel panel-default">
-                    <div class="panel-body">
+                <div class="row question">
+                    <div class="col-md-12">
                         <strong><?= Html::a(Html::encode($question->title), ['/qa/view', 'id' => $question->id]); ?></strong>
-
                         <p>
                             <small><i class="glyphicon glyphicon-calendar"></i> <?= Yii::$app->formatter->asDate($question->created_at); ?></small>
                             <small><i class="glyphicon glyphicon-user"></i> <?= Html::a(Html::encode($question->user->username), ['profile/view', 'id' => $question->user->id]); ?></small>
@@ -39,51 +38,49 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= HtmlPurifier::process(
                             Markdown::process(Generator::limitWords($question->body, 40), 'gfm-comment')
                         ) ?>
+                    </div>
 
+                    <div class="col-md-12">
                         <?php foreach ($question->tags as $tag) : ?>
                             <span class="label label-default" style="background-color: <?= $tag->color ?>"><?= Html::encode($tag->name) ?></span>&nbsp;
                         <?php endforeach ?>
                     </div>
 
-                    <table class="table table-bordered table-hover">
-                        <tbody>
-                        <tr>
-                            <td class="text-center text-blue">
-                                <div><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> <?= $countVote = $question->vote ?> <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></div>
-                                <?= \Yii::t(
-                                    'app',
-                                    '{n, plural, =0{votes} =1{vote} other{votes}}',
-                                    [
-                                        'n' => $countVote
-                                    ]
-                                ) ?>
-                            </td>
+                    <div class="col-md-4 text-center text-blue">
+                        <div><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> <?= $countVote = $question->vote ?> <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></div>
+                        <?= \Yii::t(
+                            'app',
+                            '{n, plural, =0{votes} =1{vote} other{votes}}',
+                            [
+                                'n' => $countVote
+                            ]
+                        ) ?>
+                    </div>
 
-                            <td class="text-center text-orange">
-                                <div><?= $countAnswers = $question->getAnswers()->count() ?></div>
-                                <?= \Yii::t(
-                                    'app',
-                                    '{n, plural, =0{answers} =1{answer} other{answers}}',
-                                    [
-                                        'n' => $countAnswers
-                                    ]
-                                ) ?>
-                            </td>
+                    <div class="col-md-4 text-center text-orange">
+                        <div><?= $countAnswers = $question->getAnswers()->count() ?></div>
+                        <?= \Yii::t(
+                            'app',
+                            '{n, plural, =0{answers} =1{answer} other{answers}}',
+                            [
+                                'n' => $countAnswers
+                            ]
+                        ) ?>
+                    </div>
 
-                            <td class="text-center text-green">
-                                <div><?= $countView = $question->view ?></div>
-                                <?= \Yii::t(
-                                    'app',
-                                    '{n, plural, =0{views} =1{view} other{views}}',
-                                    [
-                                        'n' => $countView
-                                    ]
-                                ) ?>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div class="col-md-4 text-center text-green">
+                        <div><?= $countView = $question->view ?></div>
+                        <?= \Yii::t(
+                            'app',
+                            '{n, plural, =0{views} =1{view} other{views}}',
+                            [
+                                'n' => $countView
+                            ]
+                        ) ?>
+                    </div>
                 </div>
+
+                <hr class="separator" />
             <?php endforeach; ?>
         </div>
 
