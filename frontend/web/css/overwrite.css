@@ -962,7 +962,7 @@ font-size: 10px;
   padding:10px 15px 10px 15px;
   margin:0;
   text-shadow:none;
-  border-bottom:1px solid #303030;
+  border-left: 4px solid #68A4C4;
 }
 
 .dropdown-menu li > a:hover,
