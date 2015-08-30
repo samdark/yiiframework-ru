@@ -108,3 +108,11 @@ a.desc:after {
 .project-form .CodeMirror {
     height: 150px;
 }
+
+.question:hover {
+    background-color: #f9f9f9;
+}
+.separator {
+    border-top: 1px dashed #e5e5e5;
+}
+
