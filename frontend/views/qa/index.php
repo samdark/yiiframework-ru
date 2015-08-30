@@ -13,7 +13,6 @@ $this->title = Yii::t('app', 'Questions');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="question-index">
-
     <div class="row">
         <div class="col-xs-6">
             <h1><?= Html::encode($this->title) ?></h1>
@@ -25,73 +24,79 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-
-    <section class="list">
-        <div class="question-items">
-
+    <div class="row">
+        <div class="col-md-9">
             <?php foreach ($dataProvider->getModels() as $question): ?>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <strong><?= Html::a(Html::encode($question->title), ['/qa/view', 'id' => $question->id]); ?></strong>
 
-                <div class="row marginbot20">
+                        <p>
+                            <small><i class="glyphicon glyphicon-calendar"></i> <?= Yii::$app->formatter->asDate($question->created_at); ?></small>
+                            <small><i class="glyphicon glyphicon-user"></i> <?= Html::a(Html::encode($question->user->username), ['profile/view', 'id' => $question->user->id]); ?></small>
+                        </p>
 
-                    <div class="col-xs-1">
+                        <?= HtmlPurifier::process(
+                            Markdown::process(Generator::limitWords($question->body, 40), 'gfm-comment')
+                        ) ?>
 
-                        <h4 class="text-center text-orange">
-                            <?= $countAnswers = $question->getAnswers()->count() ?><br>
-                            <?= \Yii::t(
-                                'app',
-                                '{n, plural, =0{answers} =1{answer} other{answers}}',
-                                array(
-                                    'n' => $countAnswers,
-                                )
-                            ) ?>
-                        </h4>
-
+                        <?php foreach ($question->tags as $tag) : ?>
+                            <span class="label label-default" style="background-color: <?= $tag->color ?>"><?= Html::encode($tag->name) ?></span>&nbsp;
+                        <?php endforeach ?>
                     </div>
 
-                    <div class="col-xs-11">
+                    <table class="table table-bordered table-hover">
+                        <tbody>
+                        <tr>
+                            <td class="text-center text-blue">
+                                <div><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> <?= $countVote = $question->vote ?> <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></div>
+                                <?= \Yii::t(
+                                    'app',
+                                    '{n, plural, =0{votes} =1{vote} other{votes}}',
+                                    [
+                                        'n' => $countVote
+                                    ]
+                                ) ?>
+                            </td>
 
-                        <strong>
-                            <?= Html::a(Html::encode($question->title), ['/qa/view', 'id' => $question->id]); ?>
-                        </strong>
+                            <td class="text-center text-orange">
+                                <div><?= $countAnswers = $question->getAnswers()->count() ?></div>
+                                <?= \Yii::t(
+                                    'app',
+                                    '{n, plural, =0{answers} =1{answer} other{answers}}',
+                                    [
+                                        'n' => $countAnswers
+                                    ]
+                                ) ?>
+                            </td>
 
-                        <section class="body">
-                            <?= HtmlPurifier::process(
-                                Markdown::process(Generator::limitWords($question->body, 40), 'gfm-comment')
-                            ) ?>
-                        </section>
-
-                        <div class="bottom-article">
-                            <ul class="meta-post">
-
-                                <li>
-                                    <i class="glyphicon glyphicon-calendar"></i><?= Yii::$app->formatter->asDate(
-                                        $question->created_at
-                                    ); ?>
-                                </li>
-
-                                <li>
-                                    <i class="glyphicon glyphicon-user"></i>
-                                    <?= Html::a(
-                                        Html::encode($question->user->username),
-                                        ['profile/view', 'id' => $question->user->id]
-                                    ); ?>
-                                </li>
-
-                            </ul>
-                        </div>
-
-                    </div>
-
+                            <td class="text-center text-green">
+                                <div><?= $countView = $question->view ?></div>
+                                <?= \Yii::t(
+                                    'app',
+                                    '{n, plural, =0{views} =1{view} other{views}}',
+                                    [
+                                        'n' => $countView
+                                    ]
+                                ) ?>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-
-            <?php endforeach ?>
+            <?php endforeach; ?>
         </div>
 
-        <?= LinkPager::widget(
-            [
-                'pagination' => $dataProvider->getPagination(),
-            ]
-        ) ?>
-    </section>
+        <div class="col-md-3"></div>
+    </div>
 
+    <?= LinkPager::widget(
+        [
+            'maxButtonCount' => 6,
+            'options' => ['class' => 'pagination pagination-sm'],
+            'lastPageLabel' => true,
+            'firstPageLabel' => true,
+            'pagination' => $dataProvider->getPagination(),
+        ]
+    ) ?>
 </div>
