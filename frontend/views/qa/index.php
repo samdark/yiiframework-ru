@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-md-9">
             <?php foreach ($dataProvider->getModels() as $question): ?>
+                <?php /* @var $question \common\models\Question */ ?>
                 <div class="row question">
                     <div class="col-md-12">
                         <strong><?= Html::a(Html::encode($question->title), ['/qa/view', 'id' => $question->id]); ?></strong>
