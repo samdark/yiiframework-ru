@@ -17,8 +17,9 @@ use yii\db\ActiveRecord;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
- * @property integer $vote
- * @property integer $view
+ * @property integer $vote_count
+ * @property integer $view_count
+ * @property integer $answer_count
  *
  * @property Answer[] $answers
  * @property User $user

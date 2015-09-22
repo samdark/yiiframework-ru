@@ -70,11 +70,14 @@ class QaController extends Controller
         $question = $this->findModel($id);
         $newAnswer = new Answer(['question_id' => $question->id]);
 
+        $question->updateCounters(['view_count' => 1]);
+
         if (Yii::$app->request->isPost) {
 
             $newAnswer->body = Yii::$app->request->post('answer');
 
             if ($newAnswer->save()) {
+                $question->updateCounters(['answer_count' => 1]);
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Your answer published'));
                 return $this->refresh();
             }
