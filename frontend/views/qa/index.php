@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
 
                     <div class="col-md-4 text-center text-blue">
-                        <div><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> <?= $countVote = $question->vote ?> <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></div>
+                        <div><span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span> <?= $countVote = $question->vote_count ?> <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span></div>
                         <?= \Yii::t(
                             'app',
                             '{n, plural, =0{votes} =1{vote} other{votes}}',
@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
 
                     <div class="col-md-4 text-center text-orange">
-                        <div><?= $countAnswers = $question->getAnswers()->count() ?></div>
+                        <div><?= $countAnswers = $question->answer_count ?></div>
                         <?= \Yii::t(
                             'app',
                             '{n, plural, =0{answers} =1{answer} other{answers}}',
@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
 
                     <div class="col-md-4 text-center text-green">
-                        <div><?= $countView = $question->view ?></div>
+                        <div><?= $countView = $question->view_count ?></div>
                         <?= \Yii::t(
                             'app',
                             '{n, plural, =0{views} =1{view} other{views}}',
