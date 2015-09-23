@@ -98,4 +98,5 @@ return [
     '{n, plural, =0{answers} =1{answer} other{answers}}' => '{n, plural, =0{ответов} =1{ответ} one{ответ} few{ответов} many{ответов} other{ответа}}',
     '{n, plural, =0{views} =1{view} other{views}}' => '{n, plural, =0{просмотров} =1{просмотр} one{просмотр} few{просмотров} many{просмотров} other{просмотра}}',
     '{n, plural, =0{votes} =1{vote} other{votes}}' => '{n, plural, =0{голосов} =1{голос} one{голоса} few{голоса} many{голосов} other{голоса}}',
+    'Reply' => 'Ответить'
 ];

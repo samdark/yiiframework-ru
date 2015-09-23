@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
  * @property integer $user_id
  * @property integer $question_id
  * @property string $body
+ * @property integer $parent_id
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
@@ -47,10 +48,11 @@ class Answer extends ActiveRecord
     public function rules()
     {
         return [
-            [['question_id', 'body',], 'required'],
+            [['question_id', 'body', 'parent_id'], 'required'],
             [['question_id',], 'exist', 'targetClass' => Question::className(), 'targetAttribute' => 'id'],
+            [['parent_id'], 'default', 'value' => 0],
             [['status'], 'default', 'value' => self::STATUS_ACTIVE],
-            [['status'], 'integer'],
+            [['status', 'parent_id'], 'integer'],
             [['body'], 'string'],
         ];
     }
@@ -65,6 +67,7 @@ class Answer extends ActiveRecord
             'user_id' => Yii::t('app', 'User ID'),
             'question_id' => Yii::t('app', 'Question ID'),
             'body' => Yii::t('app', 'Body'),
+            'parent_id' => Yii::t('app', 'Parent ID'),
             'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
