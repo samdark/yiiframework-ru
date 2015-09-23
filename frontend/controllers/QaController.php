@@ -75,6 +75,7 @@ class QaController extends Controller
         if (Yii::$app->request->isPost) {
 
             $newAnswer->body = Yii::$app->request->post('answer');
+            $newAnswer->parent_id = Yii::$app->request->post('parent_id');
 
             if ($newAnswer->save()) {
                 $question->updateCounters(['answer_count' => 1]);

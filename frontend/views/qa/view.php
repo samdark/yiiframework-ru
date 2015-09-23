@@ -95,6 +95,12 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' =
                 </small>
 
                 <?= Html::a(
+                Yii::t('app', 'Reply'),
+                '#reply',
+                ['class' => 'btn btn-link btn-xs', 'onclick' => 'answer_reply(' . $answer->id . ')']
+            ) ?>
+
+                <?= Html::a(
                 Yii::t('app', 'Update'),
                 ['update-answer', 'id' => $answer->id],
                 ['class' => 'btn btn-link btn-xs']
@@ -136,13 +142,17 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' =
 
         </div>
 
-        <h3><?= Yii::t('app', 'Your Answer'); ?></h3>
+        <h3 id="reply"><?= Yii::t('app', 'Your Answer'); ?></h3>
 
         <div class="answer">
 
             <?php $form = ActiveForm::begin(); ?>
 
+            <?= $form->errorSummary($newAnswer)?>
+
             <?= Markdowneditor::widget(['name' => 'answer',]) ?>
+
+            <?= $form->field($newAnswer, 'parent_id')->hiddenInput(['name' => 'parent_id', 'value' => 0])->label(false) ?>
 
             <div class="form-group">
                 <div>
