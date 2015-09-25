@@ -8,7 +8,6 @@ use frontend\assets\AppAsset;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
-use yii\widgets\Breadcrumbs;
 
 AppAsset::register($this);
 ?>
@@ -17,7 +16,7 @@ AppAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" contdent="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -76,38 +75,12 @@ AppAsset::register($this);
         ?>
     </header>
 
-    <div id="inner-headline">
-        <div class="container">
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
-                    <?= Breadcrumbs::widget(
-                        [
-                            'homeLink' => [
-                                'label' => '<i class="glyphicon glyphicon-home"></i>',
-                                'url' => \yii\helpers\Url::home(),
-                                'encode' => false,
-                            ],
-                            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                        ]
-                    ) ?>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 text-right">
-                    <div class="versions">
-                        <?= Yii::t('app', 'Get last stable version:') ?>
-                        <?= Html::a(\Yii::$app->params['yii1-tag-name'], \Yii::$app->params['yii1-html-url']) ?> /
-                        <?= Html::a(\Yii::$app->params['yii2-tag-name'], \Yii::$app->params['yii2-html-url']) ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="container">
-
         <?= Alert::widget() ?>
-        <?= $content ?>
     </div>
+
+    <?= $content ?>
+
 </div>
 
 <footer>
@@ -117,7 +90,8 @@ AppAsset::register($this);
                 <div class="widget">
 
                     <h5 class="widgetheading">
-                        <img src="https://camo.githubusercontent.com/d10ea4bd497025fc11f5d609258752fe68345290/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f506f77657265645f62792d5969695f4672616d65776f726b2d677265656e2e7376673f7374796c653d666c6174"></p>
+                        <img
+                            src="https://camo.githubusercontent.com/d10ea4bd497025fc11f5d609258752fe68345290/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f506f77657265645f62792d5969695f4672616d65776f726b2d677265656e2e7376673f7374796c653d666c6174"></p>
                     </h5>
 
                     <p><?= Yii::t('app', 'Yii is a high-performance PHP framework best for developing Web 2.0 applications.') ?></p>
