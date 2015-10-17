@@ -16,7 +16,7 @@ $this->title = \Yii::t('app', 'Posts');
         ) ?>
     </h4>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?> <span class="flaticon-rss2"></span></h1>
 
     <section class="list">
         <div class="items">

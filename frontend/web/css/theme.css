@@ -1,5 +1,6 @@
 /* ==== overwrite bootstrap standard ==== */
 @import url('animate.css');
+@import url('icons/flaticon.css');
 
 /* ===================================
 1. General
@@ -464,6 +465,11 @@ section.callaction {
 
 .box-gray {
     background: #f8f8f8;
+    padding: 20px 20px 30px;
+}
+
+.box-dark-gray {
+    background: #e8e8e8;
     padding: 20px 20px 30px;
 }
 

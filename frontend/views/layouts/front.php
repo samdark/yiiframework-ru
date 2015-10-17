@@ -24,24 +24,69 @@ use yii\helpers\Html;
                     Название Yii (произносится как Yee или [ji:]) означает простой (easy),
                     эффективный (efficient) и расширяемый (extensible).
                 </p>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div id="inner-headline">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 text-right">
-                <div class="versions">
-                    <?= Yii::t('app', 'Get last stable version:') ?>
-                    <?= Html::a(\Yii::$app->params['yii1-tag-name'], \Yii::$app->params['yii1-html-url']) ?> /
-                    <?= Html::a(\Yii::$app->params['yii2-tag-name'], \Yii::$app->params['yii2-html-url']) ?>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <?= Html::a(
+                            '<span class="flaticon-github10"></span>&nbsp;' . \Yii::$app->params['yii2-tag-name'],
+                            \Yii::$app->params['yii2-html-url'],
+                            [
+                                'class' => 'btn btn-lg btn-success btn-block text-white',
+                            ]) ?>
+                    </div>
+                    <div class="col-xs-7">
+                        <?= Html::a(
+                            Yii::t('app', 'or {n} version', ['n' => \Yii::$app->params['yii1-tag-name']]),
+                            \Yii::$app->params['yii1-html-url'],
+                            [
+                                'class' => 'btn btn-lg btn-success btn-link',
+                            ]) ?>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="box box-dark-gray">
+    <div class="container">
+        <h1 class="text-center">Быстрый, безопасный и профессиональный PHP Framework</h1>
+
+        <div class="row">
+            <div class="col-xs-4 text-center">
+                <h1><span class="flaticon-rocketship4 flaticon-2x"></span></h1>
+
+                <h2>Быстрый</h2>
+            </div>
+            <div class="col-xs-4 text-center">
+                <h1><span class="flaticon-savings6 flaticon-2x"></span></h1>
+
+                <h2>Безопасный</h2>
+            </div>
+            <div class="col-xs-4 text-center">
+                <h1><span class="flaticon-connection87 flaticon-2x"></span></h1>
+
+                <h2>Профессиональный</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="box box-gray">
+    <div class="container">
+        <form>
+            <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1"><span
+                                class="flaticon-magnifier58"></span></span>
+                <input type="text" class="form-control" placeholder="<?= Yii::t('app', 'Search') ?>"
+                       aria-describedby="basic-addon1">
+            </div>
+        </form>
+
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-6">

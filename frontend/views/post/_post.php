@@ -23,7 +23,10 @@ if ($fullView) {
     </div>
 
     <div class="body">
-        <?= HtmlPurifier::process(Markdown::process($post->body, 'gfm-comment')) ?>
+        <?= HtmlPurifier::process(Markdown::process(\common\helpers\Generator::limitWords($post->body, 200), 'gfm-comment')) ?>
+        <p>
+            <?= Html::a(Yii::t('app', 'read more...'), ['/post/view', 'id' => $post->id], ['class' => 'btn btn-default btn-sm']) ?>
+        </p>
     </div>
 
     <div class="bottom-article">
