@@ -9,6 +9,7 @@ use common\models\Question;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -125,10 +126,18 @@ class QaController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     * @throws \Exception
      */
     public function actionUpdateQuestion($id)
     {
         $question = $this->findModel($id);
+
+        if (!Yii::$app->user->getId() !== $question->user_id) {
+            throw new ForbiddenHttpException();
+        }
+
         $questionForm = new QuestionForm(
             [
                 'question' => $question
@@ -152,6 +161,7 @@ class QaController extends Controller
      * If update is successful, the browser will be redirected to the 'view' question page.
      * @param integer $id
      * @return mixed
+     * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
      */
     public function actionUpdateAnswer($id)
@@ -159,6 +169,10 @@ class QaController extends Controller
         /* @var $answer Answer */
         if (($answer = Answer::findOne($id)) === null) {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        if (!Yii::$app->user->getId() !== $answer->user_id) {
+            throw new ForbiddenHttpException();
         }
 
         if ($answer->load(Yii::$app->request->post()) && $answer->save(true, ['body'])) {
@@ -176,10 +190,19 @@ class QaController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     * @throws \Exception
      */
     public function actionDeleteQuestion($id)
     {
-        $this->findModel($id)->delete();
+        $question = $this->findModel($id);
+
+        if (!Yii::$app->user->getId() !== $question->user_id) {
+            throw new ForbiddenHttpException();
+        }
+
+        $question->delete();
 
         return $this->redirect(['index']);
     }
@@ -189,13 +212,19 @@ class QaController extends Controller
      * If deletion is successful, the browser will be redirected to the 'Question' page.
      * @param integer $id
      * @return mixed
+     * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
+     * @throws \Exception
      */
     public function actionDeleteAnswer($id)
     {
         /* @var $answer Answer */
         if (($answer = Answer::findOne($id)) === null) {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        if (!Yii::$app->user->getId() !== $answer->user_id) {
+            throw new ForbiddenHttpException();
         }
 
         $answer->delete();
