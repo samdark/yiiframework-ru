@@ -29,10 +29,10 @@ AppAsset::register($this);
         <?php
         NavBar::begin(
             [
-                'brandLabel' => '<span class="animated flash text-orange">y</span><span class="animated flash text-green">i</span><span class="animated flash text-blue">i</span>framework.ru',
+                'brandLabel' => '',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar navbar-default drop navbar-static-top',
+                    'class' => 'navbar navbar-default',
                 ],
             ]
         );
@@ -83,84 +83,70 @@ AppAsset::register($this);
 
 </div>
 
-<footer>
+<div class="container-fluid footer">
     <div class="container">
-        <div class="row marginbot30">
-            <div class="col-lg-3">
-                <div class="widget">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="yii-lable">
+                    <img
+                        src="https://camo.githubusercontent.com/d10ea4bd497025fc11f5d609258752fe68345290/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f506f77657265645f62792d5969695f4672616d65776f726b2d677265656e2e7376673f7374796c653d666c6174"></p>
 
-                    <h5 class="widgetheading">
-                        <img
-                            src="https://camo.githubusercontent.com/d10ea4bd497025fc11f5d609258752fe68345290/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f506f77657265645f62792d5969695f4672616d65776f726b2d677265656e2e7376673f7374796c653d666c6174"></p>
-                    </h5>
+                </div>
 
-                    <p><?= Yii::t('app', 'Yii is a high-performance PHP framework best for developing Web 2.0 applications.') ?></p>
+                <div class="fiiter-yii-info">
+                    <?= Yii::t('app', 'Yii is a high-performance PHP framework best for developing Web 2.0 applications.') ?>
+                </div>
 
-                    <div class="copyright">
-                        <p><span>© 2009 — <?= date('Y') ?>, <?= Yii::t('app', 'Yii community') ?></span>
-                    </div>
+                <div class="footer-social">
+                    <a href="https://github.com/yiisoft/yii2" class="github" target="_blank"></a>
+                    <a href="https://twitter.com/yiiframework_ru" class="twitter" target="_blank"></a>
+                    <a href="https://www.facebook.com/groups/yiitalk/" class="facebook" target="_blank"></a>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <div class="widget">
-                    <h5 class="widgetheading"><?= Yii::t('app', 'Navigation') ?></h5>
-                    <ul class="link-list">
-                        <?
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+                <div class="b-footer-cent">
+                    <div class="footer-title">Навигация</div>
+                    <ul class="footer-nav">
+                        <?php
                         foreach ($menuItems as $item) {
                             $anchor = Html::a($item['label'], $item['url']);
-
                             echo Html::tag('li', $anchor);
                         }
                         ?>
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <div class="widget">
-                    <h5 class="widgetheading"><?= Yii::t('app', 'Support') ?></h5>
-                    <ul class="link-list">
-                        <li>
-                            <?= Html::a(
-                                Yii::t('app', 'Leave feedback'),
-                                'http://yiiframework.ru/forum/viewforum.php?f=5',
-                                ['target' => '_blank']
-                            ) ?>
-                        </li>
-                        <li>
-                            <?= Html::a(
-                                Yii::t('app', 'Public chat'),
-                                'https://gitter.im/yiisoft/yii2/rus',
-                                ['target' => '_blank']
-                            ) ?>
-                        </li>
-                        <li>
-                            <?= Html::a(
-                                Yii::t('app', 'Report a bug'),
-                                'https://github.com/samdark/yiiframework-ru/issues',
-                                ['target' => '_blank']
-                            ) ?>
-                        </li>
-                        <li>
-                            <?= Html::a(
-                                Yii::t('app', 'Twitter'),
-                                'https://twitter.com/yiiframework_ru',
-                                ['target' => '_blank']
-                            ) ?>
-                        </li>
-                        <li>
-                            <?= Html::a(Yii::t('app', 'Forum'), ['/forum']) ?>
-                        </li>
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+                <div class="b-footer-cent">
+                    <div class="footer-title">Поддержка</div>
+                    <ul class="footer-nav">
+                        <li><a href="#">Оставить пожелание</a></li>
+                        <li><a href="#">Открытый чат</a></li>
+                        <li><a href="#">Сообщать об ошибке</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <div class="widget">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                <div class="footer-copyright">
+                    <p>
+                        © 2009 — <?= date('Y') ?>, <?= Yii::t('app', 'Yii community') ?>, Александр Макаров<br>
+                        и группа переводчиков русской документации
+                    </p>
 
+                    <p>
+                        © 2008 — <?= date('Y') ?>, Yii Software LLC<br>
+                        <a href="">Условия использования</a>
+                    </p>
+
+                    <p>
+                        Дизайн — Сергей Хильков<br>
+                        <a href="http://www.eshill.ru/" target="_blank">www.eshill.ru</a>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-</footer>
+</div>
 
 <?php $this->endBody() ?>
 </body>

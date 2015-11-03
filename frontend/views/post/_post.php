@@ -12,30 +12,22 @@ if ($fullView) {
 }
 ?>
 
-<article class="post">
-    <div class="post-image">
-        <div class="post-heading">
-            <h3> <?= $fullView ? Html::encode($post->title) : Html::a(
-                    Html::encode($post->title),
-                    ['/post/view', 'id' => $post->id]
-                ) ?></h3>
-        </div>
+<article class="post-item">
+
+    <div class="post-title">
+        <?= $fullView ? Html::encode($post->title) : Html::a(
+            Html::encode($post->title),
+            ['/post/view', 'id' => $post->id]
+        ) ?>
     </div>
 
-    <div class="body">
-        <?= HtmlPurifier::process(Markdown::process(\common\helpers\Generator::limitWords($post->body, 200), 'gfm-comment')) ?>
-        <p>
-            <?= Html::a(Yii::t('app', 'read more...'), ['/post/view', 'id' => $post->id], ['class' => 'btn btn-default btn-sm']) ?>
-        </p>
+    <div class="post-info">
+        <?= Yii::$app->formatter->asDate($post->updated_at); ?> <span class="margin-line">|</span>
+        <?= Html::a(Html::encode($post->user->username), ['profile/view', 'id' => $post->user->id]); ?>
     </div>
 
-    <div class="bottom-article">
-        <ul class="meta-post">
-            <li><i class="glyphicon glyphicon-calendar"></i><?= Yii::$app->formatter->asDate($post->updated_at); ?></li>
-            <li>
-                <i class="glyphicon glyphicon-user"></i>
-                <?= Html::a(Html::encode($post->user->username), ['profile/view', 'id' => $post->user->id]); ?>
-            </li>
-        </ul>
-    </div>
+    <?= HtmlPurifier::process(Markdown::process(\common\helpers\Generator::limitWords($post->body, 200), 'gfm-comment')) ?>
+
+    <?= Html::a(Yii::t('app', 'read more...'), ['/post/view', 'id' => $post->id], ['class' => 'btn btn-default btn-sm']) ?>
+
 </article>

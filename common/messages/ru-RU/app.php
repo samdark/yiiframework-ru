@@ -82,4 +82,5 @@ return [
     'Yii community' => 'Сообщество Yii',
     'Yii is a high-performance PHP framework best for developing Web 2.0 applications.' => 'Yii — это высокопроизводительный PHP фреймворк, отлично подходящий для Web 2.0 приложений.',
     'no site' => 'нет сайта',
+    'read more...' => 'читать дальше...',
 ];
