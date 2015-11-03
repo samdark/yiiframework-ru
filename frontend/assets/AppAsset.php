@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle
         'css/theme-skin.css',
     ];
     public $js = [
+        'js/qa.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
