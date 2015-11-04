@@ -6,8 +6,13 @@ use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 
+/**
+ * PostController handles news
+ * Both individual articles and a front page
+ */
 class PostController extends Controller
 {
     const PAGE_SIZE = 10;
@@ -72,6 +77,10 @@ class PostController extends Controller
         $post = Post::findOne(['status' => Post::STATUS_ACTIVE, 'id' => $id]);
         if (!$post) {
             throw new NotFoundHttpException();
+        }
+
+        if (Yii::$app->user->getId() != $post->user_id) {
+            throw new ForbiddenHttpException();
         }
 
         if ($post->load(Yii::$app->request->post()) && $post->save()) {
