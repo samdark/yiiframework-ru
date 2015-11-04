@@ -10,6 +10,9 @@ use Faker;
 use yii\console\Controller;
 use yii\db\Query;
 
+/**
+ * DemoDataController seeds database with demo data
+ */
 class DemoDataController extends Controller
 {
     public function actionQa()

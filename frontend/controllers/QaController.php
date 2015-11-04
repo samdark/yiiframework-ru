@@ -18,6 +18,9 @@ use yii\filters\VerbFilter;
  */
 class QaController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [

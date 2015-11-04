@@ -305,6 +305,9 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @return mixed
+     */
     public function actionLegacy()
     {
         return $this->render('legacy');

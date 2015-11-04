@@ -8,6 +8,9 @@ use yii\helpers\Html;
 use yii\base\Widget;
 use yii\base\InvalidConfigException;
 
+/**
+ * Gravatar widget renders gravatar image given email address
+ */
 class Gravatar extends Widget
 {
     /** @var string $gravatarUrl */
