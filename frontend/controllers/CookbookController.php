@@ -11,10 +11,17 @@ use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
+/**
+ * CookbookController handlers rendering of the old 1.1 unofficial cookbook articles
+  */
 class CookbookController extends Controller
 {
     private $_toc;
 
+    /**
+     * @param string $topic
+     * @return string document path for a topic
+     */
     private function getDocumentPath($topic)
     {
         return \Yii::getAlias('@webroot') . '/cookbook/ru/' . $topic . '.txt';
@@ -54,12 +61,20 @@ class CookbookController extends Controller
         ]);
     }
 
+    /**
+     * @param array $matches
+     * @return string
+     */
     private function replaceImgLink($matches)
     {
         $imageUrl = Yii::getAlias('@web') . '/cookbook/ru/images/' . $matches[2];
         return '<div class="image"><p>' . $matches[3] . '</p><img' . $matches[1] . 'src="' . $imageUrl . '" alt="' . $matches[3] . '" /></div>';
     }
 
+    /**
+     * @param array $matches
+     * @return string
+     */
     private function replaceDocLink($matches)
     {
         if (($pos = strpos($matches[1], '#')) !== false) {
@@ -71,12 +86,18 @@ class CookbookController extends Controller
         return 'href="' . Url::toRoute(['cookbook/view', 'page' => $matches[1]]) . $anchor . '"';
     }
 
+    /**
+     * @return string
+     */
     private function getTopic()
     {
         $topic = Yii::$app->request->get('page', 'index');
         return str_replace(['/', '\\'], '', trim($topic));
     }
 
+    /**
+     * @return array
+     */
     private function getTOC()
     {
         if ($this->_toc === null) {

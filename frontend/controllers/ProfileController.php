@@ -10,6 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use frontend\models\ChangePasswordForm;
 
+/**
+ * ProfileController handles user profile
+ */
 class ProfileController extends Controller
 {
     /**

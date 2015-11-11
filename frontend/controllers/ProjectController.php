@@ -10,14 +10,21 @@ use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
 
+/**
+ * ProjectController handles projects showcase
+ */
 class ProjectController extends Controller
 {
     const PAGE_SIZE = 10;
 
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -125,6 +132,7 @@ class ProjectController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
@@ -140,6 +148,10 @@ class ProjectController extends Controller
 
         if ($Project === null) {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        if (Yii::$app->user->getId() != $Project->user_id) {
+            throw new ForbiddenHttpException();
         }
 
         $ProjectForm = new ProjectForm(['Project' => $Project]);
