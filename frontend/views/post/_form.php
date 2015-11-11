@@ -12,7 +12,7 @@ $form = ActiveForm::begin([
 
     <?= $form->errorSummary($post)?>
 
-    <?= $form->field($post, 'title') ?>
+    <?= $form->field($post, 'title')->textInput(['class'=>'form-control input-lg']) ?>
 
     <?= Html::activeLabel($post, 'body') ?>
     <?= Markdowneditor::widget([
@@ -22,7 +22,7 @@ $form = ActiveForm::begin([
 
     <div class="form-group">
         <div>
-            <?= Html::submitButton(Yii::t('app', 'Publish'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Publish'), ['class' => 'btn btn-success btn-lg']) ?>
         </div>
     </div>
 <?php ActiveForm::end() ?>
