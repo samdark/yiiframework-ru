@@ -18,7 +18,7 @@ $this->title = \Yii::t('app', 'Posts');
 
     <?= Html::a(
         Yii::t('app', 'Publish post'),
-        ['/post/create'], ['class' => 'btn btn-lg btn-border btn-post']
+        ['/post/create'], ['class' => 'btn btn-lg btn-border-success btn-post']
     ) ?>
 
     <div class="post-items">
