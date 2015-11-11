@@ -17,6 +17,8 @@ class PostController extends Controller
 {
     const PAGE_SIZE = 10;
 
+    public $layout = "common";
+
     /**
      * @inheritdoc
      */
@@ -47,11 +49,11 @@ class PostController extends Controller
             ->orderBy('post.created_at DESC');
 
         $provider = new ActiveDataProvider([
-             'query' => $query,
-             'pagination' => [
-                 'pageSize' => self::PAGE_SIZE,
-             ],
-         ]);
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => self::PAGE_SIZE,
+            ],
+        ]);
 
         $this->layout = 'front';
         return $this->render('index', [

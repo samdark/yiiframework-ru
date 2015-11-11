@@ -1,13 +1,12 @@
 <?php
 /* @var $this \yii\web\View */
 /* @var $post \common\models\Post */
-use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Create post');
 ?>
 
-<div class="post-create">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', ['post' => $post]) ?>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <?= $this->render('_form', ['post' => $post]) ?>
+    </div>
 </div>
