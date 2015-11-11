@@ -24,64 +24,51 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class="wrap">
-    <header>
-        <?php
-        NavBar::begin(
-            [
-                'brandLabel' => '',
-                'brandUrl' => Yii::$app->homeUrl,
-                'options' => [
-                    'class' => 'navbar navbar-default',
-                ],
+<?php
+NavBar::begin(
+    [
+        'brandLabel' => '',
+        'brandUrl' => Yii::$app->homeUrl,
+    ]
+);
+$menuItems = [
+    ['label' => '1.1', 'url' => ['/site/legacy']],
+    ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html'],
+    ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html'],
+    ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/'],
+    ['label' => Yii::t('app', 'Questions'), 'url' => ['/qa']],
+    ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus'],
+    ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/'],
+    ['label' => Yii::t('app', 'Member List'), 'url' => ['/profile/list']],
+    ['label' => Yii::t('app', 'Projects'), 'url' => ['/project/']],
+];
+if (Yii::$app->user->isGuest) {
+    echo Html::a('', ['/site/login'], ['class' => 'b-enter enter-key']);
+} else {
+    echo Html::a('', ['/profile/index'], ['class' => 'b-enter user-avatar', 'style' => 'background-image: url("' . (new \common\widgets\Gravatar([
+            'email' => Html::encode(Yii::$app->user->identity->email),
+            'size' => 150,
+            'options' => [
+                'class' => 'img-thumbnail',
+                'title' => Html::encode(Yii::$app->user->identity->username),
+                'alt' => Html::encode(Yii::$app->user->identity->username)
             ]
-        );
-        $menuItems = [
-            ['label' => '1.1', 'url' => ['/site/legacy']],
-            ['label' => 'Twitter', 'url' => 'http://twitter.com/yiiframework_ru'],
-            ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html'],
-            ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html'],
-            ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/'],
-            ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus'],
-            ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/'],
-            ['label' => Yii::t('app', 'Member List'), 'url' => ['/profile/list']],
-            ['label' => Yii::t('app', 'Projects'), 'url' => ['/project/']],
-        ];
-        if (Yii::$app->user->isGuest) {
-            $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-            $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
-        } else {
-            $menuItems[] = [
-                'label' => Yii::$app->user->identity->username,
-                'url' => '#',
-                'items' => [
-                    ['label' => Yii::t('app', 'My profile'), 'url' => ['/profile/index']],
-                    ['label' => Yii::t('app', 'Edit profile'), 'url' => ['/profile/update']],
-                    [
-                        'label' => Yii::t('app', 'Logout'),
-                        'url' => ['/site/logout'],
-                        'linkOptions' => ['data-method' => 'post']
-                    ]
-                ]
-            ];
-        }
-        echo Nav::widget(
-            [
-                'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => $menuItems,
-            ]
-        );
-        NavBar::end();
-        ?>
-    </header>
+        ]))->getUrl() . '")']);}
+echo Nav::widget(
+    [
+        'options' => ['class' => 'nav navbar-nav'],
+        'items' => $menuItems,
+    ]
+);
+NavBar::end();
+?>
 
-    <div class="container">
-        <?= Alert::widget() ?>
-    </div>
 
-    <?= $content ?>
-
+<div class="container">
+    <?= Alert::widget() ?>
 </div>
+
+<?= $content ?>
 
 <div class="container-fluid footer">
     <div class="container">
