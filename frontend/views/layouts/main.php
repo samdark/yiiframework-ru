@@ -21,7 +21,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body class="<?= $this->blocks['body-class'] ?>">
 <?php $this->beginBody() ?>
 
 <?php
