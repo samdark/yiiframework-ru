@@ -19,4 +19,7 @@
 return [
     'Active' => 'Активный',
     'Delete' => 'Удалённый',
+    'Password' => 'Пароль',
+    'Remember me' => 'Запомнить',
+    'Username' => 'Имя',
 ];
