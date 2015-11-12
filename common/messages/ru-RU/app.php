@@ -18,7 +18,6 @@
  */
 return [
     'Add Project' => 'Добавить проект',
-    'Add Question' => 'Добавить вопрос',
     'Add screenshots' => 'Добавить скриншоты',
     'Allow to upload JPEG/PNG files.' => 'Можно загружать JPEG и PNG.',
     'Are you sure you want to delete this item?' => 'Вы уверены, что хотите выполнить удаление?',
@@ -28,7 +27,6 @@ return [
     'Change password' => 'Сменить пароль',
     'Change picture' => 'Сменить изображение',
     'Chat' => 'Чат',
-    'Create Question' => 'Создать вопрос',
     'Create post' => 'Создать пост',
     'Created At' => 'Создан',
     'Current Password' => 'Текущий пароль',
@@ -53,7 +51,6 @@ return [
     'Navigation' => 'Навигация',
     'Not verified' => 'Не подтверждён',
     'Password' => 'Пароль',
-    'Post Your Answer' => 'Опубликовать ответ',
     'Posts' => 'Посты',
     'Project ID' => 'ID проекта',
     'Projects' => 'Проекты',
@@ -79,8 +76,6 @@ return [
     'Unable to link {client} account. There is another user using it.' => 'Не удалось подключить {client}. Он уже используется другим пользователем.',
     'Unable to link {client} account: {errors}' => 'Не удалось подключить {client}: {errors}',
     'Update' => 'Обновить',
-    'Update Question' => 'Обновить вопрос',
-    'Update answer' => 'Обновить ответ',
     'Update post' => 'Обновить пост',
     'Updated At' => 'Обновлён',
     'User ID' => 'ID пользователя',
@@ -91,12 +86,5 @@ return [
     'View Profile - {username}' => 'Профиль {username}',
     'Yii community' => 'Сообщество Yii',
     'Yii is a high-performance PHP framework best for developing Web 2.0 applications.' => 'Yii — это высокопроизводительный PHP фреймворк, отлично подходящий для Web 2.0 приложений.',
-    'Your Answer' => 'Ваш ответ',
-    'Your answer published' => 'Ваш ответ опубликован',
-    'no site' => 'нет сайта',
-    '{n, plural, =0{No answers} =1{One answer} other{# answers}}' => '{n, plural, =0{Нет ответов} =1{Один ответ} one{# ответ} few{# ответов} many{# ответов} other{# ответа}}',
-    '{n, plural, =0{answers} =1{answer} other{answers}}' => '{n, plural, =0{ответов} =1{ответ} one{ответ} few{ответов} many{ответов} other{ответа}}',
-    '{n, plural, =0{views} =1{view} other{views}}' => '{n, plural, =0{просмотров} =1{просмотр} one{просмотр} few{просмотров} many{просмотров} other{просмотра}}',
-    '{n, plural, =0{votes} =1{vote} other{votes}}' => '{n, plural, =0{голосов} =1{голос} one{голоса} few{голоса} many{голосов} other{голоса}}',
-    'Reply' => 'Ответить'
+    'no site' => 'нет сайта'
 ];

@@ -232,20 +232,4 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Auth::className(), ['user_id' => 'id']);
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getQuestion()
-    {
-        return $this->hasMany(Question::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAnswers()
-    {
-        return $this->hasMany(Answer::className(), ['user_id' => 'id']);
-    }
 }
