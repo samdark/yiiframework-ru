@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use creocoder\taggable\TaggableBehavior;
 
@@ -58,7 +60,13 @@ class Question extends ActiveRecord
             'questionTags' => [
                 'class' => TaggableBehavior::className(),
                 'tagRelation' => 'questionTags'
-            ]
+            ],
+            TimestampBehavior::className(),
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'user_id',
+                'updatedByAttribute' => false,
+            ],
         ];
     }
 
@@ -68,11 +76,11 @@ class Question extends ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'title', 'body', 'created_at', 'updated_at'], 'required'],
-            [['user_id', 'view_count', 'answer_count', 'favorite_count', 'solution', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['title', 'body',], 'required'],
+            [['status'], 'default', 'value' => self::STATUS_PUBLISHED],
+            [['status'], 'integer'],
             [['body'], 'string'],
-            [['title'], 'string', 'max' => 255],
-            ['tagValues', 'safe'],
+            [['title'], 'string', 'max' => 255]
         ];
     }
 
