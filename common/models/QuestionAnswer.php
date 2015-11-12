@@ -14,7 +14,7 @@ use yii\db\ActiveRecord;
  * @property integer $user_id
  * @property integer $question_id
  * @property string $body
- * @property integer $solution
+ * @property integer $solved
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
@@ -76,7 +76,7 @@ class QuestionAnswer extends ActiveRecord
             'user_id' => Yii::t('qa', 'User ID'),
             'question_id' => Yii::t('qa', 'Question ID'),
             'body' => Yii::t('qa', 'Body'),
-            'solution' => Yii::t('qa', 'Solution'),
+            'solved' => Yii::t('qa', 'Solved'),
             'status' => Yii::t('qa', 'Status'),
             'created_at' => Yii::t('qa', 'Created At'),
             'updated_at' => Yii::t('qa', 'Updated At')

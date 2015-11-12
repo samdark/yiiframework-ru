@@ -18,7 +18,7 @@ use creocoder\taggable\TaggableBehavior;
  * @property integer $view_count
  * @property integer $answer_count
  * @property integer $favorite_count
- * @property integer $solution
+ * @property integer $solved
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
@@ -107,7 +107,7 @@ class Question extends ActiveRecord
             'view_count' => Yii::t('qa', 'View Count'),
             'answer_count' => Yii::t('qa', 'Answer Count'),
             'favorite_count' => Yii::t('qa', 'Favorite Count'),
-            'solution' => Yii::t('qa', 'Solution'),
+            'solved' => Yii::t('qa', 'Solved'),
             'status' => Yii::t('qa', 'Status'),
             'created_at' => Yii::t('qa', 'Created At'),
             'updated_at' => Yii::t('qa', 'Updated At')

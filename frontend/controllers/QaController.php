@@ -189,7 +189,7 @@ class QaController extends Controller
         $query = Question::find()
             ->with(['user', 'questionTags'])
             ->andWhere([
-                'question.solution' => Question::STATUS_SOLVED,
+                'question.solved' => Question::STATUS_SOLVED,
                 'question.status' => Question::STATUS_PUBLISHED
             ])
             ->orderBy('question.created_at DESC');

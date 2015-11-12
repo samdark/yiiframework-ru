@@ -17,7 +17,7 @@ use common\helpers\Generator;
             <div class="post-info">
                 <?= Yii::$app->formatter->asDate($question->created_at); ?> <span class="margin-line">|</span>
                 <?= Html::a(Html::encode($question->user->username), ['profile/view', 'id' => $question->user->id]); ?>
-                <?= $question->solution ? '<span class="ico_true ico_true_green"><svg><use xlink:href="#ico_true" /></svg> ' . Yii::t('qa', 'Resolve') . '</span>' : '' ?>
+                <?= $question->solved ? '<span class="ico_true ico_true_green"><svg><use xlink:href="#ico_true" /></svg> ' . Yii::t('qa', 'Resolve') . '</span>' : '' ?>
             </div>
 
             <div class="q-description">
