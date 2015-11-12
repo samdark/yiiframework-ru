@@ -24,8 +24,17 @@ use yii\db\ActiveRecord;
  */
 class QuestionAnswer extends ActiveRecord
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+    /** Status published */
+    const STATUS_PUBLISHED = 10;
+
+    /** Status deleted */
+    const STATUS_DELETED = 20;
+
+    /** Not solved status */
+    const STATUS_NOT_SOLVED = 0;
+
+    /** Solved status */
+    const STATUS_SOLVED = 1;
 
 
     /**
@@ -60,7 +69,8 @@ class QuestionAnswer extends ActiveRecord
             [['question_id', 'body', 'parent_id'], 'required'],
             [['question_id',], 'exist', 'targetClass' => Question::className(), 'targetAttribute' => 'id'],
             [['parent_id'], 'default', 'value' => 0],
-            [['status'], 'default', 'value' => self::STATUS_ACTIVE],
+            [['status'], 'default', 'value' => self::STATUS_PUBLISHED],
+            [['solved'], 'default', 'value' => self::STATUS_NOT_SOLVED],
             [['status', 'parent_id'], 'integer'],
             [['body'], 'string'],
         ];
