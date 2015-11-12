@@ -45,22 +45,23 @@ $this->title = Yii::t('app', 'Questions');
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 b-rel">
         <div class="q-tools">
-            <?= Html::a(
-                '<svg><use xlink:href="#ico_edit"/></svg>',
-                ['update-question', 'id' => $question->id],
-                ['class' => 'btn btn-lg btn-border-primary btn-border-edit']
-            ) ?>
 
             <?= Html::a(
                 '<svg><use xlink:href="#ico_del"/></svg>',
                 ['delete-question', 'id' => $question->id],
                 [
-                    'class' => 'btn btn-lg btn-border-danger btn-border-del',
+                    'class' => 'btn btn-lg btn-border-danger btn-border-del pull-right',
                     'data' => [
                         'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                         'method' => 'post',
                     ],
                 ]
+            ) ?>
+
+            <?= Html::a(
+                '<svg><use xlink:href="#ico_edit"/></svg>',
+                ['update-question', 'id' => $question->id],
+                ['class' => 'btn btn-lg btn-border-primary btn-border-edit pull-right']
             ) ?>
 
         </div>
