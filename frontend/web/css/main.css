@@ -5,6 +5,67 @@
 .c-red {
   color: #f84823; }
 
+.project-item {
+  margin-bottom: 50px; }
+  .project-item .project-cover {
+    display: block;
+    min-height: 150px;
+    background-color: #e6e6e6;
+    background-size: cover;
+    transition: all 0.1s ease; }
+    .project-item .project-cover:hover {
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 20px 0px; }
+  .project-item .project-title {
+    height: 43px; }
+  .project-item .project-title-text {
+    line-height: 20px;
+    display: block;
+    word-wrap: break-word;
+    overflow: hidden; }
+
+.project-info {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  color: #505050; }
+  .project-info span {
+    margin-left: 10px; }
+  .project-info .p-info-like svg {
+    width: 20px;
+    height: 18px;
+    fill: #fff;
+    stroke-width: 2px;
+    stroke: #505050;
+    float: left;
+    cursor: pointer;
+    transition: all .1s ease; }
+    .project-info .p-info-like svg:hover {
+      stroke: #f84823; }
+    .project-info .p-info-like svg:active, .project-info .p-info-like svg:focus {
+      stroke: #f84823;
+      fill: #f84823; }
+  .project-info .active svg {
+    fill: #f84823;
+    stroke: #f84823; }
+    .project-info .active svg:hover {
+      fill: #fb9a86; }
+    .project-info .active svg:active, .project-info .active svg:focus {
+      fill: #fff;
+      stroke: #505050; }
+  .project-info .p-info-view svg {
+    width: 20px;
+    height: 18px;
+    fill: #505050;
+    float: left;
+    margin-left: 20px; }
+  .project-info .p-info-comment svg {
+    width: 20px;
+    height: 18px;
+    fill: #505050;
+    float: left;
+    margin-left: 20px; }
+
 body {
   font-family: 'Roboto', sans-serif; }
 
@@ -1211,7 +1272,7 @@ table td {
   fill: #84cf2f;
   color: #84cf2f; }
 
-.q-similar .q-info a.c-red:hover {
+.q-info a.c-red:hover {
   color: #f84823; }
 
 .similar-item {
