@@ -3,10 +3,12 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "question_answer".
+ * This is the model class for table "answer".
  *
  * @property integer $id
  * @property integer $user_id
@@ -22,6 +24,10 @@ use yii\db\ActiveRecord;
  */
 class QuestionAnswer extends ActiveRecord
 {
+    const STATUS_DELETED = 0;
+    const STATUS_ACTIVE = 10;
+
+
     /**
      * @inheritdoc
      */
@@ -33,12 +39,30 @@ class QuestionAnswer extends ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'user_id',
+                'updatedByAttribute' => false,
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
-            [['user_id', 'question_id', 'body', 'created_at', 'updated_at'], 'required'],
-            [['user_id', 'question_id', 'solution', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['body'], 'string']
+            [['question_id', 'body', 'parent_id'], 'required'],
+            [['question_id',], 'exist', 'targetClass' => Question::className(), 'targetAttribute' => 'id'],
+            [['parent_id'], 'default', 'value' => 0],
+            [['status'], 'default', 'value' => self::STATUS_ACTIVE],
+            [['status', 'parent_id'], 'integer'],
+            [['body'], 'string'],
         ];
     }
 
