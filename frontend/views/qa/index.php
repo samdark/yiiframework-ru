@@ -3,11 +3,32 @@
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use yii\widgets\Menu;
+use frontend\widgets\QaTags;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('qa', 'Questions');
+switch (Yii::$app->controller->action->id) {
+    case 'index' :
+        $this->title = Yii::t('qa', 'Questions');
+        break;
+
+    case 'without-answer' :
+        $this->title = Yii::t('qa', 'Unanswered');
+        break;
+
+    case 'solved' :
+        $this->title = Yii::t('qa', 'Solved questions');
+        break;
+
+    case 'my' :
+        $this->title = Yii::t('qa', 'My questions');
+        break;
+
+    case 'favorites' :
+        $this->title = Yii::t('qa', 'Favorites');
+        break;
+}
 ?>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 
@@ -82,10 +103,7 @@ $this->title = Yii::t('qa', 'Questions');
 
         <div class="q-tags">
             <div class="title"><?= Yii::t('qa', 'Tags') ?>:</div>
-            <?= Html::a(Yii::t('qa', '---'), '#', ['class' => 'btn btn-default btn-sm']) ?>
-            <?= Html::a(Yii::t('qa', '---'), '#', ['class' => 'btn btn-default btn-sm']) ?>
-            <?= Html::a(Yii::t('qa', '---'), '#', ['class' => 'btn btn-default btn-sm']) ?>
-            <?= Html::a(Yii::t('qa', '---'), '#', ['class' => 'btn btn-default btn-sm']) ?>
+            <?= QaTags::widget() ?>
         </div>
 
     </div>

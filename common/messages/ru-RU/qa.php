@@ -28,5 +28,6 @@ return [
     'My questions' => 'Мои вопросы',
     'Favorites' => 'Избранные вопросы',
     'Questions are missing.' => 'Вопросы отсутствуют.',
-    '{n, plural, =0{answers} =1{answer} other{answers}}' => '{n, plural, =0{ответов} =1{ответ} one{ответ} few{ответов} many{ответов} other{ответа}}'
+    '{n, plural, =0{answers} =1{answer} other{answers}}' => '{n, plural, =0{ответов} =1{ответ} one{ответ} few{ответов} many{ответов} other{ответа}}',
+    'Tags are missing.' => 'Теги отсутствуют.'
 ];
