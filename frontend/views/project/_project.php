@@ -3,65 +3,50 @@
 /* @var $project \common\models\Project */
 
 use yii\helpers\Html;
-use yii\helpers\HtmlPurifier;
-use yii\helpers\Markdown;
-use common\helpers\Generator;
-
-$this->title = $project->title;
 ?>
 
-<div class="post">
+<div class="col-md-4">
+    <div class="project-item">
+        <?php if ($project->images) : ?>
+            <a href="<?= yii\helpers\Url::to(['/project/view', 'id' => $project->id]); ?>" class="project-cover"
+               style="background-image: url(<?= Yii::$app->params['url.to.project.images'] . $project->images[0]->name ?>);">
+            </a>
+        <?php endif ?>
 
-    <h4>
-        <?= Html::a(Html::encode($project->title), ['/project/view', 'id' => $project->id]); ?>
-    </h4>
-
-    <div class="row">
-        <div class="col-md-2">
-
-            <?php if ($project->images) : ?>
-                <div class="img-thumbnail">
-                    <a href="<?= Yii::$app->params['url.to.project.images'] . $project->images[0]->name ?>">
-                        <?= Html::img(
-                            Yii::$app->params['url.to.project.images'] . $project->images[0]->name,
-                            ['class' => 'img-responsive']
-                        ) ?>
-                    </a>
-                </div>
-            <?php endif ?>
-
+        <div class="post-info">
+            <?= Yii::$app->formatter->asDate($project->created_at); ?>
+            <span class="margin-line">|</span>
+            <?= Html::a(Html::encode($project->user->username), ['profile/view', 'id' => $project->user->id]); ?>
         </div>
 
-        <div class="col-md-10">
-
-            <section class="body">
-                <?= HtmlPurifier::process(Markdown::process(Generator::limitWords($project->body, 40), 'gfm-comment')) ?>
-            </section>
-
-            <div class="bottom-article">
-                <ul class="meta-post">
-
-                    <li>
-                        <i class="glyphicon glyphicon-calendar"></i><?= Yii::$app->formatter->asDate($project->created_at); ?>
-                    </li>
-
-                    <li>
-                        <i class="glyphicon glyphicon-user"></i>
-                        <?= Html::a(Html::encode($project->user->username), ['profile/view', 'id' => $project->user->id]); ?>
-                    </li>
-
-                    <?php if ($project->link) : ?>
-                        <li>
-                            <i class="glyphicon glyphicon-link"></i>
-                            <?= Html::a(Yii::t('app', 'To web'), $project->link); ?>
-                        </li>
-                    <?php endif; ?>
-
-                </ul>
+        <div class="project-title">
+            <?= Html::a(
+                '<span class="ellipsis_text">' . Html::encode($project->title) . '</span>',
+                ['/project/view', 'id' => $project->id],
+                ['class' => 'project-title-text']
+            ); ?>
+        </div>
+        <div class="project-info">
+            <div class="p-info-like">
+                <svg>
+                    <use xlink:href="#ico_like"/>
+                </svg>
+                <span>32</span>
             </div>
 
+            <div class="p-info-view">
+                <svg>
+                    <use xlink:href="#ico_view"/>
+                </svg>
+                <span>205</span>
+            </div>
+
+            <div class="p-info-comment">
+                <svg>
+                    <use xlink:href="#ico_comment"/>
+                </svg>
+                <span>12</span>
+            </div>
         </div>
-
     </div>
-
 </div>
