@@ -1,13 +1,11 @@
 <?php
-
-/* @var $this \yii\web\View */
-/* @var $content string */
-
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
 use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\helpers\Html;
+
+/* @var $this \yii\web\View */
+/* @var $content string */
 
 AppAsset::register($this);
 ?>
@@ -24,45 +22,69 @@ AppAsset::register($this);
 <body class="<?= $this->blocks['body-class'] ?>">
 <?php $this->beginBody() ?>
 
-<?php
-NavBar::begin(
-    [
-        'brandLabel' => '',
-        'brandUrl' => Yii::$app->homeUrl,
-    ]
-);
-$menuItems = [
-    ['label' => '1.1', 'url' => ['/site/legacy']],
-    ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html'],
-    ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html'],
-    ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/'],
-    ['label' => Yii::t('app', 'Questions'), 'url' => ['/qa']],
-    ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus'],
-    ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/'],
-    ['label' => Yii::t('app', 'Member List'), 'url' => ['/profile/list']],
-    ['label' => Yii::t('app', 'Projects'), 'url' => ['/project/']],
-];
-if (Yii::$app->user->isGuest) {
-    echo Html::a('', ['/site/login'], ['class' => 'b-enter enter-key']);
-} else {
-    echo Html::a('', ['/profile/index'], ['class' => 'b-enter user-avatar', 'style' => 'background-image: url("' . (new \common\widgets\Gravatar([
-            'email' => Html::encode(Yii::$app->user->identity->email),
-            'size' => 150,
-            'options' => [
-                'class' => 'img-thumbnail',
-                'title' => Html::encode(Yii::$app->user->identity->username),
-                'alt' => Html::encode(Yii::$app->user->identity->username)
-            ]
-        ]))->getUrl() . '")']);}
-echo Nav::widget(
-    [
-        'options' => ['class' => 'nav navbar-nav'],
-        'items' => $menuItems,
-    ]
-);
-NavBar::end();
-?>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <?php
+            if (Yii::$app->user->isGuest) {
+                echo Html::a('', ['/site/login'], ['class' => 'b-enter enter-key']);
+            } else {
+                echo Html::a(
+                    '',
+                    ['/profile/index'],
+                    [
+                        'class' => 'b-enter user-avatar',
+                        'style' => 'background-image: url("' . (
+                            new \common\widgets\Gravatar(
+                                [
+                                    'email' => Html::encode(Yii::$app->user->identity->email),
+                                    'size' => 64,
+                                    'options' => [
+                                        'class' => 'img-thumbnail',
+                                        'title' => Html::encode(Yii::$app->user->identity->username),
+                                        'alt' => Html::encode(Yii::$app->user->identity->username)
+                                    ]
+                                ]
+                            )
+                            )->getUrl() . '")'
+                    ]
+                );
+            }
+            ?>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="<?= Yii::$app->homeUrl ?>"></a>
+        </div>
 
+        <div class="navbar-collapse navbar-main-collapse collapse">
+            <?php
+            $menuItems = [
+                ['label' => '1.1', 'url' => ['/site/legacy']],
+                ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html'],
+                ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html'],
+                ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/'],
+                [
+                    'label' => Yii::t('app', 'Questions'),
+                    'url' => ['/qa'],
+                    'active' => Yii::$app->controller->id === 'qa'
+                ],
+                ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus'],
+                ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/'],
+                ['label' => Yii::t('app', 'Member List'), 'url' => ['/profile/list']],
+                ['label' => Yii::t('app', 'Projects'), 'url' => ['/project/']],
+            ];
+
+            echo Nav::widget(
+                ['options' => ['class' => 'nav navbar-nav'], 'items' => $menuItems, 'activateParents' => true]
+            );
+            ?>
+        </div>
+    </div>
+</nav>
 
 <div class="container">
     <?= Alert::widget() ?>
@@ -81,7 +103,10 @@ NavBar::end();
                 </div>
 
                 <div class="fiiter-yii-info">
-                    <?= Yii::t('app', 'Yii is a high-performance PHP framework best for developing Web 2.0 applications.') ?>
+                    <?= Yii::t(
+                        'app',
+                        'Yii is a high-performance PHP framework best for developing Web 2.0 applications.'
+                    ) ?>
                 </div>
 
                 <div class="footer-social">
