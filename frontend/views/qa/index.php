@@ -35,10 +35,10 @@ $this->title = Yii::t('qa', 'Questions');
             'linkTemplate' => '<a role="presentation" href="{url}">{label}</a>',
             'items' => [
                 ['label' => Yii::t('qa', 'All questions'), 'url' => ['qa/index']],
-                ['label' => Yii::t('qa', 'Без ответа'), 'url' => ['qa/without-answer']],
-                ['label' => Yii::t('qa', 'Решенные вопросы'), 'url' => ['qa/solved']],
-                ['label' => Yii::t('qa', 'Мои вопросы'), 'url' => ['qa/my'], 'visible' => !Yii::$app->user->isGuest],
-                ['label' => Yii::t('qa', 'Избранные вопросы'), 'url' => ['qa/favorite'], 'visible' => !Yii::$app->user->isGuest]
+                ['label' => Yii::t('qa', 'Unanswered'), 'url' => ['qa/without-answer']],
+                ['label' => Yii::t('qa', 'Solved questions'), 'url' => ['qa/solved']],
+                ['label' => Yii::t('qa', 'My questions'), 'url' => ['qa/my'], 'visible' => !Yii::$app->user->isGuest],
+                ['label' => Yii::t('qa', 'Favorites'), 'url' => ['qa/favorite'], 'visible' => !Yii::$app->user->isGuest]
             ],
         ]); ?>
 
