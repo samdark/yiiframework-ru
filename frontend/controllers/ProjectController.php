@@ -22,6 +22,8 @@ class ProjectController extends Controller
 {
     const PAGE_SIZE = 10;
 
+    public $layout = "common";
+
     /**
      * @inheritdoc
      */
