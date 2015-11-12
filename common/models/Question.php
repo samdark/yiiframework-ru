@@ -78,6 +78,7 @@ class Question extends ActiveRecord
         return [
             [['title', 'body',], 'required'],
             [['status'], 'default', 'value' => self::STATUS_PUBLISHED],
+            [['solved'], 'default', 'value' => self::STATUS_NOT_SOLVED],
             [['status'], 'integer'],
             [['body'], 'string'],
             [['title'], 'string', 'max' => 255]
