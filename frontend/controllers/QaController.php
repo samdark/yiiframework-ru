@@ -142,7 +142,7 @@ class QaController extends Controller
     {
         $question = $this->findModel($id);
 
-        if (!Yii::$app->user->getId() !== $question->user_id) {
+        if (Yii::$app->user->getId() !== $question->user_id) {
             throw new ForbiddenHttpException();
         }
 
@@ -179,7 +179,7 @@ class QaController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
 
-        if (!Yii::$app->user->getId() !== $answer->user_id) {
+        if (Yii::$app->user->getId() !== $answer->user_id) {
             throw new ForbiddenHttpException();
         }
 
