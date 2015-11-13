@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use yii\widgets\Menu;
-use frontend\widgets\QaTags;
+use frontend\widgets\TagsWidget;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -103,7 +103,9 @@ switch (Yii::$app->controller->action->id) {
 
         <div class="q-tags">
             <div class="title"><?= Yii::t('qa', 'Tags') ?>:</div>
-            <?= QaTags::widget() ?>
+            <?= TagsWidget::widget([
+                'tagsClass' => \common\models\QuestionTag::className()
+            ]) ?>
         </div>
 
     </div>
