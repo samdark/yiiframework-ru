@@ -5,7 +5,6 @@ namespace frontend\widgets;
 use Yii;
 use yii\helpers\Html;
 use yii\base\Widget;
-use common\models\QuestionTag;
 
 /**
  * Class TagsWidget
