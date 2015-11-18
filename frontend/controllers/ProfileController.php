@@ -20,6 +20,11 @@ class ProfileController extends Controller
      */
     const PAGE_SIZE = 25;
 
+    /**
+     * @inheritdoc
+     */
+    public $layout = "common";
+
 
     /**
      * @inheritdoc
