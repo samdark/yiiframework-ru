@@ -9,33 +9,15 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = Yii::t('app', 'Edit profile');
-$this->params['breadcrumbs'][] = Yii::t('app', 'My profile');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="profile-update">
-    <h1><?= Html::encode($this->title) ?> : <?= Html::encode($userForm->user->username) ?></h1>
 
+<div class="container page-wrapper page-cont-col">
     <div class="row">
-
-        <div class="col-md-2">
-            <?= \common\widgets\Gravatar::widget([
-                'email' => Html::encode($userForm->user->email),
-                'size' => 150,
-                'options' => [
-                    'class' => 'img-thumbnail',
-                    'title' => Html::encode($userForm->user->username),
-                    'alt' => Html::encode($userForm->user->username)
-                ]
-            ]) ?>
-            <?= Html::a(Yii::t('app', 'Change picture'), 'https://gravatar.com/', ['target' => '_blank']) ?>
-        </div>
-
-        <div class="col-md-4">
-            <h2><?= Yii::t('app', 'Basic information') ?></h2>
+        <div class="col-md-9">
             <?php $form = ActiveForm::begin(['id' => 'form-profile-update']); ?>
 
-            <?= $form->field($userForm, 'email') ?>
-            <?= $form->field($userForm, 'site') ?>
+            <?= $form->field($userForm, 'email')->textInput(['class' => 'form-control input-lg']) ?>
+            <?= $form->field($userForm, 'site')->textInput(['class' => 'form-control input-lg']) ?>
 
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app', 'Update'), ['class' => 'btn btn-primary', 'name' => 'update-button']) ?>
@@ -44,20 +26,37 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php ActiveForm::end(); ?>
         </div>
 
-        <div class="col-md-6">
-            <h2><?= Yii::t('app', 'Change password') ?></h2>
-            <?php $form = ActiveForm::begin(['id' => 'form-change-password']); ?>
+        <div class="col-md-3">
+            <div class="upe-right-col">
+                <div class="big-user-avatar">
+                    <?= \common\widgets\Gravatar::widget([
+                        'email' => Html::encode($userForm->user->email),
+                        'size' => 160,
+                        'options' => [
+                            'title' => Html::encode($userForm->user->username),
+                            'alt' => Html::encode($userForm->user->username)
+                        ]
+                    ]) ?>
+                </div>
 
-            <?= $form->field($modelChangePassword, 'passwordCurrent')->passwordInput() ?>
-            <?= $form->field($modelChangePassword, 'password')->passwordInput() ?>
-            <?= $form->field($modelChangePassword, 'passwordRepeat')->passwordInput() ?>
+                <?= Html::a(Yii::t('app', 'Change picture'), 'https://gravatar.com/', ['target' => '_blank', 'class' => 'btn btn-default btn-sm upe-avatar']) ?>
 
-            <div class="form-group">
-                <?= Html::submitButton(Yii::t('app', 'Change'), ['class' => 'btn btn-warning', 'name' => 'change-password-button']) ?>
+                <div class="well">
+                    <h3><?= Yii::t('app', 'Change password') ?></h3>
+
+                    <?php $form = ActiveForm::begin(['id' => 'form-change-password']); ?>
+
+                    <?= $form->field($modelChangePassword, 'passwordCurrent')->passwordInput(['class' => 'form-control input-lg']) ?>
+                    <?= $form->field($modelChangePassword, 'password')->passwordInput(['class' => 'form-control input-lg']) ?>
+                    <?= $form->field($modelChangePassword, 'passwordRepeat')->passwordInput(['class' => 'form-control input-lg']) ?>
+
+                    <div class="form-group">
+                        <?= Html::submitButton(Yii::t('app', 'Change'), ['class' => 'btn btn-warning', 'name' => 'change-password-button']) ?>
+                    </div>
+
+                    <?php ActiveForm::end(); ?>
+                </div>
             </div>
-
-            <?php ActiveForm::end(); ?>
         </div>
     </div>
-
 </div>
