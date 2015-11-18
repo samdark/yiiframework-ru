@@ -5,10 +5,8 @@
 use yii\helpers\Html;
 
 $this->title = 'Yii 1.1';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-legacy">
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>На данный момент актуальной версией фреймворка является 2.0. Версия 1.1 всё ещё поддерживается, но для новых проектов
     использовать её не рекомендуется.</p>
