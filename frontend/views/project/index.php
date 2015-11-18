@@ -35,7 +35,9 @@ $this->title = Yii::t('app', 'Projects based on Yii framework');
 
             <div class="row">
                 <?php foreach ($dataProvider->getModels() as $project): ?>
-                    <?= $this->render('_project', ['project' => $project]) ?>
+                    <div class="col-md-4">
+                        <?= $this->render('_project', ['project' => $project]) ?>
+                    </div>
                 <?php endforeach ?>
             </div>
 
@@ -72,7 +74,9 @@ $this->title = Yii::t('app', 'Projects based on Yii framework');
 
         <div class="q-info" style="margin-top: 50px;">
             <div class="q-info-like active">
-                <svg><use xlink:href="#ico_like" /></svg>
+                <svg>
+                    <use xlink:href="#ico_like"/>
+                </svg>
                 <a href="" class="c-red"><span>Избранные проекты</span></a>
             </div>
         </div>
