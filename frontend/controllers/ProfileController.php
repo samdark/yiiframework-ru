@@ -34,10 +34,10 @@ class ProfileController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'update'],
+                'only' => ['update'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'update'],
+                        'actions' => ['update'],
                         'allow' => true,
                         'roles' => ['@'],
                     ]
@@ -49,20 +49,17 @@ class ProfileController extends Controller
     /**
      * @inheritdoc
      */
-    public function actionIndex()
+    public function actionView($id)
     {
         $profile = User::find()
-            ->where([
-                'user.id' => Yii::$app->user->identity->getId(),
-                'user.status' => User::STATUS_ACTIVE
-            ])
+            ->where(['user.id' => $id])
             ->one();
 
         if ($profile === null) {
             throw new NotFoundHttpException();
         }
 
-        return $this->render('index', [
+        return $this->render('view', [
             'profile' => $profile
         ]);
     }
@@ -87,27 +84,6 @@ class ProfileController extends Controller
         return $this->render('update', [
             'userForm' => $userForm,
             'modelChangePassword' => $modelChangePassword
-        ]);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function actionView($id)
-    {
-        $profile = User::find()
-            ->where([
-                'user.id' => $id,
-                'user.status' => User::STATUS_ACTIVE
-            ])
-            ->one();
-
-        if ($profile === null) {
-            throw new NotFoundHttpException('User does not exist');
-        }
-
-        return $this->render('view', [
-            'profile' => $profile
         ]);
     }
 

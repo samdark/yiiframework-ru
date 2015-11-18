@@ -31,7 +31,7 @@ AppAsset::register($this);
             } else {
                 echo Html::a(
                     '',
-                    ['/profile/index'],
+                    ['/profile/view', 'id' => Yii::$app->user->getId()],
                     [
                         'class' => 'b-enter user-avatar',
                         'style' => 'background-image: url("' . (
