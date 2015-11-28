@@ -51,6 +51,7 @@ class QaController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete-question' => ['post'],
+                    'delete-answer' => ['post'],
                 ],
             ],
         ];
@@ -323,13 +324,49 @@ class QaController extends Controller
     {
         $question = $this->findModel($id);
         if (Yii::$app->user->getId() !== $question->user_id) {
-            throw new ForbiddenHttpException('dfsdf');
+            throw new ForbiddenHttpException();
         }
         $question->status = $question::STATUS_DELETED;
 
         $question->save();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Change of status of the answer to delete
+     * @param $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
+    public function actionDeleteAnswer($id)
+    {
+        $answer = $this->findModelAnswer($id);
+        if (Yii::$app->user->getId() !== $answer->user_id) {
+            throw new ForbiddenHttpException();
+        }
+        $answer->status = $answer::STATUS_DELETED;
+
+        $answer->save();
+
+        return $this->redirect(['view', 'id' => $answer->question_id]);
+    }
+
+    /**
+     * Finds the QuestionAnswer model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return QuestionAnswer the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModelAnswer($id)
+    {
+        if (($model = QuestionAnswer::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**
