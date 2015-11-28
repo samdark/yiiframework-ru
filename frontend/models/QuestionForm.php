@@ -40,6 +40,9 @@ class QuestionForm extends Model
         if ($this->question === null) {
             throw new InvalidConfigException('Attribute question should be configured');
         }
+
+        $this->tags = $this->question->tags;
+
         parent::init();
     }
 
