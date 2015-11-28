@@ -1759,4 +1759,38 @@ table td {
   .footer-copyright p {
     margin-bottom: 25px; }
 
+
+.cookbook-view #cse-search-box {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.cookbook-view #cse-search-box input[type=text] {
+  width: 60%;
+}
+
+.cookbook-view #cse-search-box input[type=submit] {
+  width: 30%;
+}
+
+.cookbook-view .toc {
+  list-style: none;
+  padding: 0;
+}
+
+.cookbook-view .toc > li {
+  margin-bottom: 2em;
+
+}
+
+.cookbook-view .topics ul {
+  padding: 0;
+  list-style: none;
+  margin-left: 1em;
+}
+
+.cookbook-view .topics ul li {
+  margin-bottom: .4em;
+}
+
 /*# sourceMappingURL=main.css.map */
