@@ -326,6 +326,7 @@ class QaController extends Controller
         if (Yii::$app->user->getId() !== $question->user_id) {
             throw new ForbiddenHttpException();
         }
+
         $question->status = $question::STATUS_DELETED;
 
         $question->save();
@@ -346,6 +347,7 @@ class QaController extends Controller
         if (Yii::$app->user->getId() !== $answer->user_id) {
             throw new ForbiddenHttpException();
         }
+
         $answer->status = $answer::STATUS_DELETED;
 
         $answer->save();
