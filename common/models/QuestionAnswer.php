@@ -28,7 +28,7 @@ class QuestionAnswer extends ActiveRecord
     const STATUS_PUBLISHED = 10;
 
     /** Status deleted */
-    const STATUS_DELETED = 20;
+    const STATUS_DELETED = 30;
 
     /** Not solved status */
     const STATUS_NOT_SOLVED = 0;
@@ -66,12 +66,11 @@ class QuestionAnswer extends ActiveRecord
     public function rules()
     {
         return [
-            [['question_id', 'body', 'parent_id'], 'required'],
+            [['question_id', 'body'], 'required'],
             [['question_id',], 'exist', 'targetClass' => Question::className(), 'targetAttribute' => 'id'],
-            [['parent_id'], 'default', 'value' => 0],
             [['status'], 'default', 'value' => self::STATUS_PUBLISHED],
             [['solved'], 'default', 'value' => self::STATUS_NOT_SOLVED],
-            [['status', 'parent_id'], 'integer'],
+            [['status'], 'integer'],
             [['body'], 'string'],
         ];
     }
