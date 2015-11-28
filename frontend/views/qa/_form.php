@@ -33,13 +33,9 @@ use yii\widgets\ActiveForm;
 
             <?= $form->field($questionForm, 'title')->textInput(['maxlength' => true, 'class' => 'form-control input-lg']) ?>
 
-            <?= Html::activeLabel($questionForm, 'body') ?>
-            <?= Markdowneditor::widget(
-                [
-                    'model' => $questionForm,
-                    'attribute' => 'body',
-                ]
-            ) ?>
+            <?= $form->field($questionForm, 'body', [
+                'template' => "{label}\n{error}\n{input}\n{hint}"
+            ])->widget(Markdowneditor::className()) ?>
 
             <?= $form->field($questionForm, 'tags')->dropDownList(
                 $questionForm->listTags,
@@ -49,8 +45,8 @@ use yii\widgets\ActiveForm;
             <div class="form-group">
                 <div>
                     <?= Html::submitButton(
-                        Yii::t('app', 'Publish'),
-                        ['class' => 'btn btn-primary', 'name' => 'submit-question']
+                        Yii::t('app', $questionForm->question->isNewRecord ? 'Create' : 'Update'),
+                        ['class' => $questionForm->question->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'name' => 'submit-question']
                     ) ?>
                 </div>
             </div>

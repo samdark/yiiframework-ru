@@ -38,6 +38,9 @@ class Question extends ActiveRecord
     /** Status published */
     const STATUS_UNPUBLISHED = 20;
 
+    /** Status deleted */
+    const STATUS_DELETED = 30;
+
     /** Not solved status */
     const STATUS_NOT_SOLVED = 0;
 

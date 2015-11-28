@@ -3,7 +3,6 @@
 namespace frontend\controllers;
 
 use common\models\QuestionAnswer;
-use common\models\User;
 use frontend\models\QuestionForm;
 use Yii;
 use yii\web\Controller;
@@ -13,6 +12,7 @@ use yii\filters\AccessControl;
 use yii\data\Sort;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
 /**
  * Class QaController
@@ -45,6 +45,12 @@ class QaController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete-question' => ['post'],
                 ],
             ],
         ];
@@ -133,22 +139,21 @@ class QaController extends Controller
     {
         $questionModel = new Question();
 
-        $questionForm = new QuestionForm(
-            [
-                'question' => $questionModel
-            ]
-        );
+        /** @var $questionForm \frontend\models\QuestionForm */
+        $questionForm = new QuestionForm([
+            'question' => $questionModel
+        ]);
 
-        if ($questionForm->load(Yii::$app->request->post()) && $questionForm->save()) {
-            return $this->redirect(['view', 'id' => $questionForm->question->id]);
-        } else {
-            return $this->render(
-                'create',
-                [
-                    'questionForm' => $questionForm,
-                ]
-            );
+        if ($questionForm->load(Yii::$app->request->post())) {
+            /** @var $question \common\models\Question */
+            if ($question = $questionForm->save()) {
+                return $this->redirect(['view', 'id' => $question->id]);
+            }
         }
+
+        return $this->render('create', [
+            'questionForm' => $questionForm
+        ]);
     }
 
     /**
@@ -305,6 +310,26 @@ class QaController extends Controller
     public function actionFavorite()
     {
         // action code ...
+    }
+
+    /**
+     * Change of status of the issue to delete
+     * @param $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
+    public function actionDeleteQuestion($id)
+    {
+        $question = $this->findModel($id);
+        if (Yii::$app->user->getId() !== $question->user_id) {
+            throw new ForbiddenHttpException('dfsdf');
+        }
+        $question->status = $question::STATUS_DELETED;
+
+        $question->save();
+
+        return $this->redirect(['index']);
     }
 
     /**

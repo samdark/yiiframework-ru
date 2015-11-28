@@ -2,7 +2,7 @@
 /* @var $this yii\web\View */
 /* @var $questionForm \frontend\models\QuestionForm */
 
-$this->title = Yii::t('app', 'Update Question');
+$this->title = Yii::t('qa', 'Update Question');
 
 ?>
 
