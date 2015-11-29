@@ -397,7 +397,9 @@ class QaController extends Controller
 
         $answer->status = $answer::STATUS_DELETED;
 
-        $answer->save();
+        if ($answer->save()) {
+            $answer->question->updateCounters(['answer_count' => -1]);
+        }
 
         return $this->redirect(['view', 'id' => $answer->question_id]);
     }
