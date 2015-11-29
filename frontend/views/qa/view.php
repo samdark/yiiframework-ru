@@ -10,6 +10,7 @@ use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $question common\models\Question */
 /* @var $answers \common\models\QuestionAnswer */
+/* @var $answerForm \frontend\models\QuestionAnswerForm */
 
 $this->title = Html::encode($question->title);
 ?>
@@ -180,6 +181,10 @@ $this->title = Html::encode($question->title);
                     </div>
                 </div>
             <?php endforeach ?>
+            <h2 id="reply" class="q-b c-blue"><?= Yii::t('qa', 'Your Answer'); ?></h2>
+            <?= $this->render('_formAnswer', [
+                'answerForm' => $answerForm
+            ]) ?>
         </div>
 
     </div>

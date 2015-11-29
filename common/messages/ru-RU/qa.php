@@ -55,4 +55,7 @@ return [
     'Title question' => 'Название вопроса',
     'Create Question' => 'Новый вопрос',
     'Update Question' => 'Редактирование вопроса',
+    'Update answer' => 'Редактирование ответа',
+    'Post Your Answer' => 'Добавить ответ',
+    'Update Your Answer' => 'Изменить ответ',
 ];

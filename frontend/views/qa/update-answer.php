@@ -5,17 +5,10 @@ use ijackua\lepture\Markdowneditor;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $answer common\models\Answer */
+/* @var $answerForm frontend\models\QuestionAnswerForm */
 /* @var $form yii\widgets\ActiveForm */
 
-$this->title = Yii::t('app', 'Update answer');
-
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Questions'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = [
-    'label' => $answer->question->title,
-    'url' => ['view', 'id' => $answer->question->id]
-];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Yii::t('qa', 'Update answer');
 ?>
 
 <div class="answer-update">
@@ -26,26 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="question-form">
 
-                <?php $form = ActiveForm::begin(); ?>
-
-                <?= Html::activeLabel($answer, 'body') ?>
-                <?= Markdowneditor::widget(
-                    [
-                        'model' => $answer,
-                        'attribute' => 'body',
-                    ]
-                ) ?>
-
-                <div class="form-group">
-                    <div>
-                        <?= Html::submitButton(
-                            Yii::t('app', 'Save edits'),
-                            ['class' => 'btn btn-primary', 'name' => 'submit-answer']
-                        ) ?>
-                    </div>
-                </div>
-
-                <?php ActiveForm::end(); ?>
+                <?= $this->render('_formAnswer', [
+                    'answerForm' => $answerForm
+                ]) ?>
 
             </div>
 

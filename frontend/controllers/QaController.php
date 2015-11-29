@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use common\models\QuestionAnswer;
+use frontend\models\QuestionAnswerForm;
 use frontend\models\QuestionForm;
 use Yii;
 use yii\web\Controller;
@@ -102,6 +103,7 @@ class QaController extends Controller
      */
     public function actionView($id)
     {
+        /** @var $question \common\models\Question */
         $question = Question::find()
             ->with(['user', 'questionTags', 'questionFavorites'
             ])
@@ -113,6 +115,19 @@ class QaController extends Controller
 
         if ($question === null) {
             throw new NotFoundHttpException();
+        }
+
+        $answerForm = new QuestionAnswerForm([
+            'question_id' => $question->id
+        ]);
+
+        if ($answerForm->load(Yii::$app->request->post())) {
+            /** @var $answer \common\models\QuestionAnswer */
+            if ($answer = $answerForm->save()) {
+                $question->updateCounters(['answer_count' => 1]);
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Your answer published'));
+                return $this->refresh();
+            }
         }
 
         $answers = QuestionAnswer::find()
@@ -127,7 +142,39 @@ class QaController extends Controller
 
         return $this->render('view', [
             'question' => $question,
-            'answers' => $answers
+            'answers' => $answers,
+            'answerForm' => $answerForm
+        ]);
+    }
+
+    /**
+     * @param integer $id
+     * @return string|\yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
+    public function actionUpdateAnswer($id)
+    {
+        $answer = $this->findModelAnswer($id);
+
+        if (Yii::$app->user->getId() !== $answer->user_id) {
+            throw new ForbiddenHttpException();
+        }
+
+        $answerForm = new QuestionAnswerForm([
+            'answer' => $answer
+        ]);
+
+        if ($answerForm->load(Yii::$app->request->post())) {
+            /** @var $answer \common\models\QuestionAnswer */
+            if ($answer = $answerForm->save()) {
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Your answer update'));
+                return $this->redirect(['view', 'id' => $answer->question_id]);
+            }
+        }
+
+        return $this->render('update-answer', [
+            'answerForm' => $answerForm
         ]);
     }
 
