@@ -5,12 +5,14 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $question common\models\Question */
-/* @var $newAnswer common\models\Answer */
+/* @var $answers \common\models\QuestionAnswer */
+/* @var $answerForm \frontend\models\QuestionAnswerForm */
 
-$this->title = Yii::t('app', 'Questions');
+$this->title = Html::encode($question->title);
 ?>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -44,126 +46,82 @@ $this->title = Yii::t('app', 'Questions');
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 b-rel">
-        <div class="q-tools">
 
-            <?= Html::a(
-                '<svg><use xlink:href="#ico_del"/></svg>',
-                ['delete-question', 'id' => $question->id],
-                [
-                    'class' => 'btn btn-lg btn-border-danger btn-border-del pull-right',
-                    'data' => [
-                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                        'method' => 'post',
-                    ],
-                ]
-            ) ?>
+        <?php if (Yii::$app->user->getId() == $question->user_id) : ?>
+            <div class="q-tools">
+                <?= Html::a(
+                    '<svg><use xlink:href="#ico_del"/></svg>',
+                    ['delete-question', 'id' => $question->id],
+                    [
+                        'class' => 'btn btn-lg btn-border-danger btn-border-del pull-right',
+                        'data' => [
+                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                            'method' => 'post',
+                        ],
+                    ]
+                ) ?>
 
-            <?= Html::a(
-                '<svg><use xlink:href="#ico_edit"/></svg>',
-                ['update-question', 'id' => $question->id],
-                ['class' => 'btn btn-lg btn-border-primary btn-border-edit pull-right']
-            ) ?>
+                <?= Html::a(
+                    '<svg><use xlink:href="#ico_edit"/></svg>',
+                    ['update-question', 'id' => $question->id],
+                    ['class' => 'btn btn-lg btn-border-primary btn-border-edit pull-right']
+                ) ?>
+            </div>
+        <?php endif ; ?>
 
-        </div>
         <h1 class="q-h1">
             <?= Html::encode($question->title) ?>
         </h1>
 
         <div class="post-info">
-
             <?= ($question->updated_at !== $question->created_at) ?
                 Yii::$app->formatter->asDatetime($question->updated_at) :
                 Yii::$app->formatter->asDatetime($question->created_at);
             ?>
-
             <span class="margin-line">|</span>
-
             <?= Html::a(
                 Html::encode($question->user->username),
                 ['profile/view', 'id' => $question->user->id]
             ); ?>
-
+            <?= $question->solved ? '<span class="ico_true ico_true_green"><svg><use xlink:href="#ico_true" /></svg> ' . Yii::t('qa', 'Resolve') . '</span>' : '' ?>
         </div>
 
         <?= HtmlPurifier::process(Markdown::process($question->body, 'gfm-comment')) ?>
-
-        <h2 class="q-b">Комментарии <sup>(2)</sup></h2>
-
-        <div class="q-comment-item">
-            <div class="post-info">
-                15 сентября 2015 г. <span class="margin-line">|</span> <a href="user_profile.html">Jazzie</a>
-
-                <div class="q-comment-tools"><a href="">Редактировать комментарий</a><span
-                        class="margin-line"></span><a href="">Удалить</a></div>
-            </div>
-            <div class="q-comment">
-                Есть русскоязычный форум Yii и jabber-конференция, там тоже можно задавать вопросы.
-            </div>
-        </div>
-
-        <div class="q-comment-item">
-            <div class="post-info">
-                15 сентября 2015 г. <span class="margin-line">|</span> <a href="user_profile.html">Alexander</a>
-
-                <div class="q-comment-tools"><a href="">Редактировать комментарий</a><span
-                        class="margin-line"></span><a href="">Удалить</a></div>
-            </div>
-            <div class="q-comment">
-                Смотри в документации <a
-                    href="http://github.com/yiiext/nested-set-behavior/blob/master/readme_ru.md" target="_blank">github.com/yiiext/nested-set-behavior/blob/master/readme_ru.md</a>
-                раздел «Методы модифицирующие дерево», там есть примеры.
-            </div>
-        </div>
 
         <div class="q-view-info">
             <button id="add-comm-01" class="btn btn-primary btn-sm pull-left">Добавить комментарий</button>
 
             <div class="q-tags">
-                <?php foreach ($question->tags as $tag) : ?>
-                    <a href="" class="btn btn-default btn-sm"><?= Html::encode($tag->name) ?></a>
+                <?php foreach ($question->questionTags as $tag) : ?>
+                    <?php /* @var $tag \common\models\QuestionTag */ ?>
+                    <?= Html::a(Html::encode($tag->name), ['qa/tag', 'name' => $tag->name], ['class' => 'btn btn-default btn-sm']) ?>
                 <?php endforeach ?>
             </div>
 
             <div class="q-info">
-                <div class="q-info-like">
+                <div class="q-info-like <?= ArrayHelper::map($question->questionFavorites, 'user_id', 'question_id')[Yii::$app->user->getId()] ? 'active' : '' ?>">
                     <svg>
                         <use xlink:href="#ico_like"/>
                     </svg>
-                    <span>32</span>
+                    <span><?= $question->favorite_count ?></span>
                 </div>
                 <div class="q-info-view">
                     <svg>
                         <use xlink:href="#ico_view"/>
                     </svg>
-                    <span>205</span>
+                    <span><?= $question->view_count ?></span>
                 </div>
             </div>
         </div>
-        <div class="b-add-comment" id="comm-01">
-            <form action="">
-                <div class="form-group">
-                    <textarea id="postContent" class="form-control" rows="5"></textarea>
-                </div>
-                <button type="submit" class="btn btn-border-edit">Комментировать</button>
-            </form>
-        </div>
 
         <h2 class="q-b c-blue">
-            <?= \Yii::t(
-                'app',
-                '{n, plural, =0{No answers} =1{One answer} other{# answers}}',
-                array(
-                    'n' => count($question->answers),
-                )
-            ) ?>
+            <?= \Yii::t('qa', '{n, plural, =0{No answers} =1{One answer} other{# answers}}', ['n' => count($answers)]) ?>
         </h2>
 
         <div class="answers-list">
-
-            <?php foreach ($question->answers as $answer) : ?>
-
+            <?php foreach ($answers as $answer) : ?>
+                <?php /* @var $answer \common\models\QuestionAnswer */ ?>
                 <div class="answer-item">
-
                     <div class="a-userpic">
                         <?= \common\widgets\Gravatar::widget(
                             [
@@ -178,255 +136,87 @@ $this->title = Yii::t('app', 'Questions');
                     </div>
 
                     <div class="a-body">
-
                         <div class="post-info">
-
                             <?= Yii::$app->formatter->asDatetime($answer->updated_at); ?>
-
                             <span class="margin-line">|</span>
+                            <?= Html::a(Html::encode($answer->user->username), ['profile/view', 'id' => $answer->user->id]); ?>
+                            <?= $answer->solved ? '<span class="ico_true ico_true_green"><svg><use xlink:href="#ico_true" /></svg> ' . Yii::t('qa', 'Correct answer') . '</span>' : '' ?>
 
-                            <?= Html::a(
-                                Html::encode($answer->user->username),
-                                ['profile/view', 'id' => $answer->user->id]
-                            ); ?>
+                            <?php if (Yii::$app->user->getId() == $answer->user_id) : ?>
+                                <div class="q-comment-tools">
+                                    <?= Html::a(
+                                        Yii::t('app', 'Update'),
+                                        ['update-answer', 'id' => $answer->id],
+                                        ['class' => 'btn btn-link btn-xs']
+                                    ) ?>
 
-                            <span class="ico_true ico_true_green"><svg>
-                                    <use xlink:href="#ico_true"/>
-                                </svg> Верный ответ</span>
+                                    <span class="margin-line"></span>
 
-                            <!--                            Разметка для ответа, не выбранного в качестве верного -->
-                            <!--                            <a href="" class="ico_true">-->
-                            <!--                                <svg>-->
-                            <!--                                    <use xlink:href="#ico_true"/>-->
-                            <!--                                </svg>-->
-                            <!--                                Верный ответ</a>-->
-
-                            <div class="q-comment-tools">
-                                <?= Html::a(
-                                    Yii::t('app', 'Update'),
-                                    ['update-answer', 'id' => $answer->id],
-                                    ['class' => 'btn btn-link btn-xs']
-                                ) ?>
-
-                                <span class="margin-line"></span>
-
-                                <?= Html::a(
-                                    Yii::t('app', 'Delete'),
-                                    ['delete-answer', 'id' => $answer->id],
-                                    [
-                                        'class' => 'btn btn-link btn-xs',
-                                        'data' => [
-                                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                                            'method' => 'post',
-                                        ],
-                                    ]
-                                ) ?>
-                            </div>
+                                    <?= Html::a(
+                                        Yii::t('app', 'Delete'),
+                                        ['delete-answer', 'id' => $answer->id],
+                                        [
+                                            'class' => 'btn btn-link btn-xs',
+                                            'data' => [
+                                                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                                'method' => 'post',
+                                            ],
+                                        ]
+                                    ) ?>
+                                </div>
+                            <?php endif ; ?>
                         </div>
 
                         <div class="answer">
                             <?= HtmlPurifier::process(Markdown::process($answer->body, 'gfm-comment')) ?>
                         </div>
+
                         <div class="form-group">
                             <?= Html::a(
-                                Yii::t('app', 'Reply'),
+                                Yii::t('qa', 'Comment'),
                                 '#reply',
                                 ['class' => 'btn btn-primary btn-sm', 'onclick' => 'answer_reply(' . $answer->id . ')']
                             ) ?>
                         </div>
                     </div>
-                    <div class="b-add-comment" id="comm-02">
-                        <form action="">
-                            <div class="form-group">
-                                <textarea id="postContent" class="form-control" rows="5"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-border-edit">Комментировать</button>
-                        </form>
-                    </div>
-
-                    <div class="q-comment-item">
-                        <div class="post-info">
-                            15 сентября 2015 г. <span class="margin-line">|</span> <a
-                                href="user_profile.html">Jazzie</a>
-
-                            <div class="q-comment-tools"><a href="">Редактировать комментарий</a><span
-                                    class="margin-line"></span><a href="">Удалить</a></div>
-                        </div>
-                        <div class="q-comment">
-                            Есть русскоязычный форум Yii и jabber-конференция, там тоже можно задавать вопросы.
-                        </div>
-                    </div>
-
-                    <div class="q-comment-item">
-                        <div class="post-info">
-                            15 сентября 2015 г. <span class="margin-line">|</span> <a
-                                href="user_profile.html">Alexander</a>
-
-                            <div class="q-comment-tools"><a href="">Редактировать комментарий</a><span
-                                    class="margin-line"></span><a href="">Удалить</a></div>
-                        </div>
-                        <div class="q-comment">
-                            Смотри в документации <a
-                                href="http://github.com/yiiext/nested-set-behavior/blob/master/readme_ru.md"
-                                target="_blank">github.com/yiiext/nested-set-behavior/blob/master/readme_ru.md</a>
-                            раздел «Методы модифицирующие дерево», там есть примеры.
-                        </div>
-                    </div>
-
                 </div>
-
             <?php endforeach ?>
-
-            <h2 id="reply" class="q-b c-blue"><?= Yii::t('app', 'Your Answer'); ?></h2>
-
-            <?php $form = ActiveForm::begin(); ?>
-
-            <?= $form->errorSummary($newAnswer) ?>
-
-            <?= Markdowneditor::widget(['name' => 'answer',]) ?>
-
-            <?= $form->field($newAnswer, 'parent_id')->hiddenInput(['name' => 'parent_id', 'value' => 0])->label(false) ?>
-
-            <div class="form-group">
-                <div>
-                    <?= Html::submitButton(
-                        Yii::t('app', 'Post Your Answer'),
-                        ['class' => 'btn btn-border-primary btn-lg', 'name' => 'submit-answer']
-                    ) ?>
-                </div>
-            </div>
-
-            <?php ActiveForm::end(); ?>
-
+            <h2 id="reply" class="q-b c-blue"><?= Yii::t('qa', 'Your Answer'); ?></h2>
+            <?= $this->render('_formAnswer', [
+                'answerForm' => $answerForm
+            ]) ?>
         </div>
+
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-        <?= Html::a(Yii::t('app', 'Add Question'), ['create'], ['class' => 'btn btn-lg btn-border-success btn-block']) ?>
+        <?= Html::a(Yii::t('qa', 'Add Question'), ['create'], ['class' => 'btn btn-lg btn-border-success btn-block']) ?>
 
         <div class="q-similar">
-            <h4>Похожие вопросы:</h4>
+            <h4><?= Yii::t('qa', 'Похожие вопросы') ?>:</h4>
 
             <div class="similar-item">
                 <div class="post-info">
-                    15 сентября 2015 г. <span class="margin-line">|</span> <a href="user_profile.html">Jazzie</a>
+                    <?= Yii::$app->formatter->asDatetime(time()) ?> <span class="margin-line">|</span> <?= Html::a(Html::encode('Username'), '#') ?>
                 </div>
-                <a href="">Пример для интернет магазина</a>
+                <?= Html::a(Html::encode('Duchess, as she came up to her great disappointment it was.'), '#') ?>
 
                 <div class="q-info">
                     <div class="q-info-like">
                         <svg>
                             <use xlink:href="#ico_like"/>
                         </svg>
-                        <span>32</span>
+                        <span>-</span>
                     </div>
                     <div class="q-info-view">
                         <svg>
                             <use xlink:href="#ico_view"/>
                         </svg>
-                        <span>205</span>
+                        <span>-</span>
                     </div>
-                </div>
-            </div>
-
-            <div class="similar-item">
-                <div class="post-info">
-                    15 сентября 2015 г. <span class="margin-line">|</span> <a href="user_profile.html">Jazzie</a>
-                </div>
-                <a href="">yii2-webshell</a>
-
-                <div class="q-info">
-                    <div class="q-info-like">
-                        <svg>
-                            <use xlink:href="#ico_like"/>
-                        </svg>
-                        <span>32</span>
-                    </div>
-                    <div class="q-info-view">
-                        <svg>
-                            <use xlink:href="#ico_view"/>
-                        </svg>
-                        <span>205</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="similar-item">
-                <div class="post-info">
-                    15 сентября 2015 г. <span class="margin-line">|</span> <a href="user_profile.html">Jazzie</a>
-                </div>
-                <a href="">Блок данных на сайте, использующийся на всех страницах </a>
-
-                <div class="q-info">
-                    <div class="q-info-like">
-                        <svg>
-                            <use xlink:href="#ico_like"/>
-                        </svg>
-                        <span>32</span>
-                    </div>
-                    <div class="q-info-view">
-                        <svg>
-                            <use xlink:href="#ico_view"/>
-                        </svg>
-                        <span>205</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="similar-item">
-                <div class="post-info">
-                    15 сентября 2015 г. <span class="margin-line">|</span> <a href="user_profile.html">Jazzie</a>
-                </div>
-                <a href="">urlManager. как написать правило</a>
-
-                <div class="q-info">
-                    <div class="q-info-like">
-                        <svg>
-                            <use xlink:href="#ico_like"/>
-                        </svg>
-                        <span>32</span>
-                    </div>
-                    <div class="q-info-view">
-                        <svg>
-                            <use xlink:href="#ico_view"/>
-                        </svg>
-                        <span>205</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="similar-item">
-                <div class="post-info">
-                    15 сентября 2015 г. <span class="margin-line">|</span> <a href="user_profile.html">Jazzie</a>
-                </div>
-                <a href="">Как использовать связывание переменных в такой конструкции </a>
-
-                <div class="q-info">
-                    <div class="q-info-like">
-                        <svg>
-                            <use xlink:href="#ico_like"/>
-                        </svg>
-                        <span>32</span>
-                    </div>
-                    <div class="q-info-view">
-                        <svg>
-                            <use xlink:href="#ico_view"/>
-                        </svg>
-                        <span>205</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="q-info">
-                <div class="q-info-like active">
-                    <svg>
-                        <use xlink:href="#ico_like"/>
-                    </svg>
-                    <a href="" class="c-red"><span>Избранные вопросы</span></a>
                 </div>
             </div>
 
         </div>
     </div>
 </div>
-

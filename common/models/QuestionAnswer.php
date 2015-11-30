@@ -6,37 +6,26 @@ use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use creocoder\taggable\TaggableBehavior;
 
 /**
- * This is the model class for table "{{%question}}".
+ * This is the model class for table "answer".
  *
  * @property integer $id
  * @property integer $user_id
- * @property string $title
+ * @property integer $question_id
  * @property string $body
- * @property integer $view_count
- * @property integer $answer_count
- * @property integer $favorite_count
  * @property integer $solved
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
  *
- * @property string $tagValues
- *
+ * @property Question $question
  * @property User $user
- * @property QuestionAnswer[] $questionAnswers
- * @property QuestionTagAssn[] $questionTags
- * @property QuestionFavorite[] $questionFavorites
  */
-class Question extends ActiveRecord
+class QuestionAnswer extends ActiveRecord
 {
     /** Status published */
     const STATUS_PUBLISHED = 10;
-
-    /** Status published */
-    const STATUS_UNPUBLISHED = 20;
 
     /** Status deleted */
     const STATUS_DELETED = 30;
@@ -47,12 +36,13 @@ class Question extends ActiveRecord
     /** Solved status */
     const STATUS_SOLVED = 1;
 
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%question}}';
+        return 'question_answer';
     }
 
     /**
@@ -61,10 +51,6 @@ class Question extends ActiveRecord
     public function behaviors()
     {
         return [
-            'questionTags' => [
-                'class' => TaggableBehavior::className(),
-                'tagRelation' => 'questionTags'
-            ],
             TimestampBehavior::className(),
             [
                 'class' => BlameableBehavior::className(),
@@ -80,22 +66,12 @@ class Question extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'body',], 'required'],
+            [['question_id', 'body'], 'required'],
+            [['question_id',], 'exist', 'targetClass' => Question::className(), 'targetAttribute' => 'id'],
             [['status'], 'default', 'value' => self::STATUS_PUBLISHED],
             [['solved'], 'default', 'value' => self::STATUS_NOT_SOLVED],
             [['status'], 'integer'],
             [['body'], 'string'],
-            [['title'], 'string', 'max' => 255]
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function transactions()
-    {
-        return [
-            self::SCENARIO_DEFAULT => self::OP_ALL
         ];
     }
 
@@ -107,11 +83,8 @@ class Question extends ActiveRecord
         return [
             'id' => Yii::t('qa', 'ID'),
             'user_id' => Yii::t('qa', 'User ID'),
-            'title' => Yii::t('qa', 'Title'),
+            'question_id' => Yii::t('qa', 'Question ID'),
             'body' => Yii::t('qa', 'Body'),
-            'view_count' => Yii::t('qa', 'View Count'),
-            'answer_count' => Yii::t('qa', 'Answer Count'),
-            'favorite_count' => Yii::t('qa', 'Favorite Count'),
             'solved' => Yii::t('qa', 'Solved'),
             'status' => Yii::t('qa', 'Status'),
             'created_at' => Yii::t('qa', 'Created At'),
@@ -122,33 +95,16 @@ class Question extends ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getQuestion()
+    {
+        return $this->hasOne(Question::className(), ['id' => 'question_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getQuestionAnswers()
-    {
-        return $this->hasMany(QuestionAnswer::className(), ['question_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getQuestionTags()
-    {
-        return $this->hasMany(QuestionTag::className(), ['id' => 'tag_id'])
-            ->viaTable(QuestionTagAssn::tableName(), ['question_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getQuestionFavorites()
-    {
-        return $this->hasMany(QuestionFavorite::className(), ['question_id' => 'id']);
     }
 }

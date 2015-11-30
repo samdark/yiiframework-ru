@@ -2,14 +2,12 @@
 
 namespace frontend\models;
 
-
+use Yii;
 use common\models\Question;
-use common\models\QuestionsTags;
-use common\models\Tag;
+use common\models\QuestionTag;
 use yii\base\InvalidCallException;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
-use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -41,8 +39,6 @@ class QuestionForm extends Model
             throw new InvalidConfigException('Attribute question should be configured');
         }
 
-        $this->tags = $this->question->tags;
-
         parent::init();
     }
 
@@ -60,52 +56,31 @@ class QuestionForm extends Model
     }
 
     /**
-     * @return bool
-     * @throws \Exception
-     * @throws \yii\db\Exception
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'title' => Yii::t('qa', 'Title'),
+            'body' => Yii::t('qa', 'Body'),
+            'tags' => Yii::t('qa', 'Tags')
+        ];
+    }
+
+    /**
+     * @return bool|Question
      */
     public function save()
     {
         if ($this->validate()) {
-
-            $this->question->setAttributes(
-                [
-                    'title' => $this->title,
-                    'body' => $this->body,
-                ]
-            );
-
-            $transaction = \Yii::$app->db->beginTransaction();
-
-            try {
-
-                $this->question->save();
-
-                QuestionsTags::deleteAll(['question_id' => $this->question->id]);
-
-                $query = new Query();
-                $questionsTags = [];
-
-                foreach ($this->tags as $tag) {
-                    $questionsTags[] = [
-                        'question_id' => (int)$this->question->id,
-                        'tag_id' => (int)$tag,
-                    ];
-                }
-
-                $query->createCommand()->batchInsert(
-                    QuestionsTags::tableName(),
-                    ['question_id', 'tag_id'],
-                    $questionsTags
-                )->execute();
-
-                $transaction->commit();
-
-                return true;
-
-            } catch (\Exception $e) {
-                $transaction->rollBack();
-                throw new \Exception($e, $e->getCode());
+            $this->question->title = $this->title;
+            $this->question->body = $this->body;
+            if ($this->question->questionTags) {
+                $this->question->removeAllTagValues();
+            }
+            $this->question->addTagValues($this->tags);
+            if ($this->question->save()) {
+                return $this->question;
             }
         };
 
@@ -118,7 +93,7 @@ class QuestionForm extends Model
      */
     public function getListTags()
     {
-        return ArrayHelper::map(Tag::find()->all(), 'id', 'name');
+        return ArrayHelper::map(QuestionTag::find()->all(), 'name', 'name');
     }
 
     /**
@@ -138,13 +113,10 @@ class QuestionForm extends Model
     public function setQuestion(Question $value)
     {
         if ($this->questionModel === null) {
-
             $this->questionModel = $value;
             $this->setAttributes($this->questionModel->attributes);
-
         } else {
             throw new InvalidCallException('Attribute question was set earlier');
         }
-
     }
 }
