@@ -72,7 +72,7 @@ class ProfileController extends Controller
         $userForm = new UserForm();
 
         if ($userForm->load(Yii::$app->request->post()) && $userForm->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'id' => $userForm->user->id ]);
         }
 
         $modelChangePassword = new ChangePasswordForm();

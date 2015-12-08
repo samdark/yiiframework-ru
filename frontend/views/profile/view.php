@@ -39,16 +39,28 @@ $this->title = Yii::t('app', 'Community');
                     <?php endif ?>
                 </div>
                 <div class="block-user-info">
-                    <span class="name">Никнейм:</span><span class="info"></span><br>
-                    <span class="name">Город:</span><span class="info"></span><br>
+                    <span class="name"><?= Yii::t('app', 'Username') ?>:</span>
+                    <span class="info">
+                        <?= Html::encode($profile->username) ?>
+                    </span>
+                    <br>
+                    <span class="name"><?= Yii::t('app', 'City') ?>:</span>
+                    <span class="info">
+                        <?= Html::encode($profile->city) ? : Yii::t('app', 'no set') ?>
+                    </span>
+                    <br>
                     <span class="name"><?= Yii::t('app', 'Registration') ?>:</span><span
                         class="info"><?= Yii::$app->formatter->asDatetime($profile->created_at, 'long') ?></span><br>
                     <span class="name"><?= Yii::t('app', 'Site') ?>:</span>
                     <span class="info">
-                        <?= Html::encode($profile->site) ? Html::a(Html::encode($profile->site), Html::encode($profile->site)) : Yii::t('app', 'no site') ?>
+                        <?= Html::encode($profile->site) ? Html::a(Html::encode($profile->site), Html::encode($profile->site), ['target' => '_blank']) : Yii::t('app', 'no set') ?>
                     </span>
                     <br>
-                    <span class="name">GitHub:</span><a href="" class="info" target="_blank"></a><br>
+                    <span class="name"><?= Yii::t('app', 'GitHub') ?>:</span>
+                    <span class="info">
+                        <?= Html::encode($profile->github) ? Html::a(Html::encode($profile->github), Html::encode($profile->github), ['target' => '_blank']) : Yii::t('app', 'no set') ?>
+                    </span>
+                    <br>
                     <span class="name"><?= Yii::t('app', 'Email') ?>:</span>
                     <a href="mailto:<?= Html::encode($profile->email) ?> " class="info break-word" target="_blank">
                         <?= Html::encode($profile->email) ?>

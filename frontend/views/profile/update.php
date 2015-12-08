@@ -14,10 +14,15 @@ $this->title = Yii::t('app', 'Edit profile');
 <div class="container page-wrapper page-cont-col">
     <div class="row">
         <div class="col-md-9">
-            <?php $form = ActiveForm::begin(['id' => 'form-profile-update']); ?>
+            <?php $form = ActiveForm::begin([
+                'id' => 'form-profile-update',
+                'fieldConfig' => ['inputOptions' => ['class' => 'form-control input-lg']],
+            ]); ?>
 
-            <?= $form->field($userForm, 'email')->textInput(['class' => 'form-control input-lg']) ?>
-            <?= $form->field($userForm, 'site')->textInput(['class' => 'form-control input-lg']) ?>
+            <?= $form->field($userForm, 'email')->textInput() ?>
+            <?= $form->field($userForm, 'site')->textInput() ?>
+            <?= $form->field($userForm, 'github')->textInput() ?>
+            <?= $form->field($userForm, 'city')->textInput() ?>
 
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app', 'Update'), ['class' => 'btn btn-primary', 'name' => 'update-button']) ?>

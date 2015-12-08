@@ -21,6 +21,14 @@ class UserForm extends Model
      */
     public $site;
     /**
+     * @var string
+     */
+    public $github;
+    /**
+     * @var string
+     */
+    public $city;
+    /**
      * @var User
      */
     private $currentUser;
@@ -50,10 +58,21 @@ class UserForm extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+//            ['email', 'unique', 'targetClass' => '\common\models\User',
+//                'message' => \Yii::t('user', 'This email address has already been taken.')
+//            ],
 
             ['site', 'filter', 'filter' => 'trim'],
-            ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']]
+            ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']],
+
+            ['github', 'filter', 'filter' =>'trim'],
+            ['github', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']],
+            ['github', 'match', 'pattern' => '(github\.com/[a-z0-9A-Z]+/?$)',
+                'message' => \Yii::t('user','This is not a link to the profile Github.')
+            ],
+
+            ['city', 'filter', 'filter' => 'trim'],
+//            ['city', 'string', 'max' => 64],
         ];
     }
 
@@ -73,11 +92,26 @@ class UserForm extends Model
     public function save()
     {
         if ($this->validate()) {
-            $this->user->setAttributes(['email' => $this->email, 'site' => $this->site]);
-            $this->user->save(false, ['email', 'site']);
+            $this->user->setAttributes([
+                'email' => $this->email,
+                'site' => $this->site,
+                'github' => $this->github,
+                'city' => $this->city
+            ]);
+            $this->user->save(false, ['email', 'site', 'github', 'city',]);
             return true;
         }
 
         return false;
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'email' => \Yii::t('profile', 'E-Mail'),
+            'site' => \Yii::t('profile', 'Site'),
+            'github' => \Yii::t('profile', 'GitHub'),
+            'city' => \Yii::t('profile', 'City'),
+        ];
     }
 }

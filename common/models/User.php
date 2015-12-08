@@ -19,6 +19,7 @@ use yii\web\IdentityInterface;
  * @property string $email
  * @property string $github
  * @property string $site
+ * @property string $city
  * @property string $auth_key
  * @property integer $status
  * @property integer $created_at
@@ -65,7 +66,8 @@ class User extends ActiveRecord implements IdentityInterface
             ['email', 'email'],
             ['email', 'unique'],
             ['site', 'filter', 'filter' => 'trim'],
-            ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']]
+            ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']],
+            ['city', 'string', 'max' => 64],
         ];
     }
 
