@@ -19,6 +19,8 @@ $this->title = Yii::t('app', 'Edit profile');
                 'fieldConfig' => ['inputOptions' => ['class' => 'form-control input-lg']],
             ]); ?>
 
+            <?= $form->field($userForm, 'first_name')->textInput() ?>
+            <?= $form->field($userForm, 'last_name')->textInput() ?>
             <?= $form->field($userForm, 'email')->textInput() ?>
             <?= $form->field($userForm, 'site')->textInput() ?>
             <?= $form->field($userForm, 'github')->textInput() ?>

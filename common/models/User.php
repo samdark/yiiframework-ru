@@ -17,6 +17,8 @@ use yii\web\IdentityInterface;
  * @property string $password_reset_token
  * @property boolean $email_verified
  * @property string $email
+ * @property string $first_name
+ * @property string $last_name
  * @property string $github
  * @property string $site
  * @property string $city
@@ -67,7 +69,8 @@ class User extends ActiveRecord implements IdentityInterface
             ['email', 'unique'],
             ['site', 'filter', 'filter' => 'trim'],
             ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']],
-            ['city', 'string', 'max' => 64],
+            [['city', 'first_name', 'last_name'], 'string', 'max' => 64],
+            [['first_name', 'last_name'], 'filter', 'filter' => 'ucfirst'],
         ];
     }
 
@@ -249,5 +252,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAnswers()
     {
         return $this->hasMany(Answer::className(), ['user_id' => 'id']);
+    }
+
+    public function getFullName()
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 }

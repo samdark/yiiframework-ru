@@ -41,7 +41,7 @@ $this->title = Yii::t('app', 'Community');
                 <div class="block-user-info">
                     <span class="name"><?= Yii::t('app', 'Username') ?>:</span>
                     <span class="info">
-                        <?= Html::encode($profile->username) ?>
+                        <?= Html::encode($profile->getFullName()) ?>
                     </span>
                     <br>
                     <span class="name"><?= Yii::t('app', 'City') ?>:</span>

@@ -16,7 +16,7 @@ $this->title = Yii::t('app', 'Member List');
         <?php foreach ($provider->getModels() as $user): ?>
             <div class="col-sm-6 col-md-3">
                 <div class="c-user-item">
-                    <a href="user_profile.html" class="c-user-avatar">
+                    <a href="<?= \yii\helpers\Url::toRoute(['profile/view', 'id' => $user->id])?>" class="c-user-avatar">
                         <?= \common\widgets\Gravatar::widget([
                             'email' => Html::encode($user->email),
                             'size' => 160,
@@ -26,13 +26,19 @@ $this->title = Yii::t('app', 'Member List');
                             ]
                         ]) ?>
                     </a>
-                    <a href="user_profile.html" class="c-user-name"><?= Html::encode($user->username) ?></a>
+                    <?= Html::a(Html::encode($user->username), ['profile/view', 'id' => $user->id], ['class' => 'c-user-name']) ?>
 
                     <div class="c-user-info">
-                        <span class="name">Никнейм</span><span class="info">Sam Dark</span><br>
-                        <span class="name">Город</span><span class="info">Воронеж</span><br>
-                        <span class="name"><?= Yii::t('app', 'Registration') ?>:</span><span
-                            class="info"><?= Yii::$app->formatter->asDate($user->created_at) ?></span>
+                        <span class="name"><?= Yii::t('app', 'Username') ?>:</span>
+                        <span class="info"><?= Html::encode($user->getFullName()) ?></span>
+                        <br>
+
+                        <span class="name"><?= Yii::t('app', 'City') ?>:</span>
+                        <span class="info"><?= Html::encode($user->city) ?></span>
+                        <br>
+
+                        <span class="name"><?= Yii::t('app', 'Registration') ?>:</span>
+                        <span class="info"><?= Yii::$app->formatter->asDate($user->created_at) ?></span>
                     </div>
                 </div>
             </div>

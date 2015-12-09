@@ -29,6 +29,14 @@ class UserForm extends Model
      */
     public $city;
     /**
+     * @var string
+     */
+    public $first_name;
+    /**
+     * @var string
+     */
+    public $last_name;
+    /**
      * @var User
      */
     private $currentUser;
@@ -72,7 +80,7 @@ class UserForm extends Model
             ],
 
             ['city', 'filter', 'filter' => 'trim'],
-//            ['city', 'string', 'max' => 64],
+            [['first_name', 'last_name'], 'filter', 'filter' => 'ucfirst'],
         ];
     }
 
@@ -96,10 +104,16 @@ class UserForm extends Model
                 'email' => $this->email,
                 'site' => $this->site,
                 'github' => $this->github,
-                'city' => $this->city
+                'city' => $this->city,
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
             ]);
-            $this->user->save(false, ['email', 'site', 'github', 'city',]);
-            return true;
+            if ($this->user->validate()) {
+                $this->user->save(false, ['email', 'site', 'github', 'city', 'first_name', 'last_name']);
+                return true;
+            }
+
+            $this->addErrors($this->user->getErrors());
         }
 
         return false;
@@ -112,6 +126,8 @@ class UserForm extends Model
             'site' => \Yii::t('profile', 'Site'),
             'github' => \Yii::t('profile', 'GitHub'),
             'city' => \Yii::t('profile', 'City'),
+            'first_name' => \Yii::t('profile', 'First Name'),
+            'last_name' => \Yii::t('profile', 'Last Name'),
         ];
     }
 }
