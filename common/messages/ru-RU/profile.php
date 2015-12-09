@@ -17,10 +17,20 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Active' => 'Активный',
-    'Delete' => 'Удалённый',
-    'Password' => 'Пароль',
-    'Remember me' => 'Запомнить',
-    'This is not a link to the profile Github.' => 'Это не ссылка на профиль GitHub',
-    'Username' => 'Имя',
+    'Change' => 'Изменить',
+    'Change password' => 'Изменить пароль',
+    'Change picture' => 'Изменить картинку',
+    'City' => 'Город',
+    'E-Mail' => 'E-Mail',
+    'Edit profile' => 'Изменить профиль',
+    'Email' => 'E-Mail',
+    'First Name' => 'Имя',
+    'GitHub' => 'GitHub',
+    'Last Name' => 'Фамилия',
+    'Member List' => 'Список участников',
+    'Registration' => 'Регистрация',
+    'Site' => 'Сайт',
+    'Update' => 'Обновить',
+    'Username' => 'Имя пользователя',
+    'View Profile' => 'Просмотреть профивиль',
 ];

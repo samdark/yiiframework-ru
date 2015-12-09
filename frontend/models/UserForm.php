@@ -66,9 +66,6 @@ class UserForm extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-//            ['email', 'unique', 'targetClass' => '\common\models\User',
-//                'message' => \Yii::t('user', 'This email address has already been taken.')
-//            ],
 
             ['site', 'filter', 'filter' => 'trim'],
             ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']],
@@ -108,6 +105,7 @@ class UserForm extends Model
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
             ]);
+
             if ($this->user->validate()) {
                 $this->user->save(false, ['email', 'site', 'github', 'city', 'first_name', 'last_name']);
                 return true;
@@ -115,7 +113,6 @@ class UserForm extends Model
 
             $this->addErrors($this->user->getErrors());
         }
-
         return false;
     }
 

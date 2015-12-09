@@ -27,7 +27,7 @@ $this->title = Yii::t('app', 'Edit profile');
             <?= $form->field($userForm, 'city')->textInput() ?>
 
             <div class="form-group">
-                <?= Html::submitButton(Yii::t('app', 'Update'), ['class' => 'btn btn-primary', 'name' => 'update-button']) ?>
+                <?= Html::submitButton(Yii::t('profile', 'Update'), ['class' => 'btn btn-primary', 'name' => 'update-button']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>
@@ -46,10 +46,10 @@ $this->title = Yii::t('app', 'Edit profile');
                     ]) ?>
                 </div>
 
-                <?= Html::a(Yii::t('app', 'Change picture'), 'https://gravatar.com/', ['target' => '_blank', 'class' => 'btn btn-default btn-sm upe-avatar']) ?>
+                <?= Html::a(Yii::t('profile', 'Change picture'), 'https://gravatar.com/', ['target' => '_blank', 'class' => 'btn btn-default btn-sm upe-avatar']) ?>
 
                 <div class="well">
-                    <h3><?= Yii::t('app', 'Change password') ?></h3>
+                    <h3><?= Yii::t('profile', 'Change password') ?></h3>
 
                     <?php $form = ActiveForm::begin(['id' => 'form-change-password']); ?>
 
@@ -58,7 +58,7 @@ $this->title = Yii::t('app', 'Edit profile');
                     <?= $form->field($modelChangePassword, 'passwordRepeat')->passwordInput(['class' => 'form-control input-lg']) ?>
 
                     <div class="form-group">
-                        <?= Html::submitButton(Yii::t('app', 'Change'), ['class' => 'btn btn-warning', 'name' => 'change-password-button']) ?>
+                        <?= Html::submitButton(Yii::t('profile', 'Change'), ['class' => 'btn btn-warning', 'name' => 'change-password-button']) ?>
                     </div>
 
                     <?php ActiveForm::end(); ?>
