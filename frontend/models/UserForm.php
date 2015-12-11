@@ -50,7 +50,12 @@ class UserForm extends Model
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User',
+                'message' => 'This email address has already been taken.',
+                'when' => function($model){
+                    return $model->email !== $this->currentUser->getOldAttribute('email');
+                }
+            ],
 
             ['site', 'filter', 'filter' => 'trim'],
             ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']]
