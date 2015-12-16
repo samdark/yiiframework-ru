@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\helpers\Markdown;
 use yii\helpers\HtmlPurifier;
 use common\helpers\Generator;
-use yii\helpers\ArrayHelper;
 
 /* @var $question \common\models\Question */
 
@@ -16,7 +15,8 @@ use yii\helpers\ArrayHelper;
             <?= Html::a(Html::encode($question->title), ['/qa/view', 'id' => $question->id], ['class' => 'post-title']); ?>
 
             <div class="post-info">
-                <?= Yii::$app->formatter->asDate($question->created_at); ?> <span class="margin-line">|</span>
+                <?= Yii::$app->formatter->asDate($question->created_at); ?> <span
+                    class="margin-line">|</span>
                 <?= Html::a(Html::encode($question->user->username), ['profile/view', 'id' => $question->user->id]); ?>
                 <?= $question->solved ? '<span class="ico_true ico_true_green"><svg><use xlink:href="#ico_true" /></svg> ' . Yii::t('qa', 'Resolve') . '</span>' : '' ?>
             </div>
@@ -41,12 +41,7 @@ use yii\helpers\ArrayHelper;
                 <?= \Yii::t('qa', '{n, plural, =0{answers} =1{answer} other{answers}}', ['n' => $countAnswers]) ?>
             </div>
             <div class="q-info">
-                <div class="q-info-like <?= ArrayHelper::map($question->questionFavorites, 'user_id', 'question_id')[Yii::$app->user->getId()] ? 'active' : '' ?>">
-                    <svg>
-                        <use xlink:href="#ico_like"/>
-                    </svg>
-                    <span><?= $question->favorite_count ?> </span>
-                </div>
+                <?= \frontend\widgets\qa\QuestionFavoriteWidget::widget(['question' => $question]) ?>
                 <div class="q-info-view">
                     <svg>
                         <use xlink:href="#ico_view"/>
