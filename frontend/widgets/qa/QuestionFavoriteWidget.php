@@ -23,7 +23,7 @@ class QuestionFavoriteWidget extends Widget
     public function run()
     {
         if (!($this->question instanceof Question)) {
-            return $this->render(false, 0);
+            return $this->renderView(false, 0);
         }
 
         if (\Yii::$app->user->isGuest) {
