@@ -2,18 +2,19 @@
 
 namespace frontend\controllers;
 
+use common\models\Question;
 use common\models\QuestionAnswer;
 use frontend\models\QuestionAnswerForm;
 use frontend\models\QuestionForm;
+use frontend\models\QuestionSearch;
 use Yii;
-use yii\web\Controller;
-use common\models\Question;
-use yii\data\ActiveDataProvider;
+use yii\base\Action;
 use yii\filters\AccessControl;
-use yii\data\Sort;
+use yii\filters\AccessRule;
+use yii\filters\VerbFilter;
+use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * Class QaController
@@ -39,10 +40,25 @@ class QaController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['my', 'favorite'],
+                'only' => ['index', 'favorite'],
                 'rules' => [
                     [
-                        'actions' => ['my', 'favorite','create', 'update-question', 'delete-question', 'update-answer', 'delete-answer'],
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'matchCallback' => function (AccessRule $rule, Action $action) {
+                            $isIndividual = Yii::$app->request->get('individual');
+                            return !$isIndividual || ($isIndividual && !Yii::$app->user->isGuest);
+                        }
+                    ],
+                    [
+                        'actions' => [
+                            'favorite',
+                            'create',
+                            'update-question',
+                            'delete-question',
+                            'update-answer',
+                            'delete-answer'
+                        ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -63,35 +79,13 @@ class QaController extends Controller
      */
     public function actionIndex()
     {
-        $sort = new Sort([
-            'defaultOrder' => [
-                'created_at' => SORT_ASC,
-                'view_count' => SORT_ASC,
-                'favorite_count' => SORT_ASC
-            ],
-            'attributes' => [
-                'created_at', 'view_count', 'favorite_count'
-            ]
-        ]);
-
-        $query = Question::find()
-            ->with(['user', 'questionTags', 'questionFavorites'])
-            ->andWhere([
-                'question.status' => Question::STATUS_PUBLISHED
-            ])
-            ->orderBy('question.created_at DESC');
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'sort' => $sort,
-            'pagination' => [
-                'pageSize' => self::PAGE_SIZE,
-            ],
-        ]);
+        $searchModel = new QuestionSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->getPagination()->setPageSize(self::PAGE_SIZE);
 
         return $this->render('index', [
-            'sort' => $sort,
-            'dataProvider' => $dataProvider
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -237,119 +231,6 @@ class QaController extends Controller
                 ]
             );
         }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function actionWithoutAnswer()
-    {
-        $sort = new Sort([
-            'defaultOrder' => [
-                'created_at' => SORT_ASC,
-                'view_count' => SORT_ASC,
-                'favorite_count' => SORT_ASC
-            ],
-            'attributes' => [
-                'created_at', 'view_count', 'favorite_count'
-            ]
-        ]);
-
-        $query = Question::find()
-            ->with(['user', 'questionTags', 'questionFavorites'])
-            ->andWhere([
-                'question.answer_count' => 0,
-                'question.status' => Question::STATUS_PUBLISHED
-            ])
-            ->orderBy('question.created_at DESC');
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'sort' => $sort,
-            'pagination' => [
-                'pageSize' => self::PAGE_SIZE,
-            ],
-        ]);
-
-        return $this->render('index', [
-            'sort' => $sort,
-            'dataProvider' => $dataProvider
-        ]);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function actionSolved()
-    {
-        $sort = new Sort([
-            'defaultOrder' => [
-                'created_at' => SORT_ASC,
-                'view_count' => SORT_ASC,
-                'favorite_count' => SORT_ASC
-            ],
-            'attributes' => [
-                'created_at', 'view_count', 'favorite_count'
-            ]
-        ]);
-
-        $query = Question::find()
-            ->with(['user', 'questionTags', 'questionFavorites'])
-            ->andWhere([
-                'question.solved' => Question::STATUS_SOLVED,
-                'question.status' => Question::STATUS_PUBLISHED
-            ])
-            ->orderBy('question.created_at DESC');
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'sort' => $sort,
-            'pagination' => [
-                'pageSize' => self::PAGE_SIZE,
-            ],
-        ]);
-
-        return $this->render('index', [
-            'sort' => $sort,
-            'dataProvider' => $dataProvider
-        ]);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function actionMy()
-    {
-        $sort = new Sort([
-            'defaultOrder' => [
-                'created_at' => SORT_ASC,
-                'view_count' => SORT_ASC,
-                'favorite_count' => SORT_ASC
-            ],
-            'attributes' => [
-                'created_at', 'view_count', 'favorite_count'
-            ]
-        ]);
-
-        $query = Question::find()
-            ->with(['user', 'questionTags', 'questionFavorites'])
-            ->andWhere([
-                'question.user_id' => Yii::$app->user->getId()
-            ])
-            ->orderBy('question.created_at DESC');
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'sort' => $sort,
-            'pagination' => [
-                'pageSize' => self::PAGE_SIZE,
-            ],
-        ]);
-
-        return $this->render('index', [
-            'sort' => $sort,
-            'dataProvider' => $dataProvider
-        ]);
     }
 
     /**

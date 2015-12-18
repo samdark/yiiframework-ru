@@ -1,12 +1,11 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use frontend\widgets\TagsWidget;
 use yii\widgets\Menu;
 
 /* @var $this yii\web\View */
-/* @var $sort yii\data\Sort */
+/* @var $searchModel frontend\models\QuestionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 switch (Yii::$app->controller->action->id) {
@@ -61,17 +60,47 @@ switch (Yii::$app->controller->action->id) {
 <div class="row">
     <div class="col-md-9">
 
-        <?= Menu::widget([
+        <?php
+        $requestUrl = Yii::$app->request->url;
+
+        if (Yii::$app->request->queryString) {
+            $aliasRoute = substr($requestUrl, 0, strpos($requestUrl, Yii::$app->request->queryString) - 1);
+        } else {
+            $aliasRoute = $requestUrl;
+        }
+        echo Menu::widget([
             'options' => [
                 'class' => 'nav nav-tabs'
             ],
             'linkTemplate' => '<a role="presentation" href="{url}">{label}</a>',
             'items' => [
-                ['label' => Yii::t('qa', 'All questions'), 'url' => ['qa/index']],
-                ['label' => Yii::t('qa', 'Unanswered'), 'url' => ['qa/without-answer']],
-                ['label' => Yii::t('qa', 'Solved questions'), 'url' => ['qa/solved']],
-                ['label' => Yii::t('qa', 'My questions'), 'url' => ['qa/my'], 'visible' => !Yii::$app->user->isGuest],
-                ['label' => Yii::t('qa', 'Favorites'), 'url' => ['qa/favorite'], 'visible' => !Yii::$app->user->isGuest]
+                [
+                    'label' => Yii::t('qa', 'All questions'),
+                    'url' => ['qa/index'],
+                    'active' => $aliasRoute === '/qa' || $aliasRoute === '/qa/index',
+                ],
+                [
+                    'label' => Yii::t('qa', 'Unanswered'),
+                    'url' => ['qa/without-answer'],
+                    'active' => $aliasRoute === '/qa/without-answer',
+                ],
+                [
+                    'label' => Yii::t('qa', 'Solved questions'),
+                    'url' => ['qa/solved'],
+                    'active' => $aliasRoute === '/qa/solved',
+                ],
+                [
+                    'label' => Yii::t('qa', 'My questions'),
+                    'url' => ['qa/my'],
+                    'active' => $aliasRoute === '/qa/my',
+                    'visible' => !Yii::$app->user->isGuest
+                ],
+                [
+                    'label' => Yii::t('qa', 'Favorites'),
+                    'url' => ['qa/favorite'],
+                    'active' => $aliasRoute === '/qa/favorite',
+                    'visible' => !Yii::$app->user->isGuest
+                ]
             ],
         ]); ?>
 
@@ -113,13 +142,13 @@ switch (Yii::$app->controller->action->id) {
             ?>
             <ul class="nav nav-tabs">
                 <li <?= ($sortParam === 'created_at' || $sortParam === '-created_at') ? 'class = "active"' : '' ?>>
-                    <?= $sort->link('created_at', ['label' => Yii::t('qa', 'by date')]) ?>
+                    <?= $dataProvider->getSort()->link('created_at', ['label' => Yii::t('qa', 'by date')]) ?>
                 </li>
                 <li <?= ($sortParam === 'view_count' || $sortParam === '-view_count') ? 'class = "active"' : '' ?>>
-                    <?= $sort->link('view_count', ['label' => Yii::t('qa', 'by views')]) ?>
+                    <?= $dataProvider->getSort()->link('view_count', ['label' => Yii::t('qa', 'by views')]) ?>
                 </li>
                 <li <?= ($sortParam === 'favorite_count' || $sortParam === '-favorite_count') ? 'class = "active"' : '' ?>>
-                    <?= $sort->link('favorite_count', ['label' => Yii::t('qa', 'by subscribers')]) ?>
+                    <?= $dataProvider->getSort()->link('favorite_count', ['label' => Yii::t('qa', 'by subscribers')]) ?>
                 </li>
             </ul>
         </div>
