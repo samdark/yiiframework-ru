@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\Question;
 use common\models\QuestionAnswer;
+use common\models\QuestionFavorite;
 use frontend\models\QuestionAnswerForm;
 use frontend\models\QuestionForm;
 use frontend\models\QuestionSearch;
@@ -12,6 +13,7 @@ use yii\base\Action;
 use yii\filters\AccessControl;
 use yii\filters\AccessRule;
 use yii\filters\VerbFilter;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
@@ -234,11 +236,24 @@ class QaController extends Controller
     }
 
     /**
-     * @inheritdoc
+     * The question will be added as a favorite question to the current user.
+     * @param $id
+     * @return int
+     * @throws BadRequestHttpException
      */
-    public function actionFavorite()
+    public function actionFavorite($id)
     {
-        // action code ...
+        $questionFavoriteModel = new QuestionFavorite([
+            'user_id' => Yii::$app->user->id,
+            'question_id' => $id,
+        ]);
+
+        $result = $questionFavoriteModel->impact();
+        if ($result === false) {
+            throw new BadRequestHttpException();
+        }
+
+        return $result;
     }
 
     /**

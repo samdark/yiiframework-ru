@@ -35,16 +35,23 @@ class QuestionFavoriteWidget extends Widget
                 ->exists();
         }
 
-        return $this->renderView($isActive, $this->question->favorite_count);
+        return $this->renderView($isActive, $this->question->favorite_count, $this->question->id);
     }
 
     /**
      * @param boolean $isActive
      * @param integer $favoriteCount
+     * @param null|integer $questionID
      * @return string
      */
-    protected function renderView($isActive, $favoriteCount)
+    protected function renderView($isActive, $favoriteCount, $questionID = null)
     {
-        return $this->render('favorite', ['isActive' => $isActive, 'favoriteCount' => $favoriteCount]);
+        return $this->render(
+            'favorite',
+            [
+                'isActive' => $isActive,
+                'favoriteCount' => $favoriteCount,
+                'questionID' => $questionID,
+            ]);
     }
 }

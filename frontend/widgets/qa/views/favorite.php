@@ -1,6 +1,15 @@
 <?php
 /** @var boolean $isActive */
 /** @var integer $favoriteCount */
+/** @var null|integer $questionID */
+
+$svgIcon = '<svg><use xlink:href="#ico_like"></use></svg>';
+if ($questionID !== null) {
+    $icon = \yii\bootstrap\Html::a($svgIcon, ['/qa/favorite', 'id' => $questionID], ['data-method' => 'post']);
+} else {
+    $icon = $svgIcon;
+}
+
 ?>
 <svg class="hidden">
     <symbol id="ico_like" viewBox="0 0 29 26">
@@ -14,8 +23,6 @@
 </svg>
 
 <div class="q-info-like <?= $isActive ? 'active' : '' ?>">
-    <svg>
-        <use xlink:href="#ico_like"></use>
-    </svg>
+    <?= $icon ?>
     <span><?= $favoriteCount ?></span>
 </div>
