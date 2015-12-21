@@ -18,8 +18,8 @@ use yii\widgets\ActiveForm;
 <div class="form-group">
     <div>
         <?= Html::submitButton(
-            Yii::t('qa', !$answerForm->answer->question_id ? 'Post Your Answer' : 'Update Your Answer'),
-            ['class' => !$answerForm->answer->question_id ? 'btn btn-border-success btn-lg' : 'btn btn-border-primary btn-lg', 'name' => 'submit-question']
+            Yii::t('qa', ($answerForm->answer === null) ? 'Post Your Answer' : 'Update Your Answer'),
+            ['class' => ($answerForm->answer === null) ? 'btn btn-border-success btn-lg' : 'btn btn-border-primary btn-lg', 'name' => 'submit-question']
         ) ?>
     </div>
 </div>
