@@ -73,7 +73,7 @@ class UserForm extends Model
             ['github', 'filter', 'filter' =>'trim'],
             ['github', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']],
             ['github', 'match', 'pattern' => '(github\.com/[a-z0-9A-Z]+/?$)',
-                'message' => \Yii::t('user','This is not a link to the profile Github.')
+                'message' => \Yii::t('user','This is not a link to the Github profile.')
             ],
 
             ['city', 'filter', 'filter' => 'trim'],
@@ -107,7 +107,7 @@ class UserForm extends Model
             ]);
 
             if ($this->user->validate()) {
-                $this->user->save(false, ['email', 'site', 'github', 'city', 'first_name', 'last_name']);
+                $this->user->save(true, ['email', 'site', 'github', 'city', 'first_name', 'last_name']);
                 return true;
             }
 
