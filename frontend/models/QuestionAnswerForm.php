@@ -31,7 +31,7 @@ class QuestionAnswerForm extends Model
      */
     public function init()
     {
-        if ($this->answer === null AND !$this->question_id) {
+        if ($this->answer === null AND $this->question_id === null) {
             throw new InvalidConfigException('Attribute question should be configured');
         }
 
