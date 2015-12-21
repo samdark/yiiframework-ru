@@ -253,7 +253,11 @@ class QaController extends Controller
             throw new BadRequestHttpException();
         }
 
-        return $result;
+        if (Yii::$app->request->isAjax) {
+            return $result;
+        } else {
+            return $this->redirect('index');
+        }
     }
 
     /**
