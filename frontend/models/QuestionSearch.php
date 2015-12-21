@@ -56,7 +56,7 @@ class QuestionSearch extends Model
         $this->load($params, '');
 
         $query = Question::find()
-            ->select(['{{question}}.*', '{{user}}.[[id]]', '{{user}}.[[username]]'])
+            ->select(['{{question}}.*', '{{user}}.[[username]]'])
             ->joinWith(['user'])
             ->andFilterWhere([
                 'question.solved' => $this->solved,
