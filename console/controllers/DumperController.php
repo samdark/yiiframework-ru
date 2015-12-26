@@ -2,11 +2,8 @@
 
 namespace console\controllers;
 
-use common\models\Post;
 use yii\console\Controller;
 use yii\db\Connection;
-use yii\di\Container;
-use yii\web\User;
 
 /**
  * DumperController take from old site Posts table to new site
