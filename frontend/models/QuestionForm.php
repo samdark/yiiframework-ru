@@ -2,11 +2,8 @@
 
 namespace frontend\models;
 
-use Yii;
 use common\models\Question;
 use common\models\QuestionTag;
-use yii\base\InvalidCallException;
-use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 
@@ -30,16 +27,16 @@ class QuestionForm extends Model
     /* @var Question */
     private $questionModel = null;
 
-    /**
-     * @throws InvalidConfigException
-     */
-    public function init()
-    {
-        if ($this->question === null) {
-            throw new InvalidConfigException('Attribute question should be configured');
-        }
 
-        parent::init();
+    /**
+     * @inheritdoc
+     */
+    public function __construct(Question $questionModel, $config = [])
+    {
+        $this->questionModel = $questionModel;
+        $this->setAttributes($this->questionModel->getAttributes(['title', 'body']));
+        $this->tags = ArrayHelper::map($questionModel->questionTags, 'name', 'name');
+        parent::__construct($config);
     }
 
     /**
@@ -61,9 +58,9 @@ class QuestionForm extends Model
     public function attributeLabels()
     {
         return [
-            'title' => Yii::t('qa', 'Title'),
-            'body' => Yii::t('qa', 'Body'),
-            'tags' => Yii::t('qa', 'Tags')
+            'title' => \Yii::t('qa', 'Title'),
+            'body' => \Yii::t('qa', 'Body'),
+            'tags' => \Yii::t('qa', 'Tags')
         ];
     }
 
@@ -103,20 +100,5 @@ class QuestionForm extends Model
     public function getQuestion()
     {
         return $this->questionModel;
-    }
-
-    /**
-     * Setter to Question model.
-     * Note: It may be used once at initialization.
-     * @param Question $value
-     */
-    public function setQuestion(Question $value)
-    {
-        if ($this->questionModel === null) {
-            $this->questionModel = $value;
-            $this->setAttributes($this->questionModel->attributes);
-        } else {
-            throw new InvalidCallException('Attribute question was set earlier');
-        }
     }
 }

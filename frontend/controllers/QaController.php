@@ -183,10 +183,7 @@ class QaController extends Controller
     {
         $questionModel = new Question();
 
-        /** @var $questionForm \frontend\models\QuestionForm */
-        $questionForm = new QuestionForm([
-            'question' => $questionModel
-        ]);
+        $questionForm = new QuestionForm($questionModel);
 
         if ($questionForm->load(Yii::$app->request->post())) {
             /** @var $question \common\models\Question */
@@ -217,11 +214,7 @@ class QaController extends Controller
             throw new ForbiddenHttpException();
         }
 
-        $questionForm = new QuestionForm(
-            [
-                'question' => $question
-            ]
-        );
+        $questionForm = new QuestionForm($question);
 
         if ($questionForm->load(Yii::$app->request->post()) && $questionForm->save()) {
             return $this->redirect(['view', 'id' => $questionForm->question->id]);
