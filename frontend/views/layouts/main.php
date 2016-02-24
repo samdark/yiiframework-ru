@@ -67,19 +67,19 @@ AppAsset::register($this);
                 ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html'],
                 ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html'],
                 ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/'],
-                [
-                    'label' => Yii::t('app', 'Questions'),
-                    'url' => ['/qa'],
-                    'active' => Yii::$app->controller->id === 'qa'
-                ],
+//                [
+//                    'label' => Yii::t('app', 'Questions'),
+//                    'url' => ['/qa'],
+//                    'active' => Yii::$app->controller->id === 'qa'
+//                ],
                 ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus'],
                 ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/'],
-                ['label' => Yii::t('app', 'Member List'), 'url' => ['/profile/list']],
-                [
-                    'label' => Yii::t('app', 'Projects'),
-                    'url' => ['/project/'],
-                    'active' => Yii::$app->controller->id === 'project'
-                ],
+//                ['label' => Yii::t('app', 'Member List'), 'url' => ['/profile/list']],
+//                [
+//                    'label' => Yii::t('app', 'Projects'),
+//                    'url' => ['/project/'],
+//                    'active' => Yii::$app->controller->id === 'project'
+//                ],
             ];
 
             echo Nav::widget(
