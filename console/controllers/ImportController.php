@@ -7,11 +7,10 @@ use yii\db\Connection;
 use yii\db\Query;
 
 /**
- * DumperController take from old site Posts table to new site
+ * Imports posts from old DB
  */
 class ImportController extends Controller
 {
-
     /**
      * Заполняет таблицу новостей со старой базы данных
      * @param $tablePost string Имя старой таблицы
