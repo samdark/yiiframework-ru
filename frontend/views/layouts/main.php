@@ -136,22 +136,21 @@ AppAsset::register($this);
                 <div class="b-footer-cent">
                     <div class="footer-title">Поддержка</div>
                     <ul class="footer-nav">
-                        <li><a href="#">Оставить пожелание</a></li>
-                        <li><a href="#">Открытый чат</a></li>
-                        <li><a href="#">Сообщать об ошибке</a></li>
+                        <li><a href="http://yiiframework.ru/forum/viewforum.php?f=5">Оставить пожелание</a></li>
+                        <li><a href="https://gitter.im/samdark/yiiframework-ru">Открытый чат</a></li>
+                        <li><a href="https://github.com/samdark/yiiframework-ru/issues">Сообщить об ошибке</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                 <div class="footer-copyright">
                     <p>
-                        © 2009 — <?= date('Y') ?>, <?= Yii::t('app', 'Yii community') ?>, Александр Макаров<br>
-                        и группа переводчиков русской документации
+                        © 2009 — <?= date('Y') ?>, <?= Yii::t('app', 'Yii community') ?> и Александр Макаров
                     </p>
 
                     <p>
                         © 2008 — <?= date('Y') ?>, Yii Software LLC<br>
-                        <a href="">Условия использования</a>
+                        <a href="http://www.yiiframework.com/doc/terms/">Условия использования</a>
                     </p>
 
                     <p>
