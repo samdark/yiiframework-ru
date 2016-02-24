@@ -51,24 +51,22 @@ use yii\helpers\Html;
                 <div class="ico-fast"><img src="i/ico_f_fast.svg" alt=""></div>
                 <div class="f-title fast">Быстрый</div>
                 <div class="f-descr">
-                    Yii only loads the features that you need. It has powerful caching support. It is explicitly
-                    designed to work efficiently with AJAX.
+                    Yii запускает только то, что используется, имеет мощную систему кэширирования и изначально нацелен на
+                    отличную работу с AJAX.
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="ico-secure"><img src="i/ico_f_secure.svg" alt=""></div>
                 <div class="f-title secure">Безопасный</div>
                 <div class="f-descr">
-                    Security comes as standard with Yii. It includes input validation, output filtering, SQL injection
-                    and Cross-site scripting prevention.
+                    В Yii есть всё для обеспечения безопасности: валидация, фильтрация, защита от SQL-инъекций и XSS.
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <div class="ico-professional"><img src="i/ico_f_professional.svg" alt=""></div>
                 <div class="f-title professional">Профессиональный</div>
                 <div class="f-descr">
-                    Yii helps you develop clean and reusable code. It follows the MVC pattern, ensuring a clear
-                    separation of logic and presentation.
+                    Yii помогает писать чистый гибкий код. Фреймворк следует MVC и чётко отделяет логику от отображения.
                 </div>
             </div>
         </div>
