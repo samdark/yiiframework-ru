@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use common\models\Auth;
 use common\models\User;
+use frontend\components\AuthHandler;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -84,105 +85,7 @@ class SiteController extends Controller
      */
     public function onAuthSuccess($client)
     {
-        $attributes = $client->getUserAttributes();
-
-        $email = ArrayHelper::getValue($attributes, 'email');
-        $id = ArrayHelper::getValue($attributes, 'id');
-
-        $nickname = ArrayHelper::getValue($attributes, 'nickname');
-        if (empty($nickname)) {
-            $nickname = ArrayHelper::getValue($attributes, 'login');
-        }
-        if (empty($nickname)) {
-            $nickname = ArrayHelper::getValue($attributes, 'name');
-        }
-
-        if (empty($nickname)) {
-            $nickname = ArrayHelper::getValue($attributes, 'first_name') . ' ' . ArrayHelper::getValue($attributes, 'last_name');
-        }
-
-        /** @var Auth $auth */
-        $auth = Auth::find()->where([
-            'source' => $client->getId(),
-            'source_id' => $id,
-        ])->one();
-        if (Yii::$app->user->isGuest) {
-            if ($auth) { // login
-                $user = $auth->user;
-                Yii::$app->user->login($user, 3600 * 24 * 30);
-            } else { // signup
-                if ($email !== null && User::find()->where(['email' => $email])->exists()) {
-                    Yii::$app->getSession()->setFlash('error', [
-                        Yii::t('app',
-                            'User with the same email as in {client} account already exists but isn\'t linked to it. Login first and then link it from your settings.',
-                            ['client' => $client->getTitle()]),
-                    ]);
-                } else {
-                    $password = Yii::$app->security->generateRandomString(6);
-
-                    $userdata = [
-                        'username' => $nickname,
-                        'email' => $email,
-                        'password' => $password,
-                    ];
-
-                    if ($client->getId() === 'github') {
-                        $userdata['github'] = ArrayHelper::getValue($attributes, 'login');
-                        $userdata['site'] = ArrayHelper::getValue($attributes, 'blog');
-                    }
-
-                    $user = new User($userdata);
-                    $user->generateAuthKey();
-                    $user->generatePasswordResetToken();
-                    $transaction = $user->getDb()->beginTransaction();
-                    if ($user->save()) {
-                        $auth = new Auth([
-                            'user_id' => $user->id,
-                            'source' => $client->getId(),
-                            'source_id' => (string)$id,
-                        ]);
-                        if ($auth->save()) {
-                            $transaction->commit();
-                            Yii::$app->user->login($user, 3600 * 24 * 30);
-                        } else {
-                            print_r($auth->getErrors());
-                            die();
-                        }
-                    } else {
-                        print_r($user->getErrors());
-                        die();
-                    }
-                }
-            }
-        } else { // user already logged in
-            if (!$auth) { // add new auth provider
-                $auth = new Auth([
-                    'user_id' => Yii::$app->user->id,
-                    'source' => $client->getId(),
-                    'source_id' => (string) $id
-                ]);
-                if ($auth->save()) {
-                    Yii::$app->getSession()->setFlash('success', [
-                        Yii::t('app', 'Linked {client} account.', [
-                            'client' => $client->getTitle()
-                        ]),
-                    ]);
-                } else {
-                    Yii::$app->getSession()->setFlash('error', [
-                        Yii::t('app', 'Unable to link {client} account: {errors}', [
-                            'client' => $client->getTitle(),
-                            'errors' => json_encode($auth->getErrors()),
-                        ]),
-                    ]);
-                }
-            } else { // there's existing auth
-                Yii::$app->getSession()->setFlash('error', [
-                    Yii::t('app',
-                        'Unable to link {client} account. There is another user using it.',
-                        ['client' => $client->getTitle()]),
-                ]);
-            }
-        }
+        (new AuthHandler($client))->handle();
     }
 
     /**
