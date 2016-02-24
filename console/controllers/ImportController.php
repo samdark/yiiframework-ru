@@ -4,11 +4,12 @@ namespace console\controllers;
 
 use yii\console\Controller;
 use yii\db\Connection;
+use yii\db\Query;
 
 /**
  * DumperController take from old site Posts table to new site
  */
-class DumperController extends Controller
+class ImportController extends Controller
 {
 
     /**
@@ -24,26 +25,26 @@ class DumperController extends Controller
      */
     public function actionDump($tablePost, $dbName, $userName, $password, $userId)
     {
-        $tmpDb = new Connection([
-            'dsn' => 'mysql:host=localhost;dbname='.$dbName,
+        $oldDb = new Connection([
+            'dsn' => 'mysql:host=localhost;dbname=' . $dbName,
             'username' => $userName,
             'password' => $password,
             'charset' => 'utf8',
         ]);
 
-        $tmpDb->open();
-        $query = "SELECT * FROM ".$tablePost."";
-        $datas = $tmpDb->createCommand($query)->queryAll();
+        $rows = (new Query())->from($tablePost)->all($oldDb);
 
-        foreach($datas as $data){
-
-            \Yii::$app->db->createCommand()->insert('post', [
-                'id' => $data['id'],
-                'title' => $data['title'],
-                'body' => $data['content'],
-                'user_id' => $userId,
-                'created_at' => $data['createdOn'],
-            ])->execute();
+        foreach ($rows as $post) {
+            \Yii::$app->db->createCommand()->insert(
+                'post',
+                [
+                    'id' => $post['id'],
+                    'title' => $post['title'],
+                    'body' => $post['content'],
+                    'user_id' => $userId,
+                    'created_at' => $post['createdOn'],
+                ]
+            )->execute();
         }
 
         echo "Success!\n";
