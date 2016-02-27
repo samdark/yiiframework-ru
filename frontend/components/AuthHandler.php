@@ -8,7 +8,7 @@ use yii\authclient\ClientInterface;
 use yii\helpers\ArrayHelper;
 
 /**
- * AuthHandler handles successful authentification via Yii auth component
+ *  AuthHandler handles successful GitHub authentication via Yii auth component
  */
 class AuthHandler
 {
@@ -48,7 +48,9 @@ class AuthHandler
             } else { // signup
                 if ($email !== null && User::find()->where(['email' => $email])->exists()) {
                     Yii::$app->getSession()->setFlash('error', [
-                        Yii::t('app', "User with the same email as in {client} account already exists but isn't linked to it. Login using email first to link it.", ['client' => $client->getTitle()]),
+                        Yii::t('app',
+                            "User with the same email as in {client} account already exists but isn't linked to it. Login using email first to link it.",
+                            ['client' => $this->client->getTitle()]),
                     ]);
                 } else {
                     $password = Yii::$app->security->generateRandomString(6);
@@ -84,7 +86,7 @@ class AuthHandler
                         Yii::$app->getSession()->setFlash('error', [
                             Yii::t('app', 'Unable to save user: {errors}', [
                                 'client' => $this->client->getTitle(),
-                                'errors' => json_encode($user->getErrors()),
+                                'errors' => json_encode($user->getErrors(), JSON_UNESCAPED_UNICODE),
                             ]),
                         ]);
                     }
