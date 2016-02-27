@@ -4,6 +4,7 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
+use yii\authclient\widgets\AuthChoice;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -19,21 +20,29 @@ $this->blocks['body-class'] = "bg-textured";
                     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
                     <?= $form->field($model, 'username')
-                        ->textInput(['class' => 'form-control input-lg', 'placeholder' => $model->getAttributeLabel('username')])
+                        ->textInput([
+                            'class' => 'form-control input-lg',
+                            'placeholder' => $model->getAttributeLabel('username')
+                        ])
                         ->label(false) ?>
 
                     <?= $form->field($model, 'password')
-                        ->passwordInput(['class' => 'form-control input-lg', 'placeholder' => $model->getAttributeLabel('password')])
+                        ->passwordInput([
+                            'class' => 'form-control input-lg',
+                            'placeholder' => $model->getAttributeLabel('password')
+                        ])
                         ->label(false) ?>
 
                     <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" style="margin-bottom: 15px;">
-                            <?= Html::submitButton(Yii::t('app', 'Login'), ['class' => 'btn btn-success btn-lg btn-block', 'name' => 'login-button']) ?>
+                            <?= Html::submitButton(Yii::t('app', 'Login'),
+                                ['class' => 'btn btn-success btn-lg btn-block', 'name' => 'login-button']) ?>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                            <?= Html::a(Yii::t('app', 'Registration'), ['/site/signup'], ['class' => 'btn btn-primary btn-lg btn-block']) ?>
+                            <?= Html::a(Yii::t('app', 'Registration'), ['/site/signup'],
+                                ['class' => 'btn btn-primary btn-lg btn-block']) ?>
                         </div>
                     </div>
 
@@ -48,9 +57,15 @@ $this->blocks['body-class'] = "bg-textured";
                 </div>
                 <div class="p-login-social">
                     <div class="login-social">
-                        <a href="https://github.com/yiisoft/yii2" class="github" target="_blank"></a>
-                        <a href="https://twitter.com/yiiframework_ru" class="twitter" target="_blank"></a>
-                        <a href="https://www.facebook.com/groups/yiitalk/" class="facebook" target="_blank"></a>
+                        <?php $authAuthChoice = AuthChoice::begin([
+                            'baseAuthUrl' => ['site/auth'],
+                        ]); ?>
+
+                        <?php foreach ($authAuthChoice->getClients() as $client): ?>
+                            <?php $authAuthChoice->clientLink($client, '') ?>
+                        <?php endforeach; ?>
+
+                        <?php AuthChoice::end(); ?>
                     </div>
                 </div>
             </div>
