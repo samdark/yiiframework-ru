@@ -8,7 +8,7 @@ use yii\authclient\ClientInterface;
 use yii\helpers\ArrayHelper;
 
 /**
- *  AuthHandler handles successful GitHub authentication via Yii auth component
+ *  AuthHandler handles successful authentication via Yii auth component
  */
 class AuthHandler
 {
@@ -26,7 +26,29 @@ class AuthHandler
         $this->client = $client;
     }
 
+    /**
+     * Handles by the $client
+     */
     public function handle()
+    {
+        switch ($this->client->getName()) {
+            case 'github':
+                $this->handleGitHub();
+                break;
+            case 'twitter':
+                $this->handleTwitter();
+                break;
+            case 'facebook':
+                $this->handleFacebook();
+                break;
+        }
+    }
+
+    /**
+     * Handles a GitHub client
+     * @throws \yii\db\Exception
+     */
+    private function handleGitHub()
     {
         $attributes = $this->client->getUserAttributes();
         $email = ArrayHelper::getValue($attributes, 'email');
@@ -137,5 +159,21 @@ class AuthHandler
             $user->github = $github;
             $user->save();
         }
+    }
+
+    /**
+     * Handles a Twitter client
+     */
+    private function handleTwitter()
+    {
+        Yii::$app->getSession()->setFlash('error', ['Coming soon']);
+    }
+
+    /**
+     * Handles a Facebook client
+     */
+    private function handleFacebook()
+    {
+        Yii::$app->getSession()->setFlash('error', 'Coming soon');
     }
 }
