@@ -52,10 +52,10 @@ class m150828_061615_tags extends Migration
 
         $this->batchInsert(
             'tag',
-            ['name', 'description', 'color'],
+            ['name', 'description', 'color', 'created_at', 'updated_at'],
             [
-                ['yii1', 'Common Yii 1.x question', '#4e89da'],
-                ['yii2', 'Common Yii 2.x question', '#e7652e'],
+                ['yii1', 'Common Yii 1.x question', '#4e89da', time(), time()],
+                ['yii2', 'Common Yii 2.x question', '#e7652e', time(), time()],
             ]
         );
     }
