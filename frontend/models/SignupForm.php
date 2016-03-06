@@ -10,9 +10,26 @@ use Yii;
  */
 class SignupForm extends Model
 {
+    /** @var string $username */
     public $username;
+
+    /** @var string $email */
     public $email;
+
+    /** @var string $firstName */
+    public $firstName;
+
+    /** @var string $lastName */
+    public $lastName;
+
+    /** @var string $site */
+    public $site;
+
+    /** @var string $password */
     public $password;
+
+    /** @var string $passwordRepeat */
+    public $passwordRepeat;
 
     /**
      * @inheritdoc
@@ -20,19 +37,41 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'string', 'max' => 255],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('user', 'This username has already been taken.')],
 
-            ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'filter', 'filter' => 'trim'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('user', 'This email address has already been taken.')],
 
-            ['password', 'required'],
+            [['firstName', 'lastName', 'site'], 'string', 'max' => 255],
+
+            ['site', 'filter', 'filter' => 'trim'],
+            ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']],
+
+            [['password', 'passwordRepeat'], 'required'],
+            [['password'], 'filter', 'filter' => 'trim'],
             ['password', 'string', 'min' => 6],
+            ['passwordRepeat', 'compare', 'compareAttribute' => 'password']
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => Yii::t('user', 'Username'),
+            'email' => Yii::t('user', 'Email'),
+            'firstName' => Yii::t('user', 'First name'),
+            'lastName' => Yii::t('user', 'Last name'),
+            'site' => Yii::t('user', 'Site'),
+            'password' => Yii::t('user', 'Password'),
+            'passwordRepeat' => Yii::t('user', 'Repeat password')
         ];
     }
 
@@ -43,17 +82,21 @@ class SignupForm extends Model
      */
     public function signup()
     {
-        if ($this->validate()) {
-            $user = new User();
-            $user->username = $this->username;
-            $user->email = $this->email;
-            $user->setPassword($this->password);
-            $user->generateAuthKey();
-            if ($user->save()) {
-                return $user;
-            }
+        if (!$this->validate()) {
+            return null;
         }
 
-        return null;
+        $user = new User();
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->firstName = $this->firstName;
+        $user->lastName = $this->lastName;
+        $user->site = $this->site;
+        $user->resend_at = time();
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        $user->generateVerifiedToken();
+
+        return $user->save() ? $user : null;
     }
 }

@@ -63,6 +63,7 @@ AppAsset::register($this);
         <div class="navbar-collapse navbar-main-collapse collapse">
             <?php
             $menuItems = [
+                ['label' => Yii::t('app', 'Home'), 'url' => ['/']],
                 ['label' => '1.1', 'url' => ['/site/legacy']],
                 ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html'],
                 ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html'],
@@ -74,7 +75,7 @@ AppAsset::register($this);
 //                ],
                 ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus'],
                 ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/'],
-//                ['label' => Yii::t('app', 'Member List'), 'url' => ['/profile/list']],
+                ['label' => Yii::t('app', 'Users'), 'url' => ['/profile/list']],
 //                [
 //                    'label' => Yii::t('app', 'Projects'),
 //                    'url' => ['/project/'],
@@ -91,7 +92,25 @@ AppAsset::register($this);
 </nav>
 
 <div class="container">
-    <?= Alert::widget() ?>
+    <?= \lavrentiev\widgets\toastr\NotificationFlash::widget([
+        'options' => [
+            "closeButton" => false,
+            "debug" => false,
+            "newestOnTop" => false,
+            "progressBar" => false,
+            "positionClass" => "toast-top-right",
+            "preventDuplicates" => false,
+            "onclick" => null,
+            "showDuration" => "300",
+            "hideDuration" => "1000",
+            "timeOut" => "5000",
+            "extendedTimeOut" => "1000",
+            "showEasing" => "swing",
+            "hideEasing" => "linear",
+            "showMethod" => "fadeIn",
+            "hideMethod" => "fadeOut"
+        ]
+    ]) ?>
 </div>
 
 <?= $content ?>

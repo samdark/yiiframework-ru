@@ -5,6 +5,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\authclient\widgets\AuthChoice;
 
 $this->title = Yii::t('app', 'Signup');
 $this->blocks['body-class'] = 'bg-textured';
@@ -27,8 +28,24 @@ $this->blocks['body-class'] = 'bg-textured';
                         ->textInput(['class' => 'form-control input-lg', 'placeholder' => $model->getAttributeLabel('email')])
                         ->label(false) ?>
 
+                    <?= $form->field($model, 'firstName')
+                        ->textInput(['class' => 'form-control input-lg', 'placeholder' => $model->getAttributeLabel('firstName')])
+                        ->label(false) ?>
+
+                    <?= $form->field($model, 'lastName')
+                        ->textInput(['class' => 'form-control input-lg', 'placeholder' => $model->getAttributeLabel('lastName')])
+                        ->label(false) ?>
+
+                    <?= $form->field($model, 'site')
+                        ->textInput(['class' => 'form-control input-lg', 'placeholder' => $model->getAttributeLabel('site')])
+                        ->label(false) ?>
+
                     <?= $form->field($model, 'password')
                         ->passwordInput(['class' => 'form-control input-lg', 'placeholder' => $model->getAttributeLabel('password')])
+                        ->label(false) ?>
+
+                    <?= $form->field($model, 'passwordRepeat')
+                        ->passwordInput(['class' => 'form-control input-lg', 'placeholder' => $model->getAttributeLabel('passwordRepeat')])
                         ->label(false) ?>
 
                     <div class="form-group">
@@ -40,9 +57,15 @@ $this->blocks['body-class'] = 'bg-textured';
                 </div>
                 <div class="p-login-social">
                     <div class="login-social">
-                        <a href="https://github.com/yiisoft/yii2" class="github" target="_blank"></a>
-                        <a href="https://twitter.com/yiiframework_ru" class="twitter" target="_blank"></a>
-                        <a href="https://www.facebook.com/groups/yiitalk/" class="facebook" target="_blank"></a>
+                        <?php $authAuthChoice = AuthChoice::begin([
+                            'baseAuthUrl' => ['site/auth'],
+                        ]); ?>
+
+                        <?php foreach ($authAuthChoice->getClients() as $client): ?>
+                            <?php $authAuthChoice->clientLink($client, '') ?>
+                        <?php endforeach; ?>
+
+                        <?php AuthChoice::end(); ?>
                     </div>
                 </div>
             </div>

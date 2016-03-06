@@ -8,6 +8,7 @@ use frontend\models\UserForm;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
+use yii\filters\VerbFilter;
 use frontend\models\ChangePasswordForm;
 
 /**
@@ -25,7 +26,6 @@ class ProfileController extends Controller
      */
     public $layout = "common";
 
-
     /**
      * @inheritdoc
      */
@@ -34,13 +34,24 @@ class ProfileController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['update'],
+                'only' => ['update', 'resend'],
                 'rules' => [
                     [
-                        'actions' => ['update'],
+                        'actions' => ['index', 'view'],
+                        'allow' => true,
+                        'roles' => ['?']
+                    ],
+                    [
+                        'actions' => ['update', 'resend'],
                         'allow' => true,
                         'roles' => ['@'],
                     ]
+                ]
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'resend' => ['post']
                 ]
             ]
         ];
@@ -69,21 +80,34 @@ class ProfileController extends Controller
      */
     public function actionUpdate()
     {
-        $userForm = new UserForm();
+        $user = User::find()
+            ->where([
+                'id' => Yii::$app->user->identity->getId(),
+                'status' => User::STATUS_ACTIVE
+            ])
+            ->one();
 
-        if ($userForm->load(Yii::$app->request->post()) && $userForm->save()) {
-            return $this->redirect(['index']);
+        $user->scenario = User::SCENARIO_PROFILE;
+
+        if ($user === null) {
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
         }
 
-        $modelChangePassword = new ChangePasswordForm();
+        $changePassword = new ChangePasswordForm();
 
-        if ($modelChangePassword->load(Yii::$app->request->post()) && $modelChangePassword->change()) {
-            return $this->redirect(['index']);
+        if ($changePassword->load(Yii::$app->request->post()) && $changePassword->updatePassword()) {
+            \Yii::$app->session->setFlash('success', Yii::t('user', 'The password was successfully changed.'));
+            return $this->redirect(['update']);
+        }
+
+        if ($user->load(Yii::$app->request->post()) && $user->save()) {
+            \Yii::$app->session->setFlash('success', Yii::t('user', 'The profile was successfully changed.'));
+            return $this->redirect(['update']);
         }
 
         return $this->render('update', [
-            'userForm' => $userForm,
-            'modelChangePassword' => $modelChangePassword
+            'user' => $user,
+            'changePassword' => $changePassword
         ]);
     }
 
@@ -108,5 +132,39 @@ class ProfileController extends Controller
         return $this->render('list', [
             'provider' => $provider
         ]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actionResend()
+    {
+        /** @var $user \common\models\User */
+        $user = User::find()
+            ->where([
+                'id' => Yii::$app->user->identity->getId(),
+                'email_confirmed' => false,
+                'status' => User::STATUS_ACTIVE
+            ])
+            ->one();
+
+        if ($user === null) {
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        }
+
+        if ($user->resend_at + Yii::$app->params['user.resendConfirmed'] < time()) {
+
+            $user->resend_at = time();
+            $user->generateVerifiedToken();
+
+            if ($user->save()) {
+
+                \Yii::$app->session->setFlash('success', Yii::t('user', 'A reminder letter with instructions was sent.'));
+
+                $this->redirect(['edit']);
+            }
+        }
+
+        $this->redirect(['index']);
     }
 }
