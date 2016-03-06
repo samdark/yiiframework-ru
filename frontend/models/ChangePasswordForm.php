@@ -25,10 +25,16 @@ class ChangePasswordForm extends Model
     public function rules()
     {
         return [
-            [['password', 'passwordCurrent'], 'filter', 'filter' => 'trim'],
+            ['passwordCurrent', 'required'],
+            ['passwordCurrent', 'filter', 'filter' => 'trim'],
+            ['passwordCurrent', 'string', 'min' => 6],
             ['passwordCurrent', 'validatePasswordCurrent'],
-            [['password', 'passwordCurrent', 'passwordRepeat'], 'required'],
-            [['password', 'passwordCurrent'], 'string', 'min' => 6],
+
+            ['password', 'required'],
+            ['password', 'filter', 'filter' => 'trim'],
+            ['password', 'string', 'min' => 6],
+
+            ['passwordRepeat', 'required'],
             ['passwordRepeat', 'compare', 'compareAttribute' => 'password']
         ];
     }
@@ -39,38 +45,36 @@ class ChangePasswordForm extends Model
     public function attributeLabels()
     {
         return [
-            'passwordCurrent' => Yii::t('app', 'Current Password'),
-            'password' => Yii::t('app', 'Password'),
-            'passwordRepeat' => Yii::t('app', 'Repeat Password')
+            'password' => Yii::t('user', 'New password'),
+            'passwordCurrent' => Yii::t('user', 'Current password'),
+            'passwordRepeat' => Yii::t('user', 'Repeat password')
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function validatePasswordCurrent($attribute, $params)
+    public function validatePasswordCurrent($attribute)
     {
         $user = $this->getUser();
         if (!$user || !$user->validatePassword($this->$attribute)) {
-            $this->addError($attribute, Yii::t('app', 'The current password is incorrect.'));
+            $this->addError($attribute, Yii::t('app', 'It\'s not the correct current password.'));
         }
     }
 
     /**
      * @inheritdoc
      */
-    public function change()
+    public function updatePassword()
     {
-        if ($this->validate()) {
-            $user = $this->getUser();
-            $user->generateAuthKey();
-            $user->setPassword($this->password);
-            if ($user->save()) {
-                return true;
-            }
+        if (!$this->validate()) {
+            return null;
         }
 
-        return false;
+        $user = $this->getUser();
+        $user->setPassword($this->password);
+
+        return $user->save(false);
     }
 
     /**
@@ -78,6 +82,7 @@ class ChangePasswordForm extends Model
      */
     protected function getUser()
     {
+
         if ($this->_user === null) {
             $this->_user = User::findOne(Yii::$app->user->identity->getId());
         }
@@ -85,3 +90,4 @@ class ChangePasswordForm extends Model
         return $this->_user;
     }
 }
+

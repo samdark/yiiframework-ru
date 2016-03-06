@@ -12,7 +12,6 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\authclient\ClientInterface;
 use yii\base\InvalidParamException;
-use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -37,10 +36,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'login'],
+                'only' => ['logout', 'signup', 'login', 'signup', 'login', 'request-password-reset', 'reset-password'],
                 'rules' => [
                     [
-                        'actions' => ['signup', 'login'],
+                        'actions' => ['signup', 'login', 'request-password-reset', 'reset-password'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -176,6 +175,7 @@ class SiteController extends Controller
      */
     public function actionRequestPasswordReset()
     {
+        $this->layout = 'main';
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
@@ -207,6 +207,8 @@ class SiteController extends Controller
             throw new BadRequestHttpException($e->getMessage());
         }
 
+        $this->layout = 'main';
+
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             Yii::$app->session->setFlash('success', 'New password was saved.');
 
@@ -217,6 +219,35 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function actionConfirmed($token)
+    {
+        if (empty($token) || !is_string($token)) {
+            throw new BadRequestHttpException(Yii::t('user', 'Wrong confirmed token.'));
+        }
+
+        /** @var $model \common\models\User */
+        $model = User::findVerifiedToken($token);
+
+        if ($model) {
+            $model->resend_at = null;
+            $model->email_verified = true;
+            $model->removeVerifiedToken();
+
+            if ($model->save()) {
+                \Yii::$app->session->setFlash('success', Yii::t('user', 'Thank you, Your e-mail address was successfully confirmed.'));
+                return $this->goHome();
+            }
+        }
+
+        \Yii::$app->session->setFlash('error', Yii::t('user', 'Wrong confirmed token.'));
+
+        return $this->goHome();
+    }
+
 
     /**
      * @return mixed

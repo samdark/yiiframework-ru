@@ -13,24 +13,44 @@ use yii\web\IdentityInterface;
  *
  * @property integer $id
  * @property string $username
+ * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
- * @property boolean $email_verified
  * @property string $email
+ * @property integer $email_verified
+ * @property string $verified_token
  * @property string $github
+ * @property string $lastName
+ * @property string $firstName
  * @property string $site
- * @property string $auth_key
  * @property integer $status
+ * @property integer $resend_at
  * @property integer $created_at
  * @property integer $updated_at
- * @property string $password write-only password
  *
  * @property Auth[] $auths
+ * @property Post[] $posts
+ * @property Project[] $projects
+ * @property Question[] $questions
+ * @property QuestionAnswer[] $questionAnswers
+ * @property QuestionFavorite[] $questionFavorites
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
+    /** Inactive status */
+    const STATUS_INACTIVE = 0;
+
+    /** Active status */
     const STATUS_ACTIVE = 10;
+
+    /** Banned status */
+    const STATUS_BANNED = 20;
+
+    /** Deleted status */
+    const STATUS_DELETED = 30;
+
+    /** Scenario edit profile */
+    const SCENARIO_PROFILE = 'update';
 
     /**
      * @inheritdoc
@@ -56,17 +76,143 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             ['username', 'required'],
-            [['username', 'email', 'github', 'site'], 'string', 'max' => 255],
-            ['email', 'filter', 'filter' => 'trim'],
+            ['username', 'unique'],
+
             ['email', 'required'],
             ['email', 'email'],
+            ['email', 'string', 'max' => 255],
+            ['email', 'filter', 'filter' => 'trim'],
             ['email', 'unique'],
+
+            ['email_verified', 'boolean'],
+            ['email_verified', 'default', 'value' => false],
+
+            ['verified_token', 'unique'],
+            ['verified_token', 'string', 'max' => 255],
+
+            [['firstName', 'lastName', 'site', 'github'], 'string', 'max' => 255],
+
             ['site', 'filter', 'filter' => 'trim'],
-            ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']]
+            ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']],
+
+            ['resend_at', 'integer'],
+
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => array_keys(self::getStatuses())]
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('user', 'ID'),
+            'username' => Yii::t('user', 'Username'),
+            'auth_key' => Yii::t('user', 'Auth Key'),
+            'password_hash' => Yii::t('user', 'Password Hash'),
+            'password_reset_token' => Yii::t('user', 'Password Reset Token'),
+            'email' => Yii::t('user', 'Email'),
+            'email_verified' => Yii::t('user', 'Email Verified'),
+            'verified_token' => Yii::t('user', 'Verified Token'),
+            'github' => Yii::t('user', 'Github'),
+            'lastName' => Yii::t('user', 'Last name'),
+            'firstName' => Yii::t('user', 'First name'),
+            'site' => Yii::t('user', 'Site'),
+            'status' => Yii::t('user', 'Status'),
+            'resend_at' => Yii::t('user', 'Resend At'),
+            'created_at' => Yii::t('user', 'Created At'),
+            'updated_at' => Yii::t('user', 'Updated At'),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        return ArrayHelper::merge(parent::scenarios(), [
+            self::SCENARIO_PROFILE => ['email', 'firstName', 'lastName', 'site']
+        ]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getStatusLabel()
+    {
+        return ArrayHelper::getValue(static::getStatuses(), $this->status);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getStatuses()
+    {
+        return [
+            self::STATUS_INACTIVE => Yii::t('user', 'Inactivated'),
+            self::STATUS_ACTIVE => Yii::t('user', 'Activated'),
+            self::STATUS_BANNED => Yii::t('user', 'Blocked'),
+            self::STATUS_DELETED => Yii::t('user', 'Deleted')
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getFullname()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAuths()
+    {
+        return $this->hasMany(Auth::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPosts()
+    {
+        return $this->hasMany(Post::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProjects()
+    {
+        return $this->hasMany(Project::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getQuestions()
+    {
+        return $this->hasMany(Question::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getQuestionAnswers()
+    {
+        return $this->hasMany(QuestionAnswer::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getQuestionFavorites()
+    {
+        return $this->hasMany(QuestionFavorite::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -89,7 +235,6 @@ class User extends ActiveRecord implements IdentityInterface
      * Finds user by username
      *
      * @param string $username
-     *
      * @return static|null
      */
     public static function findByUsername($username)
@@ -101,7 +246,6 @@ class User extends ActiveRecord implements IdentityInterface
      * Finds user by password reset token
      *
      * @param string $token password reset token
-     *
      * @return static|null
      */
     public static function findByPasswordResetToken($token)
@@ -110,19 +254,16 @@ class User extends ActiveRecord implements IdentityInterface
             return null;
         }
 
-        return static::findOne(
-            [
-                'password_reset_token' => $token,
-                'status' => self::STATUS_ACTIVE,
-            ]
-        );
+        return static::findOne([
+            'password_reset_token' => $token,
+            'status' => self::STATUS_ACTIVE,
+        ]);
     }
 
     /**
      * Finds out if password reset token is valid
      *
      * @param string $token password reset token
-     *
      * @return boolean
      */
     public static function isPasswordResetTokenValid($token)
@@ -131,7 +272,7 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
 
-        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
+        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
@@ -164,7 +305,6 @@ class User extends ActiveRecord implements IdentityInterface
      * Validates password
      *
      * @param string $password password to validate
-     *
      * @return boolean if password provided is valid for current user
      */
     public function validatePassword($password)
@@ -207,45 +347,44 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return string label for current status
+     * @inheritdoc
      */
-    public function getStatusLabel()
+    public static function findVerifiedToken($token)
     {
-        return ArrayHelper::getValue(static::getStatuses(), $this->status);
+        return static::findOne(['verified_token' => $token, 'email_verified' => false, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
-     * @return array status labels indexed by status values
+     * Generates new verified token
      */
-    public static function getStatuses()
+    public function generateVerifiedToken()
     {
-        return [
-            self::STATUS_DELETED => Yii::t('user', 'Delete'),
-            self::STATUS_ACTIVE => Yii::t('user', 'Active'),
-        ];
+        $this->verified_token = Yii::$app->security->generateRandomString();
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * Removes verified token
      */
-    public function getAuths()
+    public function removeVerifiedToken()
     {
-        return $this->hasMany(Auth::className(), ['user_id' => 'id']);
+        $this->verified_token = null;
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @inheritdoc
      */
-    public function getQuestion()
+    public function beforeSave($insert)
     {
-        return $this->hasMany(Question::className(), ['user_id' => 'id']);
-    }
+        if (parent::beforeSave($insert)) {
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAnswers()
-    {
-        return $this->hasMany(Answer::className(), ['user_id' => 'id']);
+            if ($this->scenario === self::SCENARIO_PROFILE && $this->isAttributeChanged('email')){
+                $this->resend_at = time();
+                $this->email_verified = false;
+                $this->generateVerifiedToken();
+            }
+
+            return true;
+        }
+        return false;
     }
 }
