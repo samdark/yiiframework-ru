@@ -1,11 +1,11 @@
 <?php
 
+use yii\helpers\Html;
+
 /* @var $this yii\web\View */
 /* @var $profile common\models\User */
 
-use yii\helpers\Html;
-
-$this->title = Yii::t('app', 'Community');
+$this->title = Html::encode($profile->username);
 ?>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -34,25 +34,22 @@ $this->title = Yii::t('app', 'Community');
                 <div class="block-user-bg"></div>
                 <div class="block-user-name">
                     <h2><?= Html::encode($profile->username) ?></h2>
+                    <h3><?= Html::encode($profile->fullname) ?></h3>
                     <?php if (Yii::$app->user->getId() === $profile->id) : ?>
-                        <?= Html::a(Yii::t('app', 'Edit profile'), ['/profile/update'], ['class' => 'btn btn-link']) ?>
+                        <?= Html::a(Yii::t('user', 'Edit profile'), ['/profile/update'], ['class' => 'btn btn-link']) ?>
                     <?php endif ?>
                 </div>
                 <div class="block-user-info">
-                    <span class="name">Никнейм:</span><span class="info"></span><br>
-                    <span class="name">Город:</span><span class="info"></span><br>
-                    <span class="name"><?= Yii::t('app', 'Registration') ?>:</span><span
-                        class="info"><?= Yii::$app->formatter->asDatetime($profile->created_at, 'long') ?></span><br>
-                    <span class="name"><?= Yii::t('app', 'Site') ?>:</span>
+                    <span class="name">Сайт:</span>
                     <span class="info">
-                        <?= Html::encode($profile->site) ? Html::a(Html::encode($profile->site), Html::encode($profile->site)) : Yii::t('app', 'no site') ?>
-                    </span>
-                    <br>
-                    <span class="name">GitHub:</span><a href="" class="info" target="_blank"></a><br>
-                    <span class="name"><?= Yii::t('app', 'Email') ?>:</span>
-                    <a href="mailto:<?= Html::encode($profile->email) ?> " class="info break-word" target="_blank">
-                        <?= Html::encode($profile->email) ?>
-                    </a>
+                        <?= Html::encode($profile->site) ? Html::a(Html::encode($profile->site), Html::encode($profile->site)) : Yii::t('user', 'No Website') ?>
+                    </span><br>
+                    <span class="name">Github:</span>
+                    <span class="info">
+                        <?= Html::encode($profile->github) ? Html::a(Html::encode($profile->github), 'https://github.com/' . Html::encode($profile->github)) : Yii::t('user', 'No Github') ?>
+                    </span><br>
+                    <span class="name">Регистрация:</span>
+                    <span class="info"><?= Yii::$app->formatter->asDatetime($profile->created_at, 'long') ?></span>
                 </div>
             </div>
 
@@ -67,7 +64,7 @@ $this->title = Yii::t('app', 'Community');
                 ]) ?>
             </div>
 
-            <div class="user-projects">
+            <!--<div class="user-projects">
 
                 <h2><a href="projects.html">Проекты samdark</a> <sup>(12)</sup></h2>
 
@@ -441,7 +438,7 @@ $this->title = Yii::t('app', 'Community');
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
         </div>
     </div>

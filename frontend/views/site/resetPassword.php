@@ -1,31 +1,44 @@
 <?php
 
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\ResetPasswordForm */
 
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
-
-$this->title = 'Reset password';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Yii::t('app', 'Reset password');
+$this->blocks['body-class'] = "bg-textured";
 ?>
-<div class="site-reset-password">
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="container-fluid login-reg">
+    <div class="container cont-border">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+                <div class="p-login-title"><?= $this->title ?></div>
+                <div class="p-login-win">
+                    <?php $form = ActiveForm::begin(['id' => 'password-reset-form']); ?>
 
-    <p>Please choose your new password:</p>
+                    <?= $form->field($model, 'password')
+                        ->passwordInput([
+                            'class' => 'form-control input-lg',
+                            'placeholder' => $model->getAttributeLabel('password')
+                        ])
+                        ->label(false) ?>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
+                    <?= $form->field($model, 'passwordRepeat')
+                        ->passwordInput([
+                            'class' => 'form-control input-lg',
+                            'placeholder' => $model->getAttributeLabel('passwordRepeat')
+                        ])
+                        ->label(false) ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                    <div class="form-group">
+                        <?= Html::submitButton(Yii::t('user', 'Change password'), ['class' => 'btn btn-primary btn-lg btn-block', 'name' => 'reset-button']) ?>
+                    </div>
 
-                <div class="form-group">
-                    <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+                    <?php ActiveForm::end(); ?>
                 </div>
-
-            <?php ActiveForm::end(); ?>
+            </div>
         </div>
     </div>
 </div>
