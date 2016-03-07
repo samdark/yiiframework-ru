@@ -73,4 +73,32 @@ class DemoDataController extends Controller
 
         (new Query())->createCommand()->batchInsert(QuestionTagAssn::tableName(), $meta, $data)->execute();
     }
+
+    public function actionUser($countData)
+    {
+        $faker = Faker\Factory::create();
+
+        for ($i = 0; $i < $countData; $i++) {
+            \Yii::$app->db->createCommand()->insert(
+                'user',
+                [
+                    'username' => $faker->userName,
+                    'auth_key' => \Yii::$app->getSecurity()->generateRandomString(),
+                    'password_hash' => \Yii::$app->getSecurity()->generatePasswordHash('password_' . $i),
+                    'password_reset_token' => null,
+                    'email' => null,
+                    'email_verified' => false,
+                    'github' => null,
+                    'twitter' => null,
+                    'facebook' => null,
+                    'fullname' => $faker->firstName . ' ' . $faker->lastName,
+                    'site' => $faker->randomElement(['http://www.yiiframework.com/', 'http://www.yiiframework.ru/']),
+                    'status' => 10,
+                    'created_at' => time(),
+                    'updated_at' => time(),
+                ]
+            )->execute();
+        }
+        echo "Success!\n";
+    }
 }
