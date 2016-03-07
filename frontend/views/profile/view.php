@@ -64,7 +64,7 @@ $this->title = Html::encode($profile->username);
                 ]) ?>
             </div>
 
-            <!--<div class="user-projects">
+            <?php /* <div class="user-projects">
 
                 <h2><a href="projects.html">Проекты samdark</a> <sup>(12)</sup></h2>
 
@@ -438,7 +438,7 @@ $this->title = Html::encode($profile->username);
                         </div>
                     </div>
                 </div>
-            </div>-->
+            </div> */ ?>
 
         </div>
     </div>
