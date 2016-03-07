@@ -17,7 +17,7 @@ use frontend\models\ChangePasswordForm;
 class ProfileController extends Controller
 {
     /**
-     * number user on page
+     * Number of users per page
      */
     const PAGE_SIZE = 25;
 
@@ -57,9 +57,6 @@ class ProfileController extends Controller
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function actionView($id)
     {
         $profile = User::find()
@@ -75,9 +72,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function actionUpdate()
     {
         $user = User::find()
@@ -111,9 +105,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function actionList()
     {
         $query = User::find()
@@ -134,9 +125,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function actionResend()
     {
         /** @var $user \common\models\User */

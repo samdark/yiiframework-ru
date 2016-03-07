@@ -7,16 +7,16 @@ use yii\base\Model;
 
 class ChangePasswordForm extends Model
 {
-    /** @var string $password */
+    /** @var string */
     public $password;
 
-    /** @var string $passwordCurrent */
+    /** @var string */
     public $passwordCurrent;
 
-    /** @var string $passwordRepeat */
+    /** @var string */
     public $passwordRepeat;
 
-    /** @var array $_user */
+    /** @var User */
     private $_user;
 
     /**
@@ -28,7 +28,7 @@ class ChangePasswordForm extends Model
             ['passwordCurrent', 'required'],
             ['passwordCurrent', 'filter', 'filter' => 'trim'],
             ['passwordCurrent', 'string', 'min' => 6],
-            ['passwordCurrent', 'validatePasswordCurrent'],
+            ['passwordCurrent', 'validateCurrentPassword'],
 
             ['password', 'required'],
             ['password', 'filter', 'filter' => 'trim'],
@@ -52,9 +52,10 @@ class ChangePasswordForm extends Model
     }
 
     /**
-     * @inheritdoc
+     * Validates current password
+     * @param string $attribute
      */
-    public function validatePasswordCurrent($attribute)
+    public function validateCurrentPassword($attribute)
     {
         $user = $this->getUser();
         if (!$user || !$user->validatePassword($this->$attribute)) {
@@ -63,7 +64,8 @@ class ChangePasswordForm extends Model
     }
 
     /**
-     * @inheritdoc
+     * Updates user password
+     * @return boolean if password was updated successfuly
      */
     public function updatePassword()
     {

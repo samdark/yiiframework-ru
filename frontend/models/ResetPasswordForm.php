@@ -12,10 +12,10 @@ use yii\base\InvalidParamException;
  */
 class ResetPasswordForm extends Model
 {
-    /** @var string $password */
+    /** @var string */
     public $password;
 
-    /** @var string $passwordRepeat */
+    /** @var string */
     public $passwordRepeat;
 
     /** @var \common\models\User */

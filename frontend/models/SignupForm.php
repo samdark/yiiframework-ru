@@ -10,25 +10,25 @@ use Yii;
  */
 class SignupForm extends Model
 {
-    /** @var string $username */
+    /** @var string */
     public $username;
 
-    /** @var string $email */
+    /** @var string */
     public $email;
 
-    /** @var string $firstName */
+    /** @var string */
     public $firstName;
 
-    /** @var string $lastName */
+    /** @var string */
     public $lastName;
 
-    /** @var string $site */
+    /** @var string */
     public $site;
 
-    /** @var string $password */
+    /** @var string */
     public $password;
 
-    /** @var string $passwordRepeat */
+    /** @var string */
     public $passwordRepeat;
 
     /**

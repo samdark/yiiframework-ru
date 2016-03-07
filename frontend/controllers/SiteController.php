@@ -220,9 +220,6 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function actionConfirmed($token)
     {
         if (empty($token) || !is_string($token)) {

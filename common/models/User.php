@@ -139,7 +139,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * @return string status label
      */
     public function getStatusLabel()
     {
@@ -147,7 +147,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * @return array status labels indexed by status values
      */
     public static function getStatuses()
     {
@@ -160,7 +160,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * @return string full user name
      */
     public function getFullname()
     {
@@ -346,6 +346,11 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    /**
+     * Finds user by email verification token
+     * @param string $token
+     * @return self
+     */
     public static function findByEmailToken($token)
     {
         return static::findOne(['email_token' => $token, 'email_verified' => false, 'status' => self::STATUS_ACTIVE]);
