@@ -34,7 +34,6 @@ return [
     'Extensions' => 'Расширения',
     'Forum' => 'Форум',
     'Guide' => 'Руководство',
-    'Home' => 'Главная',
     'ID' => 'ID',
     'If you forgot your password you can <a href="{link}">reset it</a>.' => 'Если забыли пароль, то можете <a href="{link}">его сбросить</a>.',
     'Image files' => 'Файлы изображений',

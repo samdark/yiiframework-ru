@@ -63,7 +63,6 @@ AppAsset::register($this);
         <div class="navbar-collapse navbar-main-collapse collapse">
             <?php
             $menuItems = [
-                ['label' => Yii::t('app', 'Home'), 'url' => ['/']],
                 ['label' => '1.1', 'url' => ['/site/legacy']],
                 ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html'],
                 ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html'],
