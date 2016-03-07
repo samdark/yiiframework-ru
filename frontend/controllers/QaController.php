@@ -164,7 +164,7 @@ class QaController extends Controller
         if ($answerForm->load(Yii::$app->request->post())) {
             /** @var $answer \common\models\QuestionAnswer */
             if ($answer = $answerForm->save()) {
-                Yii::$app->session->setFlash('success', Yii::t('app', 'Your answer update'));
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Your answer was updated'));
                 return $this->redirect(['view', 'id' => $answer->question_id]);
             }
         }

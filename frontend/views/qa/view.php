@@ -180,7 +180,7 @@ $this->title = Html::encode($question->title);
         <?= Html::a(Yii::t('qa', 'Add Question'), ['create'], ['class' => 'btn btn-lg btn-border-success btn-block']) ?>
 
         <div class="q-similar">
-            <h4><?= Yii::t('qa', 'Похожие вопросы') ?>:</h4>
+            <h4><?= Yii::t('qa', 'Similar answers') ?>:</h4>
 
             <div class="similar-item">
                 <div class="post-info">
