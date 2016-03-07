@@ -95,7 +95,7 @@ class SignupForm extends Model
         $user->resend_at = time();
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        $user->generateVerifiedToken();
+        $user->generateEmailToken();
 
         return $user->save() ? $user : null;
     }

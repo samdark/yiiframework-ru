@@ -230,7 +230,7 @@ class SiteController extends Controller
         }
 
         /** @var $model \common\models\User */
-        $model = User::findVerifiedToken($token);
+        $model = User::findByEmailToken($token);
 
         if ($model) {
             $model->resend_at = null;

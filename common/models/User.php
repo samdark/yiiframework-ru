@@ -18,7 +18,7 @@ use yii\web\IdentityInterface;
  * @property string $password_reset_token
  * @property string $email
  * @property integer $email_verified
- * @property string $verified_token
+ * @property string $email_token
  * @property string $github
  * @property string $last_name
  * @property string $first_name
@@ -88,8 +88,8 @@ class User extends ActiveRecord implements IdentityInterface
             ['email_verified', 'boolean'],
             ['email_verified', 'default', 'value' => false],
 
-            ['verified_token', 'unique'],
-            ['verified_token', 'string', 'max' => 255],
+            ['email_token', 'unique'],
+            ['email_token', 'string', 'max' => 255],
 
             [['first_name', 'last_name', 'site', 'github'], 'string', 'max' => 255],
 
@@ -116,7 +116,7 @@ class User extends ActiveRecord implements IdentityInterface
             'password_reset_token' => Yii::t('user', 'Password Reset Token'),
             'email' => Yii::t('user', 'Email'),
             'email_verified' => Yii::t('user', 'Email Verified'),
-            'verified_token' => Yii::t('user', 'Verified Token'),
+            'email_token' => Yii::t('user', 'Email verification token'),
             'github' => Yii::t('user', 'Github'),
             'last_name' => Yii::t('user', 'Last name'),
             'first_name' => Yii::t('user', 'First name'),
@@ -346,20 +346,17 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public static function findVerifiedToken($token)
+    public static function findByEmailToken($token)
     {
-        return static::findOne(['verified_token' => $token, 'email_verified' => false, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['email_token' => $token, 'email_verified' => false, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
      * Generates new verified token
      */
-    public function generateVerifiedToken()
+    public function generateEmailToken()
     {
-        $this->verified_token = Yii::$app->security->generateRandomString();
+        $this->email_token = Yii::$app->security->generateRandomString();
     }
 
     /**
@@ -367,7 +364,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function removeVerifiedToken()
     {
-        $this->verified_token = null;
+        $this->email_token = null;
     }
 
     /**
@@ -380,7 +377,7 @@ class User extends ActiveRecord implements IdentityInterface
             if ($this->scenario === self::SCENARIO_PROFILE && $this->isAttributeChanged('email')){
                 $this->resend_at = time();
                 $this->email_verified = false;
-                $this->generateVerifiedToken();
+                $this->generateEmailToken();
             }
 
             return true;

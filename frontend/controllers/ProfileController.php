@@ -155,7 +155,7 @@ class ProfileController extends Controller
         if ($user->resend_at + Yii::$app->params['user.resendConfirmed'] < time()) {
 
             $user->resend_at = time();
-            $user->generateVerifiedToken();
+            $user->generateEmailToken();
 
             if ($user->save()) {
 
