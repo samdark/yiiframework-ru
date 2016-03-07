@@ -33,8 +33,8 @@ $this->title = Yii::t('app', 'Edit profile');
                 <?php endif; ?>
             <?php endif; ?>
 
-            <?= $form->field($user, 'lastName')->textInput(['class' => 'form-control input-lg']) ?>
-            <?= $form->field($user, 'firstName')->textInput(['class' => 'form-control input-lg']) ?>
+            <?= $form->field($user, 'last_name')->textInput(['class' => 'form-control input-lg']) ?>
+            <?= $form->field($user, 'first_name')->textInput(['class' => 'form-control input-lg']) ?>
             <?= $form->field($user, 'site')->textInput(['class' => 'form-control input-lg']) ?>
 
             <div class="form-group">

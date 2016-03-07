@@ -20,8 +20,8 @@ use yii\web\IdentityInterface;
  * @property integer $email_verified
  * @property string $verified_token
  * @property string $github
- * @property string $lastName
- * @property string $firstName
+ * @property string $last_name
+ * @property string $first_name
  * @property string $site
  * @property integer $status
  * @property integer $resend_at
@@ -91,7 +91,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['verified_token', 'unique'],
             ['verified_token', 'string', 'max' => 255],
 
-            [['firstName', 'lastName', 'site', 'github'], 'string', 'max' => 255],
+            [['first_name', 'last_name', 'site', 'github'], 'string', 'max' => 255],
 
             ['site', 'filter', 'filter' => 'trim'],
             ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']],
@@ -118,8 +118,8 @@ class User extends ActiveRecord implements IdentityInterface
             'email_verified' => Yii::t('user', 'Email Verified'),
             'verified_token' => Yii::t('user', 'Verified Token'),
             'github' => Yii::t('user', 'Github'),
-            'lastName' => Yii::t('user', 'Last name'),
-            'firstName' => Yii::t('user', 'First name'),
+            'last_name' => Yii::t('user', 'Last name'),
+            'first_name' => Yii::t('user', 'First name'),
             'site' => Yii::t('user', 'Site'),
             'status' => Yii::t('user', 'Status'),
             'resend_at' => Yii::t('user', 'Resend At'),
@@ -134,7 +134,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function scenarios()
     {
         return ArrayHelper::merge(parent::scenarios(), [
-            self::SCENARIO_PROFILE => ['email', 'firstName', 'lastName', 'site']
+            self::SCENARIO_PROFILE => ['email', 'first_name', 'last_name', 'site']
         ]);
     }
 
@@ -164,7 +164,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getFullname()
     {
-        return $this->firstName . ' ' . $this->lastName;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     /**
