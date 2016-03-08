@@ -36,10 +36,6 @@ class Gravatar extends Widget
      */
     public function run()
     {
-        if (!$this->email) {
-            throw new InvalidConfigException('The "email" property must be set.');
-        }
-
         echo Html::img($this->getUrl(), $this->options);
     }
 
@@ -54,7 +50,7 @@ class Gravatar extends Widget
             'r' => $this->rating
         ];
 
-        $url = $this->gravatarUrl . md5(strtolower(trim($this->email))) . '?' . http_build_query($params);
+        $url = $this->gravatarUrl . md5(strtolower(trim($this->email ? $this->email : $this->options['alt']))) . '?' . http_build_query($params);
 
         return $url;
     }
