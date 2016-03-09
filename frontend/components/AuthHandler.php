@@ -31,29 +31,19 @@ class AuthHandler
      */
     public function handle()
     {
-        switch ($this->client->getName()) {
-            case 'github':
-                $this->handleGitHub();
-                break;
-            case 'twitter':
-                $this->handleTwitter();
-                break;
-            case 'facebook':
-                $this->handleFacebook();
-                break;
-        }
-    }
-
-    /**
-     * Handles a GitHub client
-     * @throws \yii\db\Exception
-     */
-    private function handleGitHub()
-    {
         $attributes = $this->client->getUserAttributes();
         $email = ArrayHelper::getValue($attributes, 'email');
         $id = ArrayHelper::getValue($attributes, 'id');
         $nickname = ArrayHelper::getValue($attributes, 'login');
+        $fullname = ArrayHelper::getValue($attributes, 'name');
+
+        if ($this->client->getName() == 'twitter') {
+            $nickname = ArrayHelper::getValue($attributes, 'screen_name');
+        }
+
+        if ($this->client->getName() == 'facebook') {
+            $nickname = ArrayHelper::getValue($attributes, 'id');
+        }
 
         /** @var Auth $auth */
         $auth = Auth::find()->where([
@@ -75,13 +65,26 @@ class AuthHandler
                             ['client' => $this->client->getTitle()]),
                     ]);
                 } else {
-                    $password = Yii::$app->security->generateRandomString(6);
-                    $user = new User([
-                        'username' => $nickname,
-                        'github' => $nickname,
-                        'email' => $email,
-                        'password' => $password,
-                    ]);
+                    $user = new User();
+
+                    $user->username = $nickname;
+                    $user->fullname = $fullname;
+                    $user->password = \Yii::$app->security->generateRandomString(6);
+
+                    if ($this->client->getName() == 'twitter') {
+                        $user->twitter = $nickname;
+                    }
+
+                    if ($this->client->getName() == 'facebook') {
+                        $user->facebook = $nickname;
+                        $user->email = $email;
+                    }
+
+                    if ($this->client->getName() == 'github') {
+                        $user->github = $nickname;
+                        $user->email = $email;
+                    }
+
                     $user->generateAuthKey();
                     $user->generatePasswordResetToken();
 
@@ -139,11 +142,27 @@ class AuthHandler
                     ]);
                 }
             } else { // there's existing auth
-                Yii::$app->getSession()->setFlash('error', [
-                    Yii::t('app',
-                        'Unable to link {client} account. There is another user using it.',
-                        ['client' => $this->client->getTitle()]),
-                ]);
+                if ($auth->user_id == Yii::$app->user->id) {
+                    $transaction = Auth::getDb()->beginTransaction();
+                    if ($auth->delete()) {
+                        $user = $auth->user;
+                        $user->{$this->client->getId()} = null;
+                        if ($user->save()) {
+                            $transaction->commit();
+                            Yii::$app->getSession()->setFlash('success', [
+                                Yii::t('app',
+                                    'Social network {client} has been successfully disabled.',
+                                    ['client' => $this->client->getTitle()]),
+                            ]);
+                        }
+                    }
+                } else {
+                    Yii::$app->getSession()->setFlash('error', [
+                        Yii::t('app',
+                            'Unable to link {client} account. There is another user using it.',
+                            ['client' => $this->client->getTitle()]),
+                    ]);
+                }
             }
         }
     }
@@ -154,26 +173,23 @@ class AuthHandler
     private function updateUserInfo(User $user)
     {
         $attributes = $this->client->getUserAttributes();
-        $github = ArrayHelper::getValue($attributes, 'login');
-        if ($user->github === null && $github) {
-            $user->github = $github;
-            $user->save();
+
+        if ($this->client->getName() == 'github') {
+            $user->github = ArrayHelper::getValue($attributes, 'login');
         }
-    }
 
-    /**
-     * Handles a Twitter client
-     */
-    private function handleTwitter()
-    {
-        Yii::$app->getSession()->setFlash('error', ['Coming soon']);
-    }
+        if ($this->client->getName() == 'twitter') {
+            $user->twitter = ArrayHelper::getValue($attributes, 'screen_name');
+        }
 
-    /**
-     * Handles a Facebook client
-     */
-    private function handleFacebook()
-    {
-        Yii::$app->getSession()->setFlash('error', 'Coming soon');
+        if ($this->client->getName() == 'facebook') {
+            $user->facebook = ArrayHelper::getValue($attributes, 'id');
+        }
+
+        if (!$user->fullname) {
+            $user->fullname = ArrayHelper::getValue($attributes, 'name');
+        }
+
+        $user->save();
     }
 }

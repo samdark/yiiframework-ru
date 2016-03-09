@@ -17,10 +17,7 @@ class SignupForm extends Model
     public $email;
 
     /** @var string */
-    public $firstName;
-
-    /** @var string */
-    public $lastName;
+    public $fullname;
 
     /** @var string */
     public $site;
@@ -47,7 +44,7 @@ class SignupForm extends Model
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('user', 'This email address has already been taken.')],
 
-            [['firstName', 'lastName', 'site'], 'string', 'max' => 255],
+            [['fullname', 'site'], 'string', 'max' => 255],
 
             ['site', 'filter', 'filter' => 'trim'],
             ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']],
@@ -67,8 +64,7 @@ class SignupForm extends Model
         return [
             'username' => Yii::t('user', 'Username'),
             'email' => Yii::t('user', 'Email'),
-            'firstName' => Yii::t('user', 'First name'),
-            'lastName' => Yii::t('user', 'Last name'),
+            'fullname' => Yii::t('user', 'Full name'),
             'site' => Yii::t('user', 'Site'),
             'password' => Yii::t('user', 'Password'),
             'passwordRepeat' => Yii::t('user', 'Repeat password')
@@ -89,8 +85,7 @@ class SignupForm extends Model
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
-        $user->first_name = $this->firstName;
-        $user->last_name = $this->lastName;
+        $user->fullname = $this->fullname;
         $user->site = $this->site;
         $user->resend_at = time();
         $user->setPassword($this->password);

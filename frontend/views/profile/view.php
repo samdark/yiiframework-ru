@@ -42,11 +42,19 @@ $this->title = Html::encode($profile->username);
                 <div class="block-user-info">
                     <span class="name">Сайт:</span>
                     <span class="info">
-                        <?= Html::encode($profile->site) ? Html::a(Html::encode($profile->site), Html::encode($profile->site)) : Yii::t('user', 'No Website') ?>
+                        <?= Html::encode($profile->site) ? Html::a(Html::encode($profile->site), Html::encode($profile->site), ['target' => '_blank']) : Yii::t('user', 'No Website') ?>
                     </span><br>
                     <span class="name">Github:</span>
                     <span class="info">
-                        <?= Html::encode($profile->github) ? Html::a(Html::encode($profile->github), 'https://github.com/' . Html::encode($profile->github)) : Yii::t('user', 'No Github') ?>
+                        <?= Html::encode($profile->github) ? Html::a(Html::encode($profile->github), 'https://github.com/' . Html::encode($profile->github), ['target' => '_blank']) : Yii::t('user', 'No Github') ?>
+                    </span><br>
+                    <span class="name">Twitter:</span>
+                    <span class="info">
+                        <?= Html::encode($profile->twitter) ? Html::a(Html::encode($profile->twitter), 'https://twitter.com/' . Html::encode($profile->twitter), ['target' => '_blank']) : Yii::t('user', 'No Twitter') ?>
+                    </span><br>
+                    <span class="name">Facebook:</span>
+                    <span class="info">
+                        <?= Html::encode($profile->facebook) ? Html::a(Html::encode($profile->facebook), 'https://facebook.com/' . Html::encode($profile->facebook), ['target' => '_blank']) : Yii::t('user', 'No Facebook') ?>
                     </span><br>
                     <span class="name">Регистрация:</span>
                     <span class="info"><?= Yii::$app->formatter->asDatetime($profile->created_at, 'long') ?></span>

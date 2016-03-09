@@ -57,6 +57,7 @@ return [
     'Search' => 'Поиск',
     'Select parent' => '',
     'Signup' => 'Зарегистрироваться',
+    'Social network {client} has been successfully disabled.' => 'Социальная сеть {client} была успешно отключена.',
     'Status' => 'Статус',
     'Tag ID' => '',
     'Tags' => 'Теги',

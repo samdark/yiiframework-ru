@@ -28,12 +28,8 @@ $this->blocks['body-class'] = 'bg-textured';
                         ->textInput(['class' => 'form-control input-lg', 'placeholder' => $model->getAttributeLabel('email')])
                         ->label(false) ?>
 
-                    <?= $form->field($model, 'firstName')
-                        ->textInput(['class' => 'form-control input-lg', 'placeholder' => $model->getAttributeLabel('firstName')])
-                        ->label(false) ?>
-
-                    <?= $form->field($model, 'lastName')
-                        ->textInput(['class' => 'form-control input-lg', 'placeholder' => $model->getAttributeLabel('lastName')])
+                    <?= $form->field($model, 'fullname')
+                        ->textInput(['class' => 'form-control input-lg', 'placeholder' => $model->getAttributeLabel('fullname')])
                         ->label(false) ?>
 
                     <?= $form->field($model, 'site')

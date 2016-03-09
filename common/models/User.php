@@ -20,8 +20,9 @@ use yii\web\IdentityInterface;
  * @property integer $email_verified
  * @property string $email_token
  * @property string $github
- * @property string $last_name
- * @property string $first_name
+ * @property string $facebook
+ * @property string $twitter
+ * @property string $fullname
  * @property string $site
  * @property integer $status
  * @property integer $resend_at
@@ -78,8 +79,9 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['username', 'required'],
             ['username', 'unique'],
+            ['username', 'string', 'max' => 255],
 
-            ['email', 'required'],
+            ['email', 'required', 'on' => self::SCENARIO_PROFILE],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['email', 'filter', 'filter' => 'trim'],
@@ -91,7 +93,8 @@ class User extends ActiveRecord implements IdentityInterface
             ['email_token', 'unique'],
             ['email_token', 'string', 'max' => 255],
 
-            [['first_name', 'last_name', 'site', 'github'], 'string', 'max' => 255],
+            ['fullname', 'required', 'on' => self::SCENARIO_PROFILE],
+            [['site', 'github', 'facebook', 'twitter', 'fullname'], 'string', 'max' => 255],
 
             ['site', 'filter', 'filter' => 'trim'],
             ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']],
@@ -118,8 +121,9 @@ class User extends ActiveRecord implements IdentityInterface
             'email_verified' => Yii::t('user', 'Email Verified'),
             'email_token' => Yii::t('user', 'Email verification token'),
             'github' => Yii::t('user', 'Github'),
-            'last_name' => Yii::t('user', 'Last name'),
-            'first_name' => Yii::t('user', 'First name'),
+            'twitter' => Yii::t('user', 'Twitter'),
+            'facebook' => Yii::t('user', 'Facebook'),
+            'fullname' => Yii::t('user', 'Full name'),
             'site' => Yii::t('user', 'Site'),
             'status' => Yii::t('user', 'Status'),
             'resend_at' => Yii::t('user', 'Resend At'),
@@ -134,7 +138,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function scenarios()
     {
         return ArrayHelper::merge(parent::scenarios(), [
-            self::SCENARIO_PROFILE => ['email', 'first_name', 'last_name', 'site']
+            self::SCENARIO_PROFILE => ['email', 'site', 'fullname']
         ]);
     }
 
@@ -157,14 +161,6 @@ class User extends ActiveRecord implements IdentityInterface
             self::STATUS_BANNED => Yii::t('user', 'Blocked'),
             self::STATUS_DELETED => Yii::t('user', 'Deleted')
         ];
-    }
-
-    /**
-     * @return string full user name
-     */
-    public function getFullname()
-    {
-        return $this->first_name . ' ' . $this->last_name;
     }
 
     /**
