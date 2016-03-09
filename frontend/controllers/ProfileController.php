@@ -131,7 +131,7 @@ class ProfileController extends Controller
         $user = User::find()
             ->where([
                 'id' => Yii::$app->user->identity->getId(),
-                'email_confirmed' => false,
+                'email_verified' => false,
                 'status' => User::STATUS_ACTIVE
             ])
             ->one();
@@ -140,7 +140,7 @@ class ProfileController extends Controller
             throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
         }
 
-        if ($user->resend_at + Yii::$app->params['user.resendConfirmed'] < time()) {
+        if ($user->resend_at + Yii::$app->params['user.resendVerified'] < time()) {
 
             $user->resend_at = time();
             $user->generateEmailToken();
@@ -149,10 +149,10 @@ class ProfileController extends Controller
 
                 \Yii::$app->session->setFlash('success', Yii::t('user', 'A reminder letter with instructions was sent.'));
 
-                $this->redirect(['edit']);
+                $this->redirect(['update']);
             }
         }
 
-        $this->redirect(['index']);
+        $this->redirect(['update']);
     }
 }

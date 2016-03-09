@@ -25,7 +25,7 @@ $this->title = Yii::t('app', 'Edit profile');
                 <?php else : ?>
                     <?php if ($user->resend_at + Yii::$app->params['user.resendVerified'] < time()) : ?>
                         <p><small class="text-muted bg-warning"><?= Yii::t('user', 'The email address is not confirmed, {resend}', [
-                                    'resend' => Html::a(Yii::t('user', 'resend the confirmation.'), ['/user/resend'], ['data-method' => 'post'])
+                                    'resend' => Html::a(Yii::t('user', 'resend the confirmation.'), ['/profile/resend'], ['data-method' => 'post'])
                                 ]) ?></small></p>
                     <?php else : ?>
                         <p><small class="text-muted bg-warning"><?= Yii::t('user', 'The email address is not confirmed.') ?></small></p>
