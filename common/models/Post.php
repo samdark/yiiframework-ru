@@ -5,15 +5,18 @@ namespace common\models;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\behaviors\SluggableBehavior;
 use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "post".
  *
  * @property integer $id
  * @property string $title
- * @property string $body
- * @property string $link
+ * @property string $short_content
+ * @property string $full_content
+ * @property string $slug
  * @property integer $user_id
  * @property integer $status
  * @property integer $created_at
@@ -21,10 +24,16 @@ use yii\helpers\ArrayHelper;
  *
  * @property User $user
  */
-class Post extends \yii\db\ActiveRecord
+class Post extends ActiveRecord
 {
-    const STATUS_DELETED = 0;
+    /** Inactive status */
+    const STATUS_INACTIVE = 0;
+
+    /** Active status */
     const STATUS_ACTIVE = 10;
+
+    /** Deleted status */
+    const STATUS_DELETED = 20;
 
     /**
      * @inheritdoc
@@ -46,6 +55,10 @@ class Post extends \yii\db\ActiveRecord
                 'createdByAttribute' => 'user_id',
                 'updatedByAttribute' => false,
             ],
+            [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'title',
+            ],
         ];
     }
 
@@ -55,12 +68,14 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'body'], 'required'],
-            [['body'], 'string'],
-            [['status'], 'default', 'value' => self::STATUS_ACTIVE],
-            [['status'], 'integer'],
-            [['title', 'link'], 'string', 'max' => 255],
-            [['link'], 'url', 'skipOnEmpty' => true],
+            ['title', 'required'],
+            ['title', 'string', 'max' => 255],
+
+            ['short_content', 'required'],
+            [['short_content', 'full_content'], 'string'],
+
+            ['status', 'default', 'value' => self::STATUS_INACTIVE],
+            ['status', 'in', 'range' => array_keys(self::getStatuses())]
         ];
     }
 
@@ -70,14 +85,15 @@ class Post extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'title' => Yii::t('app', 'Title'),
-            'body' => Yii::t('app', 'Body'),
-            'link' => Yii::t('app', 'Link'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'status' => Yii::t('app', 'Status'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'id' => Yii::t('post', 'ID'),
+            'title' => Yii::t('post', 'Title'),
+            'short_content' => Yii::t('post', 'Short content'),
+            'full_content' => Yii::t('post', 'Full content'),
+            'slug' => Yii::t('post', 'Slug'),
+            'user_id' => Yii::t('post', 'User ID'),
+            'status' => Yii::t('post', 'Status'),
+            'created_at' => Yii::t('post', 'Created At'),
+            'updated_at' => Yii::t('post', 'Updated At'),
         ];
     }
 
@@ -103,8 +119,9 @@ class Post extends \yii\db\ActiveRecord
     public static function getStatuses()
     {
         return [
-            self::STATUS_DELETED => Yii::t('user', 'Delete'),
-            self::STATUS_ACTIVE => Yii::t('user', 'Active'),
+            self::STATUS_INACTIVE => Yii::t('post', 'Inactive'),
+            self::STATUS_ACTIVE => Yii::t('post', 'Active'),
+            self::STATUS_DELETED => Yii::t('post', 'Deleted'),
         ];
     }
 }

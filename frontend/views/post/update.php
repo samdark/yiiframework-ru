@@ -2,7 +2,7 @@
 /* @var $this \yii\web\View */
 /* @var $post \common\models\Post */
 
-$this->title = Yii::t('app', 'Update post');
+$this->title = Yii::t('post', 'Update post');
 ?>
 
 <div class="row">

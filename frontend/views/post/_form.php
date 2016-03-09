@@ -10,19 +10,19 @@ $form = ActiveForm::begin([
     'id' => 'post-form',
 ]) ?>
 
-    <?= $form->errorSummary($post)?>
+<?= $form->field($post, 'title')->textInput(['class'=>'form-control input-lg']) ?>
 
-    <?= $form->field($post, 'title')->textInput(['class'=>'form-control input-lg']) ?>
+<?= $form->field($post, 'short_content', [
+    'template' => "{label}\n{error}\n{input}\n{hint}"
+])->widget(Markdowneditor::className()) ?>
 
-    <?= Html::activeLabel($post, 'body') ?>
-    <?= Markdowneditor::widget([
-        'model' => $post,
-        'attribute' => 'body',
-    ]) ?>
+<?= $form->field($post, 'full_content', [
+    'template' => "{label}\n{error}\n{input}\n{hint}"
+])->widget(Markdowneditor::className()) ?>
 
-    <div class="form-group">
-        <div>
-            <?= Html::submitButton(Yii::t('app', 'Publish'), ['class' => 'btn btn-success btn-lg']) ?>
-        </div>
+<div class="form-group">
+    <div>
+        <?= Html::submitButton(Yii::t('post', 'Publish'), ['class' => 'btn btn-success btn-lg']) ?>
     </div>
+</div>
 <?php ActiveForm::end() ?>
