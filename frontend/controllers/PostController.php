@@ -65,7 +65,8 @@ class PostController extends Controller
     {
         $post = new Post();
         if ($post->load(Yii::$app->request->post()) && $post->save()) {
-            $this->redirect(['view', 'id' => $post->id]);
+            Yii::$app->session->setFlash('success', Yii::t('post', 'Your post was successfully added. Therefore your post will be published as it will be verified by the Administrator.'));
+            return $this->redirect(['/']);
         }
 
         return $this->render('create', [
@@ -76,17 +77,22 @@ class PostController extends Controller
     public function actionUpdate($id)
     {
         /** @var Post $post */
-        $post = Post::findOne(['status' => Post::STATUS_ACTIVE, 'id' => $id]);
+        $post = Post::find()
+            ->where(['id' => $id])
+            ->andFilterWhere(['NOT IN', 'status', Post::STATUS_DELETED])
+            ->one();
+
         if (!$post) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException(Yii::t('post', 'The requested article does not exist.'));
         }
 
         if (Yii::$app->user->getId() != $post->user_id) {
-            throw new ForbiddenHttpException();
+            throw new ForbiddenHttpException(Yii::t('post', 'You are not allowed to perform this action.'));
         }
 
         if ($post->load(Yii::$app->request->post()) && $post->save()) {
-            $this->redirect(['view', 'id' => $post->id]);
+            Yii::$app->session->setFlash('success', Yii::t('post', 'Your post was successfully updated.'));
+            return $this->redirect(['view', 'id' => $post->id, 'slug' => $post->slug]);
         }
 
         return $this->render('update', [
@@ -94,17 +100,19 @@ class PostController extends Controller
         ]);
     }
 
-    public function actionView($id)
+    public function actionView($id, $slug)
     {
         $post = Post::find()
             ->with(['user'])
             ->where([
                 'post.id' => $id,
+                'post.slug' => $slug,
                 'post.status' => Post::STATUS_ACTIVE
             ])
             ->one();
+
         if (!$post) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException(Yii::t('post', 'The requested article does not exist.'));
         }
 
         return $this->render('view', [

@@ -19,7 +19,7 @@ class ProfileController extends Controller
     /**
      * Number of users per page
      */
-    const PAGE_SIZE = 25;
+    const PAGE_SIZE = 24;
 
     /**
      * @inheritdoc

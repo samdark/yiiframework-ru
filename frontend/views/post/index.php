@@ -4,7 +4,7 @@
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 
-$this->title = \Yii::t('app', 'Posts');
+$this->title = \Yii::t('post', 'Posts');
 ?>
 
 <div class="post-index">
@@ -22,7 +22,7 @@ $this->title = \Yii::t('app', 'Posts');
     ?>
 
     <?= Html::a(
-        Yii::t('app', 'Publish post'),
+        Yii::t('post', 'Publish post'),
         ['/post/create'], ['class' => 'btn btn-lg btn-border-success btn-post']
     ) ?>
 
@@ -33,6 +33,7 @@ $this->title = \Yii::t('app', 'Posts');
     </div>
 
     <?= LinkPager::widget([
+        'options' => ['class' => 'pagination'],
         'pagination' => $provider->getPagination(),
     ]) ?>
 
