@@ -22,5 +22,5 @@ $this->title = Html::encode($post->title);
         <?php endif; ?>
     </div>
 
-    <?= HtmlPurifier::process(Markdown::process($post->full_content ? $post->full_content : $post->short_content, 'gfm-comment')) ?>
+    <?= HtmlPurifier::process(Markdown::process($post->body, 'gfm-comment')) ?>
 </article>

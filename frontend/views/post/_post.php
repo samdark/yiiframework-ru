@@ -21,7 +21,7 @@ use yii\helpers\Markdown;
         <?= Yii::t('post', 'Author:') ?> <?= Html::a(Html::encode($post->user->username), ['profile/view', 'id' => $post->user->id]); ?>
     </div>
 
-    <?= HtmlPurifier::process(Markdown::process($post->short_content, 'gfm-comment')) ?>
+    <?= HtmlPurifier::process(Markdown::process($post->body, 'gfm-comment')) ?>
 
     <?= Html::a(Yii::t('post', 'read more...'), ['/post/view', 'id' => $post->id, 'slug' => $post->slug], ['class' => 'btn btn-default btn-sm']) ?>
 

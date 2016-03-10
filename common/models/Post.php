@@ -14,8 +14,7 @@ use yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property string $title
- * @property string $short_content
- * @property string $full_content
+ * @property string $body
  * @property string $slug
  * @property integer $user_id
  * @property integer $status
@@ -71,8 +70,8 @@ class Post extends ActiveRecord
             ['title', 'required'],
             ['title', 'string', 'max' => 255],
 
-            ['short_content', 'required'],
-            [['short_content', 'full_content'], 'string'],
+            ['body', 'required'],
+            ['body', 'string'],
 
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => array_keys(self::getStatuses())]
@@ -87,8 +86,7 @@ class Post extends ActiveRecord
         return [
             'id' => Yii::t('post', 'ID'),
             'title' => Yii::t('post', 'Title'),
-            'short_content' => Yii::t('post', 'Short content'),
-            'full_content' => Yii::t('post', 'Full content'),
+            'body' => Yii::t('post', 'Content'),
             'slug' => Yii::t('post', 'Slug'),
             'user_id' => Yii::t('post', 'User ID'),
             'status' => Yii::t('post', 'Status'),

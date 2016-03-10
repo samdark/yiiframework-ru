@@ -12,11 +12,7 @@ $form = ActiveForm::begin([
 
 <?= $form->field($post, 'title')->textInput(['class'=>'form-control input-lg']) ?>
 
-<?= $form->field($post, 'short_content', [
-    'template' => "{label}\n{error}\n{input}\n{hint}"
-])->widget(Markdowneditor::className()) ?>
-
-<?= $form->field($post, 'full_content', [
+<?= $form->field($post, 'body', [
     'template' => "{label}\n{error}\n{input}\n{hint}"
 ])->widget(Markdowneditor::className()) ?>
 
