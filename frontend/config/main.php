@@ -23,6 +23,7 @@ return [
             'clients' => [
                 'github' => [
                     'class' => '\yii\authclient\clients\GitHub',
+                    'scope' => 'user:email',
                 ],
                 'twitter' => [
                     'class' => '\yii\authclient\clients\Twitter',
