@@ -1,7 +1,11 @@
 $("document").ready(function(){
-    $(".ico-f-close").click(function(){
-        $(".yii-features").toggleClass('f-hidden'); // Close features
-    });
+	if( document.cookie.indexOf('yii-feature=close') != -1 ){
+		$(".yii-features").toggleClass('f-hidden');
+	}
+	$(".ico-f-close").click(function(){
+		$(".yii-features").toggleClass('f-hidden'); // Close features
+		document.cookie = 'yii-feature=close;max-age=' + 86400 * 365 * 5 +';'
+	});
 
     $(".subnav-btn").click(function(){
         $(".subnav-all").toggleClass('subnav-visible'); // Show subnav on mobile
