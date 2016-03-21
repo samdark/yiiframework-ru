@@ -4,6 +4,7 @@ namespace frontend\models;
 use common\models\User;
 use yii\base\Model;
 use Yii;
+use common\helpers\EmailHelper;
 
 /**
  * Signup form
@@ -92,6 +93,12 @@ class SignupForm extends Model
         $user->generateAuthKey();
         $user->generateEmailToken();
 
-        return $user->save() ? $user : null;
+		if ($user->save()) {
+			// Отправляет на почту приветствие и подтверждение емаила
+			EmailHelper::sendNewRegister($user);
+			return $user;
+		}
+
+		return null;
     }
 }
