@@ -16,6 +16,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use common\helpers\EmailHelper;
 
 /**
  * Site controller
@@ -203,6 +204,7 @@ class SiteController extends Controller
     {
         try {
             $model = new ResetPasswordForm($token);
+			$user = User::findByPasswordResetToken($token);
         } catch (InvalidParamException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
@@ -210,6 +212,7 @@ class SiteController extends Controller
         $this->layout = 'main';
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+			EmailHelper::sendPasswordResetSuccess($user);
             Yii::$app->session->setFlash('success', 'New password was saved.');
 
             return $this->goHome();
