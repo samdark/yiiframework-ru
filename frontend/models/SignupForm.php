@@ -1,10 +1,10 @@
 <?php
 namespace frontend\models;
 
+use common\components\UserMailer;
 use common\models\User;
 use yii\base\Model;
 use Yii;
-use common\helpers\EmailHelper;
 
 /**
  * Signup form
@@ -37,13 +37,23 @@ class SignupForm extends Model
         return [
             ['username', 'required'],
             ['username', 'string', 'max' => 255],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('user', 'This username has already been taken.')],
+            [
+                'username',
+                'unique',
+                'targetClass' => '\common\models\User',
+                'message' => Yii::t('user', 'This username has already been taken.')
+            ],
 
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('user', 'This email address has already been taken.')],
+            [
+                'email',
+                'unique',
+                'targetClass' => '\common\models\User',
+                'message' => Yii::t('user', 'This email address has already been taken.')
+            ],
 
             [['fullname', 'site'], 'string', 'max' => 255],
 
@@ -93,12 +103,12 @@ class SignupForm extends Model
         $user->generateAuthKey();
         $user->generateEmailToken();
 
-		if ($user->save()) {
-			// Отправляет на почту приветствие и подтверждение емаила
-			EmailHelper::sendNewRegister($user);
-			return $user;
-		}
+        if ($user->save()) {
+            // Отправляет на почту приветствие и подтверждение емаила
+            (new UserMailer($user))->sendNewSignupEmail();
+            return $user;
+        }
 
-		return null;
+        return null;
     }
 }

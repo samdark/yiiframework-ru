@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\components\UserMailer;
 use Yii;
 use yii\web\Controller;
 use common\models\User;
@@ -10,7 +11,6 @@ use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use frontend\models\ChangePasswordForm;
-use common\helpers\EmailHelper;
 
 /**
  * ProfileController handles user profile
@@ -147,7 +147,7 @@ class ProfileController extends Controller
             $user->generateEmailToken();
 
             if ($user->save()) {
-				EmailHelper::sendConfirmEmail($user);
+                (new UserMailer($user))->sendConfirmationEmail();
                 \Yii::$app->session->setFlash('success', Yii::t('user', 'A reminder letter with instructions was sent.'));
 
                 $this->redirect(['update']);
