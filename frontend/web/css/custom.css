@@ -1,0 +1,12 @@
+/* Кнопка выхода */
+div.logout{
+    float: none;
+    margin: 33px auto 0;
+    text-transform: uppercase;
+}
+div.logout a {
+    padding: 12px;
+}
+div.logout a:before{
+    padding-right: 8px;
+}
