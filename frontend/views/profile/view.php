@@ -58,6 +58,15 @@ $this->title = Html::encode($profile->username);
                     </span><br>
                     <span class="name">Регистрация:</span>
                     <span class="info"><?= Yii::$app->formatter->asDatetime($profile->created_at, 'long') ?></span>
+                    <!-- Logout button -->
+                    <div class="clearfix"></div>
+                    <div class="logout col-md-4 col-lg-2 col-sm-8 col-xs-12">
+                        <a href="<?= \yii\helpers\Url::to(['site/logout'])?>"
+                           class="glyphicon glyphicon-log-out btn btn-border-success btn-block"
+                           data-method="post">Выйти
+                        </a>
+                    </div>
+
                 </div>
             </div>
 
