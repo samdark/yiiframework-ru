@@ -2,10 +2,11 @@
 /** @var boolean $isActive */
 /** @var integer $favoriteCount */
 /** @var null|integer $questionID */
+/** @var \yii\web\View $this */
 
 $svgIcon = '<svg><use xlink:href="#ico_like"></use></svg>';
 if ($questionID !== null) {
-    $icon = \yii\bootstrap\Html::a($svgIcon, ['/qa/favorite', 'id' => $questionID], ['data-method' => 'post']);
+    $icon = \yii\bootstrap\Html::a($svgIcon, ['/qa/favorite', 'id' => $questionID]);
 } else {
     $icon = $svgIcon;
 }
@@ -22,7 +23,9 @@ if ($questionID !== null) {
     </symbol>
 </svg>
 
-<div class="q-info-like <?= $isActive ? 'active' : '' ?>">
+<div class="q-info-like <?= $isActive ? 'active' : '' ?>"
+     data-questionid="<?= $questionID ?>"
+     data-url="<?= \yii\helpers\Url::toRoute(['/qa/favorite']) ?>">
     <?= $icon ?>
-    <span><?= $favoriteCount ?></span>
+    <span class="like-count"><?= $favoriteCount ?></span>
 </div>
