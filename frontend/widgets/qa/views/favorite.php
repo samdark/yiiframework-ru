@@ -5,7 +5,7 @@
 
 $svgIcon = '<svg><use xlink:href="#ico_like"></use></svg>';
 if ($questionID !== null) {
-    $icon = \yii\bootstrap\Html::a($svgIcon, ['/qa/favorite', 'id' => $questionID], ['data-method' => 'post']);
+    $icon = \yii\bootstrap\Html::a($svgIcon, ['/qa/favorite'], ['data-question-id' => $questionID]);
 } else {
     $icon = $svgIcon;
 }
