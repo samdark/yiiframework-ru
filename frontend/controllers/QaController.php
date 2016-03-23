@@ -71,6 +71,7 @@ class QaController extends Controller
                 'actions' => [
                     'delete-question' => ['post'],
                     'delete-answer' => ['post'],
+                    'favorite' => ['post'],
                 ],
             ],
         ];
@@ -234,8 +235,9 @@ class QaController extends Controller
      * @return int
      * @throws BadRequestHttpException
      */
-    public function actionFavorite($id)
+    public function actionFavorite()
     {
+        $id = Yii::$app->request->post('questionId');
         $questionFavoriteModel = new QuestionFavorite([
             'user_id' => Yii::$app->user->id,
             'question_id' => $id,
