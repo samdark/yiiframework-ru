@@ -231,7 +231,6 @@ class QaController extends Controller
 
     /**
      * The question will be added as a favorite question to the current user.
-     * @param $id
      * @return int
      * @throws BadRequestHttpException
      */
