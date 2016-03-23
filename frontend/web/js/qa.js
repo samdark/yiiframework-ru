@@ -15,7 +15,6 @@ $(function () {
                 questionId: questionId,
                 _csrf: yii.getCsrfToken()
             },
-            //context: clickElement,
             success: function (status) {
                 if (status == 1) {
                     $parent.addClass('active');
