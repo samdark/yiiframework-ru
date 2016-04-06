@@ -1,5 +1,4 @@
 <?php
-use common\widgets\Alert;
 use frontend\assets\AppAsset;
 use yii\bootstrap\Nav;
 use yii\helpers\Html;
@@ -64,15 +63,15 @@ AppAsset::register($this);
             <?php
             $menuItems = [
                 ['label' => '1.1', 'url' => ['/site/legacy']],
-                ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html'],
-                ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html'],
-                ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/'],
+                ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html', 'linkOptions' => ['target' => '_blank']],
+                ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html', 'linkOptions' => ['target' => '_blank']],
+                ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/', 'linkOptions' => ['target' => '_blank']],
 //                [
 //                    'label' => Yii::t('app', 'Questions'),
 //                    'url' => ['/qa'],
 //                    'active' => Yii::$app->controller->id === 'qa'
 //                ],
-                ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus'],
+                ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus', 'linkOptions' => ['target' => '_blank']],
                 ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/'],
                 ['label' => Yii::t('app', 'Users'), 'url' => ['/profile/list']],
 //                [
@@ -143,7 +142,7 @@ AppAsset::register($this);
                     <ul class="footer-nav">
                         <?php
                         foreach ($menuItems as $item) {
-                            $anchor = Html::a($item['label'], $item['url']);
+                            $anchor = Html::a($item['label'], $item['url'], isset($item['linkOptions']) ? $item['linkOptions'] : []);
                             echo Html::tag('li', $anchor);
                         }
                         ?>
@@ -154,9 +153,9 @@ AppAsset::register($this);
                 <div class="b-footer-cent">
                     <div class="footer-title">Поддержка</div>
                     <ul class="footer-nav">
-                        <li><a href="http://yiiframework.ru/forum/viewforum.php?f=5">Оставить пожелание</a></li>
-                        <li><a href="https://gitter.im/samdark/yiiframework-ru">Открытый чат</a></li>
-                        <li><a href="https://github.com/samdark/yiiframework-ru/issues">Сообщить об ошибке</a></li>
+                        <li><a href="http://yiiframework.ru/forum/viewforum.php?f=5" target="_blank">Оставить пожелание</a></li>
+                        <li><a href="https://gitter.im/samdark/yiiframework-ru" target="_blank">Открытый чат</a></li>
+                        <li><a href="https://github.com/samdark/yiiframework-ru/issues" target="_blank">Сообщить об ошибке</a></li>
                     </ul>
                 </div>
             </div>
@@ -168,7 +167,7 @@ AppAsset::register($this);
 
                     <p>
                         © 2008 — <?= date('Y') ?>, Yii Software LLC<br>
-                        <a href="http://www.yiiframework.com/doc/terms/">Условия использования</a>
+                        <a href="http://www.yiiframework.com/doc/terms/" target="_blank">Условия использования</a>
                     </p>
 
                     <p>
