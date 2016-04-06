@@ -2,7 +2,6 @@
 use frontend\assets\AppAsset;
 use yii\bootstrap\Nav;
 use yii\helpers\Html;
-use yii\widgets\Menu;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
