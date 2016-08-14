@@ -1,6 +1,6 @@
 <?php
 /** @var $this \yii\web\View */
-/** @var $post \common\models\Post */
+/** @var $post \common\models\post\Post */
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -18,7 +18,10 @@ $form = ActiveForm::begin([
 
 <div class="form-group">
     <div>
-        <?= Html::submitButton(Yii::t('post', 'Publish'), ['class' => 'btn btn-success btn-lg']) ?>
+        <?= Html::submitButton(
+            $post->isNewRecord ? Yii::t('post', 'Create') : Yii::t('post', 'Edit post'),
+            ['class' => $post->isNewRecord ? 'btn btn-success btn-lg' : 'btn btn-primary btn-lg']
+        ) ?>
     </div>
 </div>
 <?php ActiveForm::end() ?>

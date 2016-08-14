@@ -1,8 +1,8 @@
 <?php
 namespace frontend\controllers;
 
-use common\models\Post;
 use Yii;
+use common\models\post\Post;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -79,6 +79,7 @@ class PostController extends Controller
         /** @var Post $post */
         $post = Post::find()
             ->where(['id' => $id])
+            ->andFilterWhere(['NOT IN', 'status', Post::STATUS_ACTIVE])
             ->andFilterWhere(['NOT IN', 'status', Post::STATUS_DELETED])
             ->one();
 

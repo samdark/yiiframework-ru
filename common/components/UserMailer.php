@@ -1,10 +1,8 @@
 <?php
-
-
 namespace common\components;
 
 
-use common\models\User;
+use common\models\user\User;
 
 /**
  * UserMailer sends various emails to user
