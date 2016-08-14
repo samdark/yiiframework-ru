@@ -1,6 +1,6 @@
 <?php
 /* @var $this \yii\web\View */
-/* @var $post \common\models\Post */
+/* @var $post \common\models\post\Post */
 
 $this->title = Yii::t('post', 'Create post');
 ?>

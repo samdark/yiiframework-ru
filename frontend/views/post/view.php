@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
-/* @var $post \common\models\Post */
+/* @var $post \common\models\post\Post */
 
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
