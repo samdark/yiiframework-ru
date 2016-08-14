@@ -641,14 +641,11 @@ table td {
   -o-user-select: none;
   user-select: none;
   overflow: hidden;
-  transition: all 1s ease;
-  visibility: visible; }
+  transition: all 1s ease; }
 
 .f-hidden {
-  visibility: hidden;
-  height: 0;
-  padding: 0;
-  opacity: 0; }
+  display: none;
+}
 
 .ico-f-close {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNSAyNSI+ICA8cGF0aCBmaWxsPSIjOGE4YThhIiBkPSJNMjUgMjQuMjZsLS43NC43M0wxMi41IDEzLjIuNzQgMjUgMCAyNC4yNSAxMS43OCAxMi41IDAgLjc0Ljc1IDAgMTIuNSAxMS43OCAyNC4yNiAwbC43My43NEwxMy4yIDEyLjUgMjUgMjQuMjZ6IiBjbGFzcz0iY2xzLTEiLz48L3N2Zz4=);
