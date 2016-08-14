@@ -3,9 +3,10 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $profile common\models\User */
+/* @var $model \common\models\user\User */
+/* @var $providerPost \yii\data\ActiveDataProvider */
 
-$this->title = Html::encode($profile->username);
+$this->title = Html::encode($model->username);
 ?>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -33,31 +34,31 @@ $this->title = Html::encode($profile->username);
             <div class="c-block-user">
                 <div class="block-user-bg"></div>
                 <div class="block-user-name">
-                    <h2><?= Html::encode($profile->username) ?></h2>
-                    <h3><?= Html::encode($profile->fullname) ?></h3>
-                    <?php if (Yii::$app->user->getId() === $profile->id) : ?>
-                        <?= Html::a(Yii::t('user', 'Edit profile'), ['/profile/update'], ['class' => 'btn btn-link']) ?>
+                    <h2><?= Html::encode($model->username) ?></h2>
+                    <h3><?= Html::encode($model->fullname) ?></h3>
+                    <?php if (Yii::$app->user->getId() === $model->id) : ?>
+                        <?= Html::a(Yii::t('user', 'Edit profile'), ['/user/edit'], ['class' => 'btn btn-link']) ?>
                     <?php endif ?>
                 </div>
                 <div class="block-user-info">
                     <span class="name">Сайт:</span>
                     <span class="info">
-                        <?= Html::encode($profile->site) ? Html::a(Html::encode($profile->site), Html::encode($profile->site), ['target' => '_blank']) : Yii::t('user', 'No Website') ?>
+                        <?= Html::encode($model->site) ? Html::a(Html::encode($model->site), Html::encode($model->site), ['target' => '_blank']) : Yii::t('user', 'No Website') ?>
                     </span><br>
                     <span class="name">Github:</span>
                     <span class="info">
-                        <?= Html::encode($profile->github) ? Html::a(Html::encode($profile->github), 'https://github.com/' . Html::encode($profile->github), ['target' => '_blank']) : Yii::t('user', 'No Github') ?>
+                        <?= Html::encode($model->github) ? Html::a(Html::encode($model->github), 'https://github.com/' . Html::encode($model->github), ['target' => '_blank']) : Yii::t('user', 'No Github') ?>
                     </span><br>
                     <span class="name">Twitter:</span>
                     <span class="info">
-                        <?= Html::encode($profile->twitter) ? Html::a(Html::encode($profile->twitter), 'https://twitter.com/' . Html::encode($profile->twitter), ['target' => '_blank']) : Yii::t('user', 'No Twitter') ?>
+                        <?= Html::encode($model->twitter) ? Html::a(Html::encode($model->twitter), 'https://twitter.com/' . Html::encode($model->twitter), ['target' => '_blank']) : Yii::t('user', 'No Twitter') ?>
                     </span><br>
                     <span class="name">Facebook:</span>
                     <span class="info">
-                        <?= Html::encode($profile->facebook) ? Html::a(Html::encode($profile->facebook), 'https://facebook.com/' . Html::encode($profile->facebook), ['target' => '_blank']) : Yii::t('user', 'No Facebook') ?>
+                        <?= Html::encode($model->facebook) ? Html::a(Html::encode($model->facebook), 'https://facebook.com/' . Html::encode($model->facebook), ['target' => '_blank']) : Yii::t('user', 'No Facebook') ?>
                     </span><br>
                     <span class="name">Регистрация:</span>
-                    <span class="info"><?= Yii::$app->formatter->asDatetime($profile->created_at, 'long') ?></span>
+                    <span class="info"><?= Yii::$app->formatter->asDatetime($model->created_at, 'long') ?></span>
                     <!-- Logout button -->
                     <div class="clearfix"></div>
                     <div class="logout col-md-4 col-lg-2 col-sm-8 col-xs-12">
@@ -72,13 +73,45 @@ $this->title = Html::encode($profile->username);
 
             <div class="big-user-avatar">
                 <?= \common\widgets\Gravatar::widget([
-                    'email' => Html::encode($profile->email),
+                    'email' => Html::encode($model->email),
                     'size' => 160,
                     'options' => [
-                        'title' => Html::encode($profile->username),
-                        'alt' => Html::encode($profile->username)
+                        'title' => Html::encode($model->username),
+                        'alt' => Html::encode($model->username)
                     ]
                 ]) ?>
+            </div>
+
+            <div class="user-posts">
+                <h2><?= Html::a(Yii::t('user', 'Posts from {username}', [
+                        'username' => Html::encode($model->username)
+                    ]), ['post/user', 'id' => $model->id]) ?> <sup>(<?= $providerPost->totalCount ?>)</sup></h2>
+
+                <div class="row b-clear">
+                    <?php foreach ($providerPost->getModels() as $post): ?>
+                        <div class="col-md-3">
+                            <div class="post-item">
+                                <div class="post-info"><?= Yii::$app->formatter->asDate($post->created_at, 'medium') ?> <span class="margin-line">|</span>
+                                    <?= Html::a(Html::encode($model->username), ['user/view', 'id' => $model->id])?>
+                                    <?php if (Yii::$app->user->id == $post->user_id && $post->status == $post::STATUS_INACTIVE) : ?>
+                                        <span class="margin-line">|</span> <?= Html::a(Yii::t('post', 'Edit post'), ['post/update', 'id' => $post->id]) ?>
+                                    <?php endif; ?>
+                                </div>
+                                <p><?= Html::a(Html::encode($post->title),
+                                        ['/post/view', 'id' => $post->id, 'slug' => $post->slug], ['class' => 'post-title'])?></p>
+
+                                <?php if (Yii::$app->user->id == $post->user_id): ?>
+                                    <p><small><b><?= Yii::t('post', 'Status') ?></b>: <?= $post->getStatusLabel($post->status) ?></small></p>
+                                <?php endif; ?>
+
+                                <?= \yii\helpers\StringHelper::truncate(Html::encode($post->body), 150) ?>
+
+                                <p><?= Html::a(Yii::t('post', 'read more...'),
+                                        ['/post/view', 'id' => $post->id, 'slug' => $post->slug], ['class' => 'btn btn-default btn-sm'])?></p>
+                            </div>
+                        </div>
+                    <?php endforeach ?>
+                </div>
             </div>
 
             <?php /* <div class="user-projects">

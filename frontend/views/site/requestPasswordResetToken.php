@@ -5,7 +5,7 @@ use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \frontend\models\PasswordResetRequestForm */
+/* @var $model \frontend\models\user\form\PasswordResetRequestForm */
 
 $this->title = Yii::t('app', 'Reset password');
 $this->blocks['body-class'] = "bg-textured";

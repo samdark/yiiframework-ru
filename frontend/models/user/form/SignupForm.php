@@ -1,13 +1,14 @@
 <?php
-namespace frontend\models;
+namespace frontend\models\user\form;
 
-use common\components\UserMailer;
-use common\models\User;
-use yii\base\Model;
 use Yii;
+use yii\base\Model;
+use common\models\user\User;
+use common\components\UserMailer;
 
 /**
- * Signup form
+ * Class SignupForm
+ * @package frontend\models\user\form
  */
 class SignupForm extends Model
 {
@@ -40,7 +41,7 @@ class SignupForm extends Model
             [
                 'username',
                 'unique',
-                'targetClass' => '\common\models\User',
+                'targetClass' => '\common\models\user\User',
                 'message' => Yii::t('user', 'This username has already been taken.')
             ],
 
@@ -51,7 +52,7 @@ class SignupForm extends Model
             [
                 'email',
                 'unique',
-                'targetClass' => '\common\models\User',
+                'targetClass' => '\common\models\user\User',
                 'message' => Yii::t('user', 'This email address has already been taken.')
             ],
 

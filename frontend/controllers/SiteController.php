@@ -3,13 +3,13 @@ namespace frontend\controllers;
 
 use common\components\UserMailer;
 use common\models\Auth;
-use common\models\User;
+use common\models\user\User;
 use frontend\components\AuthHandler;
 use Yii;
 use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
+use frontend\models\user\form\PasswordResetRequestForm;
+use frontend\models\user\form\ResetPasswordForm;
+use frontend\models\user\form\SignupForm;
 use frontend\models\ContactForm;
 use yii\authclient\ClientInterface;
 use yii\base\InvalidParamException;
@@ -229,7 +229,7 @@ class SiteController extends Controller
             throw new BadRequestHttpException(Yii::t('user', 'Wrong confirmed token.'));
         }
 
-        /** @var $model \common\models\User */
+        /** @var $model User */
         $model = User::findByEmailToken($token);
 
         if ($model) {

@@ -1,12 +1,18 @@
 <?php
-namespace common\models;
+namespace common\models\user;
 
 use Yii;
-use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
+use yii\base\NotSupportedException;
+use yii\behaviors\TimestampBehavior;
+use common\models\Auth;
+use common\models\Post;
+use common\models\Project;
+use common\models\Question;
+use common\models\QuestionAnswer;
+use common\models\QuestionFavorite;
 
 /**
  * User model
@@ -52,6 +58,9 @@ class User extends ActiveRecord implements IdentityInterface
 
     /** Scenario edit profile */
     const SCENARIO_PROFILE = 'update';
+
+    /** Number of users per page */
+    const PAGE_SIZE = 24;
 
     /**
      * @inheritdoc
@@ -268,7 +277,7 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
 
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
@@ -366,6 +375,19 @@ class User extends ActiveRecord implements IdentityInterface
     public function removeVerifiedToken()
     {
         $this->email_token = null;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function isResendTimeVerified()
+    {
+        return $this->resend_at + Yii::$app->params['user.resendVerified'] < time();
+    }
+
+    public function getResendTimeNextAttempt()
+    {
+        return Yii::$app->formatter->asDatetime($this->resend_at + Yii::$app->params['user.resendVerified'], 'short');
     }
 
     /**

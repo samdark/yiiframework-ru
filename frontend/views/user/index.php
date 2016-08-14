@@ -6,17 +6,16 @@ use yii\widgets\LinkPager;
 
 /* @var $this yii\web\View */
 /* @var $provider yii\data\ActiveDataProvider */
-/* @var $user common\models\User */
+/* @var $user \common\models\user\User */
 
 $this->title = Yii::t('app', 'Users');
 ?>
 <div class="container page-wrapper page-cont-col">
     <div class="row">
-
         <?php foreach ($provider->getModels() as $user): ?>
             <div class="col-sm-6 col-md-3">
                 <div class="c-user-item">
-                    <a href="<?= Url::to(['/profile/view', 'id' => $user->id]) ?>" class="c-user-avatar">
+                    <a href="<?= Url::to(['/user/view', 'id' => $user->id]) ?>" class="c-user-avatar">
                         <?= \common\widgets\Gravatar::widget([
                             'email' => Html::encode($user->email),
                             'size' => 160,
@@ -27,16 +26,14 @@ $this->title = Yii::t('app', 'Users');
                         ]) ?>
                     </a>
                     <?= Html::encode($user->fullname) ?><br />
-                    <a href="<?= Url::to(['/profile/view', 'id' => $user->id]) ?>" class="c-user-name"><?= Html::encode($user->username) ?></a>
+                    <a href="<?= Url::to(['/user/view', 'id' => $user->id]) ?>" class="c-user-name"><?= Html::encode($user->username) ?></a>
                 </div>
             </div>
         <?php endforeach ?>
-
     </div>
 
     <?= LinkPager::widget([
         'options' => ['class' => 'pagination'],
-        'pagination' => $provider->getPagination(),
+        'pagination' => $provider->getPagination()
     ]) ?>
-
 </div>

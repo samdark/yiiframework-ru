@@ -30,7 +30,7 @@ AppAsset::register($this);
             } else {
                 echo Html::a(
                     '',
-                    ['/profile/view', 'id' => Yii::$app->user->getId()],
+                    ['/user/view', 'id' => Yii::$app->user->getId()],
                     [
                         'class' => 'b-enter user-avatar',
                         'style' => 'background-image: url("' . (
@@ -73,7 +73,7 @@ AppAsset::register($this);
 //                ],
                 ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus', 'linkOptions' => ['target' => '_blank']],
                 ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/'],
-                ['label' => Yii::t('app', 'Users'), 'url' => ['/profile/list']],
+                ['label' => Yii::t('app', 'Users'), 'url' => ['/user/index']],
 //                [
 //                    'label' => Yii::t('app', 'Projects'),
 //                    'url' => ['/project/'],

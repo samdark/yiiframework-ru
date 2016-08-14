@@ -1,10 +1,14 @@
 <?php
-namespace frontend\models;
+namespace frontend\models\user\form;
 
-use common\models\User;
 use Yii;
 use yii\base\Model;
+use common\models\user\User;
 
+/**
+ * Class ChangePasswordForm
+ * @package frontend\models\user\form
+ */
 class ChangePasswordForm extends Model
 {
     /** @var string */

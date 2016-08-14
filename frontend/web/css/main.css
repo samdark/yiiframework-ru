@@ -750,7 +750,6 @@ table td {
 
 .post-item {
   margin-bottom: 50px;
-  overflow: hidden;
   color: #505050;
   font-size: 16px; }
   .post-item p {
@@ -1550,6 +1549,12 @@ table td {
   width: 125px;
   display: block !important;
   margin: 180px auto 26px auto !important;
+  overflow: hidden; }
+
+.upe-password {
+  width: 125px;
+  display: block !important;
+  margin: 0 auto 26px auto !important;
   overflow: hidden; }
 
 .bg-textured {

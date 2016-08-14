@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models;
+namespace common\models\post;
 
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -8,6 +8,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\helpers\ArrayHelper;
 use yii\db\ActiveRecord;
+use common\models\user\User;
 
 /**
  * This is the model class for table "post".
