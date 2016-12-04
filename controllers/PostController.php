@@ -158,7 +158,7 @@ class PostController extends Controller
             $item->title = $post->title;
             $item->link = Url::to(['post/view', 'id' => $post->id, 'slug' => $post->slug], true);
             $item->guid = Url::to(['post/view', 'id' => $post->id, 'slug' => $post->slug], true);
-            $item->description = Text::cut(HtmlPurifier::process(Markdown::process($post->body)));
+            $item->description = Text::cut(HtmlPurifier::process(Markdown::process($post->body, 'gfm')));
 
             $item->pubDate = $post->created_at;
             $item->setAuthor('noreply@yiiframework.ru', $post->user->username);

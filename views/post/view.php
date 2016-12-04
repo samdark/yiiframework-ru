@@ -24,5 +24,5 @@ $this->title = Html::encode($post->title);
         <?php endif; ?>
     </div>
 
-    <?= Text::hideCut(HtmlPurifier::process(Markdown::process($post->body, 'gfm-comment'))) ?>
+    <?= Text::hideCut(HtmlPurifier::process(Markdown::process($post->body, 'gfm'))) ?>
 </article>
