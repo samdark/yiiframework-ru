@@ -7,6 +7,7 @@ use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -101,19 +102,30 @@ class PostController extends Controller
         ]);
     }
 
-    public function actionView($id, $slug)
+    public function actionView($id = null, $slug = null)
     {
-        $post = Post::find()
-            ->with(['user'])
-            ->where([
-                'post.id' => $id,
-                'post.slug' => $slug,
-                'post.status' => Post::STATUS_ACTIVE
-            ])
-            ->one();
+        if ($id === null && $slug === null) {
+            throw new NotFoundHttpException(Yii::t('post', 'The requested article does not exist.'));
+        }
+
+        $postQuery = Post::find()->with(['user'])->andWhere(['post.status' => Post::STATUS_ACTIVE]);
+        if ($id !== null) {
+            $postQuery->andWhere(['post.id' => $id]);
+        }
+
+        if ($slug !== null) {
+            $postQuery->andWhere(['post.slug' => $slug]);
+        }
+
+        /** @var Post $post */
+        $post = $postQuery->one();
 
         if (!$post) {
             throw new NotFoundHttpException(Yii::t('post', 'The requested article does not exist.'));
+        }
+
+        if ($id === null || $slug === null) {
+            return $this->redirect(['/post/view', 'id' => $post->id, 'slug' => $post->slug], 301);
         }
 
         return $this->render('view', [

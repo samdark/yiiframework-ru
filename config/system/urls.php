@@ -1,5 +1,7 @@
 <?php
 return [
+    'news/<id>/<slug>' => 'post/view',
+    'news/<slug>' => 'post/view',
     'auth' => 'site/auth',
     'doc/cookbook/ru/<page>' => 'cookbook/view',
     '1.1' => 'site/legacy',

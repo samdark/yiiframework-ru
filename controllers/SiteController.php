@@ -2,7 +2,6 @@
 namespace app\controllers;
 
 use app\components\UserMailer;
-use app\models\Auth;
 use app\models\User;
 use app\components\AuthHandler;
 use Yii;
