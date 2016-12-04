@@ -22,7 +22,7 @@ use yii\web\MethodNotAllowedHttpException;
  *      return [
  *        'hooks' => [
  *          'class'=>'common\actions\GitHubHookAction',
- *          'fileName'=>'@common/config/versions.php',
+ *          'fileName'=>'@app/config/versions.php',
  *         ]
  *      ];
  *  }
@@ -53,7 +53,7 @@ class GitHubHookAction extends Action
      *      'yii2-html-url' => '',
      *  ];
      */
-    public $fileName = '@common/config/versions.php';
+    public $fileName = '@app/config/versions.php';
 
     /**
      * Runs the action
