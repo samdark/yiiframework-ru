@@ -6,7 +6,7 @@ class m160307_154049_update_fields_user extends Migration
 {
     public function up()
     {
-        $this->dropIndex('email', '{{%user}}');
+        $this->dropIndex('idx-user-email-unique', '{{%user}}');
         $this->addColumn('{{%user}}', 'twitter', $this->string() . ' AFTER  github');
         $this->addColumn('{{%user}}', 'facebook', $this->string() . ' AFTER  github');
         $this->dropColumn('{{%user}}', 'first_name');
@@ -16,7 +16,8 @@ class m160307_154049_update_fields_user extends Migration
 
     public function down()
     {
-        $this->createIndex('email', '{{%user}}', 'email');
+        $isMySQL = $this->getDb()->getDriverName() === 'mysql';
+        $this->createIndex('idx-user-username-unique', '{{%user}}', $isMySQL ? 'username(191)' : 'username', true);
         $this->dropColumn('{{%user}}', 'twitter');
         $this->dropColumn('{{%user}}', 'fullname');
         $this->dropColumn('{{%user}}', 'facebook');
