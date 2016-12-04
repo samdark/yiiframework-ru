@@ -1,9 +1,6 @@
 # yii console command
 /yii
 
-# environment constants
-/.env.php
-
 # phpstorm project files
 .idea
 
@@ -31,3 +28,4 @@ composer.phar
 phpunit.phar
 # local phpunit config
 /phpunit.xml
+

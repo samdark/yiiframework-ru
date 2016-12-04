@@ -32,53 +32,27 @@ return [
     'Development' => [
         'path' => 'dev',
         'setWritable' => [
-            'backend/runtime',
-            'backend/web/assets',
-            'frontend/runtime',
-            'frontend/web/assets',
+            'runtime',
+            'web/assets',
         ],
         'setExecutable' => [
             'yii',
-            'tests/codeception/bin/yii',
         ],
         'setCookieValidationKey' => [
-            'backend/config/main-local.php',
-            'frontend/config/main-local.php',
+            'config/web.php',
         ],
     ],
     'Production' => [
         'path' => 'prod',
         'setWritable' => [
-            'backend/runtime',
-            'backend/web/assets',
-            'frontend/runtime',
-            'frontend/web/assets',
+            'runtime',
+            'web/assets',
         ],
         'setExecutable' => [
             'yii',
         ],
         'setCookieValidationKey' => [
-            'backend/config/main-local.php',
-            'frontend/config/main-local.php',
-        ],
-    ],
-    'Development [rmrevin]' => [
-        'path' => 'dev-rmrevin',
-        'setWritable' => [
-            'backend/runtime',
-            'backend/web/assets',
-            'frontend/runtime',
-            'frontend/web/assets',
-        ],
-        'setExecutable' => [
-            'yii',
-        ],
-        'setCookieValidationKey' => [
-            'backend/config/main-local.php',
-            'frontend/config/main-local.php',
-        ],
-        'skipFiles' => [
-            '.env.php'
+            'config/web.php',
         ],
     ],
 ];
