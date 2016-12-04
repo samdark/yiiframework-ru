@@ -11,7 +11,7 @@ use yii\helpers\Html;
     <div class="container">
         <div class="row">
             <div class="hidden-xs col-sm-5 col-md-5 col-lg-5">
-                <img src="i/yii_user.png" class="promo-img">
+                <img src="/i/yii_user.png" class="promo-img">
             </div>
 
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 promo-inf">
@@ -48,7 +48,7 @@ use yii\helpers\Html;
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="ico-fast"><img src="i/ico_f_fast.svg" alt=""></div>
+                <div class="ico-fast"><img src="/i/ico_f_fast.svg" alt=""></div>
                 <div class="f-title fast">Быстрый</div>
                 <div class="f-descr">
                     Yii запускает только то, что используется, имеет мощную систему кэширирования и изначально нацелен на
@@ -56,14 +56,14 @@ use yii\helpers\Html;
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="ico-secure"><img src="i/ico_f_secure.svg" alt=""></div>
+                <div class="ico-secure"><img src="/i/ico_f_secure.svg" alt=""></div>
                 <div class="f-title secure">Безопасный</div>
                 <div class="f-descr">
                     В Yii есть всё для обеспечения безопасности: валидация, фильтрация, защита от SQL-инъекций и XSS.
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <div class="ico-professional"><img src="i/ico_f_professional.svg" alt=""></div>
+                <div class="ico-professional"><img src="/i/ico_f_professional.svg" alt=""></div>
                 <div class="f-title professional">Профессиональный</div>
                 <div class="f-descr">
                     Yii помогает писать чистый гибкий код. Фреймворк следует MVC и чётко отделяет логику от отображения.
