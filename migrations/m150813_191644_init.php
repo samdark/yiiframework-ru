@@ -12,7 +12,7 @@ class m150813_191644_init extends Migration
             'auth_key' => $this->string(32)->notNull(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string(),
-            'email' => $this->string()->unique(),
+            'email' => $this->string(200)->unique(),
             'email_verified' => $this->boolean(),
             'github' => $this->string(),
             'site' => $this->string(),
