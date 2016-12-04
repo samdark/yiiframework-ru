@@ -71,6 +71,10 @@ return [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
+        'assetManager' => [
+            'linkAssets' => true,
+            'appendTimestamp' => true,
+        ],
     ],
     'params' => $params,
 ];
