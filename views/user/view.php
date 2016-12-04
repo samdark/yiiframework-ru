@@ -72,7 +72,7 @@ $this->title = Html::encode($model->username);
             </div>
 
             <div class="big-user-avatar">
-                <?= \common\widgets\Gravatar::widget([
+                <?= \app\widgets\Gravatar::widget([
                     'email' => Html::encode($model->email),
                     'size' => 160,
                     'options' => [

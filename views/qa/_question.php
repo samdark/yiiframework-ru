@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Markdown;
 use yii\helpers\HtmlPurifier;
-use common\helpers\Generator;
+use app\helpers\Generator;
 
 /* @var $question \app\models\Question */
 
@@ -29,7 +29,7 @@ use common\helpers\Generator;
 
             <div class="q-tags">
                 <?php foreach ($question->questionTags as $tag) : ?>
-                    <?php /* @var $tag \common\models\QuestionTag */ ?>
+                    <?php /* @var $tag \app\models\QuestionTag */ ?>
                     <?= Html::a(Html::encode($tag->name), ['qa/tag', 'name' => $tag->name], ['class' => 'btn btn-default btn-sm']) ?>
                 <?php endforeach ?>
             </div>

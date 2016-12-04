@@ -2,8 +2,8 @@
 namespace app\components;
 
 use Yii;
-use common\models\Auth;
-use common\models\User;
+use app\models\Auth;
+use app\models\User;
 use yii\authclient\ClientInterface;
 use yii\helpers\ArrayHelper;
 

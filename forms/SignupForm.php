@@ -40,7 +40,7 @@ class SignupForm extends Model
             [
                 'username',
                 'unique',
-                'targetClass' => '\common\models\user\User',
+                'targetClass' => '\app\models\User',
                 'message' => Yii::t('user', 'This username has already been taken.')
             ],
 
@@ -51,7 +51,7 @@ class SignupForm extends Model
             [
                 'email',
                 'unique',
-                'targetClass' => '\common\models\user\User',
+                'targetClass' => '\app\models\User',
                 'message' => Yii::t('user', 'This email address has already been taken.')
             ],
 

@@ -16,7 +16,7 @@ $this->title = Yii::t('app', 'Users');
             <div class="col-sm-6 col-md-3">
                 <div class="c-user-item">
                     <a href="<?= Url::to(['/user/view', 'id' => $user->id]) ?>" class="c-user-avatar">
-                        <?= \common\widgets\Gravatar::widget([
+                        <?= \app\widgets\Gravatar::widget([
                             'email' => Html::encode($user->email),
                             'size' => 160,
                             'options' => [

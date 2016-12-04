@@ -34,7 +34,7 @@ AppAsset::register($this);
                     [
                         'class' => 'b-enter user-avatar',
                         'style' => 'background-image: url("' . (
-                            new \common\widgets\Gravatar(
+                            new \app\widgets\Gravatar(
                                 [
                                     'email' => Html::encode(Yii::$app->user->identity->email),
                                     'size' => 64,

@@ -2,7 +2,7 @@
 
 namespace app\widgets\qa;
 
-use common\models\Question;
+use app\models\Question;
 use yii\base\Widget;
 
 /**

@@ -99,7 +99,7 @@ class QaController extends Controller
      */
     public function actionView($id)
     {
-        /** @var $question \common\models\Question */
+        /** @var $question \app\models\Question */
         $question = Question::find()
             ->with(['user', 'questionTags', 'questionFavorites'
             ])
@@ -118,7 +118,7 @@ class QaController extends Controller
         ]);
 
         if ($answerForm->load(Yii::$app->request->post())) {
-            /** @var $answer \common\models\QuestionAnswer */
+            /** @var $answer \app\models\QuestionAnswer */
             if ($answer = $answerForm->save()) {
                 $question->updateCounters(['answer_count' => 1]);
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Your answer published'));
@@ -162,7 +162,7 @@ class QaController extends Controller
         ]);
 
         if ($answerForm->load(Yii::$app->request->post())) {
-            /** @var $answer \common\models\QuestionAnswer */
+            /** @var $answer \app\models\QuestionAnswer */
             if ($answer = $answerForm->save()) {
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Your answer was updated'));
                 return $this->redirect(['view', 'id' => $answer->question_id]);
@@ -186,7 +186,7 @@ class QaController extends Controller
         $questionForm = new QuestionForm($questionModel);
 
         if ($questionForm->load(Yii::$app->request->post())) {
-            /** @var $question \common\models\Question */
+            /** @var $question \app\models\Question */
             if ($question = $questionForm->save()) {
                 return $this->redirect(['view', 'id' => $question->id]);
             }

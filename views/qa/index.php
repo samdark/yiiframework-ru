@@ -156,7 +156,7 @@ switch (Yii::$app->controller->action->id) {
         <div class="q-tags">
             <div class="title"><?= Yii::t('qa', 'Tags') ?>:</div>
             <?= TagsWidget::widget([
-                'tagsClass' => \common\models\QuestionTag::className(),
+                'tagsClass' => \app\models\QuestionTag::className(),
                 'action' => 'qa/tag',
             ]) ?>
         </div>

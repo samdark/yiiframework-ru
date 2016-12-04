@@ -32,7 +32,7 @@ Run `init` in the root directory. Choose development environment.
 
 ### 3. Database
 
-Create a database. By this moment you should have `common/config/main-local.php`. Specify your database connection there.
+Create a database. Copy `/config/system/db.php` to `/config/db.php`. Specify your database connection there.
 
 Then apply migrations by running:
 

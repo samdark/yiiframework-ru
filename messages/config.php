@@ -38,7 +38,7 @@ return [
         '.gitkeep',
         '.hgignore',
         '.hgkeep',
-        '/common/messages',
+        '/messages',
         '/vendor',
     ],
 

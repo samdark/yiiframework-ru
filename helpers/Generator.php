@@ -4,8 +4,7 @@ namespace app\helpers;
 
 /**
  * Class Generator
- * @package common\helpers
- */
+  */
 class Generator
 {
 

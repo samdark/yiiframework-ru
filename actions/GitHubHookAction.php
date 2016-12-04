@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace common\actions;
+namespace app\actions;
 
 use yii\base\Action;
 use yii\base\Exception;
@@ -21,7 +21,7 @@ use yii\web\MethodNotAllowedHttpException;
  *  {
  *      return [
  *        'hooks' => [
- *          'class'=>'common\actions\GitHubHookAction',
+ *          'class'=>'app\actions\GitHubHookAction',
  *          'fileName'=>'@app/config/versions.php',
  *         ]
  *      ];
@@ -31,7 +31,7 @@ use yii\web\MethodNotAllowedHttpException;
  *
  *      Payload URL - https://yiiframework.ru/site/hooks&version=yii2 or https://yiiframework.ru/site/hooks&version=yii1
  *      Content type - application/json
- *      Secret - configure in common/config/params-local.php as "hook-hub-secret"
+ *      Secret - configure in /config/params.php as "hook-hub-secret"
  *      Which events would you like to trigger this webhook? - only "Release"
  *
  * Later releases may be obtained as \Yii::$app->params['yii2-tag-name']

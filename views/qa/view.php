@@ -85,7 +85,7 @@ $this->title = Html::encode($question->title);
 
             <div class="q-tags">
                 <?php foreach ($question->questionTags as $tag) : ?>
-                    <?php /* @var $tag \common\models\QuestionTag */ ?>
+                    <?php /* @var $tag \app\models\QuestionTag */ ?>
                     <?= Html::a(Html::encode($tag->name), ['qa/tag', 'name' => $tag->name], ['class' => 'btn btn-default btn-sm']) ?>
                 <?php endforeach ?>
             </div>
@@ -107,7 +107,7 @@ $this->title = Html::encode($question->title);
 
         <div class="answers-list">
             <?php foreach ($answers as $answer) : ?>
-                <?php /* @var $answer \common\models\QuestionAnswer */ ?>
+                <?php /* @var $answer \app\models\QuestionAnswer */ ?>
                 <div class="answer-item">
                     <div class="a-userpic">
                         <?= \app\widgets\Gravatar::widget(
