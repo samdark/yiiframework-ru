@@ -33,13 +33,16 @@ class ImportController extends Controller
 
         $rows = (new Query())->from($tablePost)->all($oldDb);
 
+        \Yii::$app->db->createCommand()->delete('post');
         foreach ($rows as $post) {
             \Yii::$app->db->createCommand()->insert(
                 'post',
                 [
                     'id' => $post['id'],
                     'title' => $post['title'],
+                    'slug' => $post['alias'],
                     'body' => $post['content'],
+                    'status' => 10,
                     'user_id' => $userId,
                     'created_at' => $post['createdOn'],
                 ]
