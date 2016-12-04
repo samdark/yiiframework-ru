@@ -79,14 +79,30 @@ class UserController extends Controller
     /**
      * @inheritdoc
      */
-    public function actionView($id)
+    public function actionView($id = null, $username = null)
     {
-        $model = User::find()
-            ->where(['id' => $id])
-            ->one();
+        if ($id === null && $username === null) {
+            throw new NotFoundHttpException(Yii::t('post', 'The requested user does not exist.'));
+        }
 
-        if ($model === null) {
-            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        $userQuery = User::find()->andWhere(['status' => User::STATUS_ACTIVE]);
+        if ($id !== null) {
+            $userQuery->andWhere(['id' => $id]);
+        }
+
+        if ($username !== null) {
+            $userQuery->andWhere(['username' => $username]);
+        }
+
+        /** @var User $user */
+        $user = $userQuery->one();
+
+        if (!$user) {
+            throw new NotFoundHttpException(Yii::t('post', 'The requested user does not exist.'));
+        }
+
+        if ($id === null || $username === null) {
+            return $this->redirect(['/user/view', 'id' => $user->id, 'username' => $user->username], 301);
         }
 
         $queryPost = Post::find()
@@ -107,7 +123,7 @@ class UserController extends Controller
         ]);
 
         return $this->render('view', [
-            'model' => $model,
+            'model' => $user,
             'providerPost' => $providerPost
         ]);
     }

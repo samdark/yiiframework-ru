@@ -15,7 +15,7 @@ $this->title = Yii::t('app', 'Users');
         <?php foreach ($provider->getModels() as $user): ?>
             <div class="col-sm-6 col-md-3">
                 <div class="c-user-item">
-                    <a href="<?= Url::to(['/user/view', 'id' => $user->id]) ?>" class="c-user-avatar">
+                    <a href="<?= Url::to(['/user/view', 'id' => $user->id, 'username' => $user->username]) ?>" class="c-user-avatar">
                         <?= \app\widgets\Gravatar::widget([
                             'email' => Html::encode($user->email),
                             'size' => 160,

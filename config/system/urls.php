@@ -1,6 +1,9 @@
 <?php
 return [
+    'users/<id>/<username>' => 'user/view',
+    'users' => 'user/index',
     'news/<id>/<slug>' => 'post/view',
+    'news/<slug>' => 'post/view',
     'news/<slug>' => 'post/view',
     'auth' => 'site/auth',
     'doc/cookbook/ru/<page>' => 'cookbook/view',
