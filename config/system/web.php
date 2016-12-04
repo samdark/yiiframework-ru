@@ -17,18 +17,7 @@ return [
         ],
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
-            'clients' => [
-                'github' => [
-                    'class' => '\yii\authclient\clients\GitHub',
-                    'scope' => 'user:email',
-                ],
-                'twitter' => [
-                    'class' => '\yii\authclient\clients\Twitter',
-                ],
-                'facebook' => [
-                    'class' => 'yii\authclient\clients\Facebook',
-                ],
-            ],
+            'clients' => $authclients,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
