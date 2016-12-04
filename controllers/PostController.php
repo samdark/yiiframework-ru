@@ -1,10 +1,16 @@
 <?php
 namespace app\controllers;
 
+use app\components\feed\Feed;
+use app\components\feed\Item;
+use app\helpers\Text;
 use Yii;
 use app\models\Post;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\HtmlPurifier;
+use yii\helpers\Markdown;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\HttpException;
@@ -131,5 +137,34 @@ class PostController extends Controller
         return $this->render('view', [
             'post' => $post,
         ]);
+    }
+
+    public function actionRss()
+    {
+        /** @var Post[] $posts */
+        $posts = Post::find()->where(['status' => Post::STATUS_ACTIVE])->orderBy('created_at DESC')->limit(50)->all();
+
+        $feed = new Feed();
+        $feed->title = 'yiiframework.ru';
+        $feed->link = Url::to('');
+        $feed->selfLink = Url::to(['post/rss'], true);
+        $feed->description = 'Новости Yii';
+        $feed->language = 'ru';
+        $feed->setWebMaster('sam@rmcreative.ru', 'Alexander Makarov');
+        $feed->setManagingEditor('sam@rmcreative.ru', 'Alexander Makarov');
+
+        foreach ($posts as $post) {
+            $item = new Item();
+            $item->title = $post->title;
+            $item->link = Url::to(['post/view', 'id' => $post->id, 'slug' => $post->slug], true);
+            $item->guid = Url::to(['post/view', 'id' => $post->id, 'slug' => $post->slug], true);
+            $item->description = Text::cut(HtmlPurifier::process(Markdown::process($post->body)));
+
+            $item->pubDate = $post->created_at;
+            $item->setAuthor('noreply@yiiframework.ru', $post->user->username);
+            $feed->addItem($item);
+        }
+
+        $feed->render();
     }
 }

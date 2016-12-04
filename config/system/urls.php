@@ -1,5 +1,6 @@
 <?php
 return [
+    'rss' => 'post/rss',
     'users/<id>/<username>' => 'user/view',
     'users' => 'user/index',
     'news/<id>/<slug>' => 'post/view',
