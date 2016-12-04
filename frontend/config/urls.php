@@ -1,6 +1,8 @@
 <?php
 return [
     'doc/cookbook/ru/<page>' => 'cookbook/view',
+    '1.1' => 'site/legacy',
+    'doc/cookbook/ru/index' => 'cookbook/view',
     ['class' => 'frontend\components\RedirectUrlRule'],
     [
         'pattern' => 'qa/without-answer',
