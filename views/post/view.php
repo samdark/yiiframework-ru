@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $post \app\models\Post */
 
+use app\helpers\Text;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
@@ -22,5 +23,5 @@ $this->title = Html::encode($post->title);
         <?php endif; ?>
     </div>
 
-    <?= HtmlPurifier::process(Markdown::process($post->body, 'gfm-comment')) ?>
+    <?= Text::hideCut(HtmlPurifier::process(Markdown::process($post->body, 'gfm-comment'))) ?>
 </article>

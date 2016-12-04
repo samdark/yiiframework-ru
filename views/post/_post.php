@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $post \app\models\Post */
 
+use app\helpers\Text;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
@@ -21,7 +22,7 @@ use yii\helpers\Markdown;
         <?= Yii::t('post', 'Author:') ?> <?= Html::a(Html::encode($post->user->username), ['profile/view', 'id' => $post->user->id]); ?>
     </div>
 
-    <?= HtmlPurifier::process(Markdown::process($post->body, 'gfm-comment')) ?>
+    <?= Text::cut(HtmlPurifier::process(Markdown::process($post->body, 'gfm-comment'))) ?>
 
     <?= Html::a(Yii::t('post', 'read more...'), ['/post/view', 'id' => $post->id, 'slug' => $post->slug], ['class' => 'btn btn-default btn-sm']) ?>
 
