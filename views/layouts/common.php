@@ -14,7 +14,11 @@ use yii\helpers\Html;
                 <div class="sect-title-text"><?= Html::encode($this->title) ?></div>
             </div>
             <div class="col-xs-2 col-sm-1 col-md-3 col-lg-3">
-                <input class="form-control input-lg page-search" type="text" placeholder="<?= Yii::t('app', 'Search') ?>">
+                <form action="http://www.google.com/cse" id="cse-search-box">
+                    <input type="hidden" name="cx" value="006237035567373325440:sm9smqhhp9u" />
+                    <input type="hidden" name="ie" value="UTF-8" />
+                    <input type="text" class="form-control input-lg" name="q" size="14" placeholder="<?= Yii::t('app', 'Search') ?>" />
+                </form>
             </div>
         </div>
     </div>

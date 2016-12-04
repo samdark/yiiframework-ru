@@ -5,15 +5,7 @@
                 <?= $content ?>
             </div>
             <div class="col-xs-2 col-sm-1 col-md-3 col-lg-3">
-                <form action="http://www.google.com/cse" id="cse-search-box">
-                    <div>
-                        <input type="hidden" name="cx" value="006237035567373325440:sm9smqhhp9u"/>
-                        <input type="hidden" name="ie" value="UTF-8"/>
-                        <input type="text" name="q" size="14"/>
-                        <input type="submit" name="sa" value="Поиск"/>
-                    </div>
-                </form>
-
+                <br>
                 <ul class="toc">
                     <?php
                     use yii\helpers\Html;
