@@ -2,7 +2,6 @@
 
 namespace app\widgets;
 
-use Yii;
 use yii\base\InvalidParamException;
 use yii\helpers\Html;
 use yii\base\Widget;
