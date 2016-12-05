@@ -34,6 +34,8 @@ class Post extends ActiveRecord
     /** Deleted status */
     const STATUS_DELETED = 20;
 
+    const SCENARIO_UPDATE_BY_MANAGER = 'update_by_manager';
+
     /**
      * @inheritdoc
      */
@@ -77,6 +79,18 @@ class Post extends ActiveRecord
             ['status', 'in', 'range' => array_keys(self::getStatuses())]
         ];
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_DEFAULT => ['title', 'body'],
+            self::SCENARIO_UPDATE_BY_MANAGER => ['title', 'body', 'status'],
+        ];
+    }
+
 
     /**
      * @inheritdoc

@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\components\feed\Feed;
 use app\components\feed\Item;
 use app\helpers\Text;
+use app\permissions\UserPermissions;
 use Yii;
 use app\models\Post;
 use yii\data\ActiveDataProvider;
@@ -24,7 +25,15 @@ class PostController extends Controller
 {
     const PAGE_SIZE = 10;
 
-    public $layout = "common";
+    public $layout = 'common';
+
+    /**
+     * @return UserPermissions
+     */
+    protected function getPermissions()
+    {
+        return new UserPermissions(Yii::$app->getUser());
+    }
 
     /**
      * @inheritdoc
@@ -46,14 +55,22 @@ class PostController extends Controller
         ];
     }
 
+    /**
+     * List posts
+     *
+     * @return string
+     */
     public function actionIndex()
     {
         $query = Post::find()
             ->with(['user'])
-            ->andWhere([
-                'post.status' => Post::STATUS_ACTIVE,
-            ])
             ->orderBy('post.created_at DESC');
+
+        if (!$this->getPermissions()->canManagePosts()) {
+            $query->andWhere([
+                'post.status' => Post::STATUS_ACTIVE,
+            ]);
+        }
 
         $provider = new ActiveDataProvider([
             'query' => $query,
@@ -68,6 +85,11 @@ class PostController extends Controller
         ]);
     }
 
+    /**
+     * Create post
+     *
+     * @return string|\yii\web\Response
+     */
     public function actionCreate()
     {
         $post = new Post();
@@ -81,21 +103,32 @@ class PostController extends Controller
         ]);
     }
 
+    /**
+     * Update post
+     *
+     * @param int $id
+     * @return string|\yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
     public function actionUpdate($id)
     {
         /** @var Post $post */
-        $post = Post::find()
-            ->where(['id' => $id])
-            ->andFilterWhere(['NOT IN', 'status', Post::STATUS_ACTIVE])
-            ->andFilterWhere(['NOT IN', 'status', Post::STATUS_DELETED])
-            ->one();
+        $post = Post::find()->where(['id' => $id])->one();
 
         if (!$post) {
             throw new NotFoundHttpException(Yii::t('post', 'The requested article does not exist.'));
         }
 
-        if (Yii::$app->user->getId() != $post->user_id) {
-            throw new ForbiddenHttpException(Yii::t('post', 'You are not allowed to perform this action.'));
+        if ($this->getPermissions()->canManagePosts()) {
+            $post->scenario = Post::SCENARIO_UPDATE_BY_MANAGER;
+            $canEditStatus = true;
+        } else {
+            if (!$this->getPermissions()->canEditPost($post)) {
+                throw new ForbiddenHttpException(Yii::t('post', 'You are not allowed to perform this action.'));
+            }
+
+            $canEditStatus = false;
         }
 
         if ($post->load(Yii::$app->request->post()) && $post->save()) {
@@ -105,16 +138,26 @@ class PostController extends Controller
 
         return $this->render('update', [
             'post' => $post,
+            'canEditStatus' => $canEditStatus,
         ]);
     }
 
+    /**
+     * View post
+     *
+     * @param int $id
+     * @param string $slug
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
+     */
     public function actionView($id = null, $slug = null)
     {
         if ($id === null && $slug === null) {
             throw new NotFoundHttpException(Yii::t('post', 'The requested article does not exist.'));
         }
 
-        $postQuery = Post::find()->with(['user'])->andWhere(['post.status' => Post::STATUS_ACTIVE]);
+        $postQuery = Post::find()->with(['user']);
+
         if ($id !== null) {
             $postQuery->andWhere(['post.id' => $id]);
         }
@@ -126,7 +169,7 @@ class PostController extends Controller
         /** @var Post $post */
         $post = $postQuery->one();
 
-        if (!$post) {
+        if (!$post || !$this->getPermissions()->canViewPost($post)) {
             throw new NotFoundHttpException(Yii::t('post', 'The requested article does not exist.'));
         }
 
@@ -136,9 +179,13 @@ class PostController extends Controller
 
         return $this->render('view', [
             'post' => $post,
+            'canEditPost' => $this->getPermissions()->canEditPost($post),
         ]);
     }
 
+    /**
+     * Posts RSS
+     */
     public function actionRss()
     {
         /** @var Post[] $posts */
