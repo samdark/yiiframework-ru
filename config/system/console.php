@@ -11,6 +11,9 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+        ],
         'db' => $db,
         'log' => [
             'targets' => [

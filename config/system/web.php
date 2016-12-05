@@ -12,6 +12,9 @@ return [
     'defaultRoute' => 'post/index',
     'language' => 'ru-RU',
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+        ],
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
