@@ -422,11 +422,6 @@ table td {
 
 .navbar {
   margin-bottom: 0;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
   border-radius: 0; }
 
 .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
@@ -556,11 +551,7 @@ table td {
 .promo {
   background-image: url(../i/pttrn_dark.jpg);
   color: #fff;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none; }
+}
 
 .promo-img {
   margin-top: 16px;
@@ -635,11 +626,6 @@ table td {
   text-align: center;
   padding: 75px 0 0 0;
   position: relative;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
   overflow: hidden;
   transition: all 1s ease; }
 
