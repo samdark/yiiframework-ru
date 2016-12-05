@@ -18,10 +18,8 @@ $this->title = $name;
     </div>
 
     <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
+        Что-то пошло не так. Скорее всего, мы уже знаем, но на всякий случай
+        <a href="https://github.com/samdark/yiiframework-ru/issues/" target="_blank" rel="noreferrer noopener">сообщите в issues на GitHub</a>.
     </p>
 
 </div>
