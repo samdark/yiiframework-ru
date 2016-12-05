@@ -63,15 +63,15 @@ AppAsset::register($this);
             <?php
             $menuItems = [
                 ['label' => '1.1', 'url' => ['/site/legacy']],
-                ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html', 'linkOptions' => ['target' => '_blank']],
-                ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html', 'linkOptions' => ['target' => '_blank']],
-                ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/', 'linkOptions' => ['target' => '_blank']],
+                ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
+                ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
+                ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
 //                [
 //                    'label' => Yii::t('app', 'Questions'),
 //                    'url' => ['/qa'],
 //                    'active' => Yii::$app->controller->id === 'qa'
 //                ],
-                ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus', 'linkOptions' => ['target' => '_blank']],
+                ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
                 ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/'],
                 ['label' => Yii::t('app', 'Users'), 'url' => ['/user/index']],
 //                [
@@ -131,9 +131,9 @@ AppAsset::register($this);
                 </div>
 
                 <div class="footer-social">
-                    <a href="https://github.com/yiisoft/yii2" class="github" target="_blank"></a>
-                    <a href="https://twitter.com/yiiframework_ru" class="twitter" target="_blank"></a>
-                    <a href="https://www.facebook.com/groups/yiitalk/" class="facebook" target="_blank"></a>
+                    <a href="https://github.com/yiisoft/yii2" class="github" target="_blank" rel="noopener noreferrer"></a>
+                    <a href="https://twitter.com/yiiframework_ru" class="twitter" target="_blank" rel="noopener noreferrer"></a>
+                    <a href="https://www.facebook.com/groups/yiitalk/" class="facebook" target="_blank" rel="noopener noreferrer"></a>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
@@ -153,9 +153,9 @@ AppAsset::register($this);
                 <div class="b-footer-cent">
                     <div class="footer-title">Поддержка</div>
                     <ul class="footer-nav">
-                        <li><a href="http://yiiframework.ru/forum/viewforum.php?f=5" target="_blank">Оставить пожелание</a></li>
-                        <li><a href="https://gitter.im/samdark/yiiframework-ru" target="_blank">Открытый чат</a></li>
-                        <li><a href="https://github.com/samdark/yiiframework-ru/issues" target="_blank">Сообщить об ошибке</a></li>
+                        <li><a href="http://yiiframework.ru/forum/viewforum.php?f=5" target="_blank" rel="noopener noreferrer">Оставить пожелание</a></li>
+                        <li><a href="https://gitter.im/samdark/yiiframework-ru" target="_blank" rel="noopener noreferrer">Открытый чат</a></li>
+                        <li><a href="https://github.com/samdark/yiiframework-ru/issues" target="_blank" rel="noopener noreferrer">Сообщить об ошибке</a></li>
                     </ul>
                 </div>
             </div>
@@ -167,12 +167,12 @@ AppAsset::register($this);
 
                     <p>
                         © 2008 — <?= date('Y') ?>, Yii Software LLC<br>
-                        <a href="http://www.yiiframework.com/doc/terms/" target="_blank">Условия использования</a>
+                        <a href="http://www.yiiframework.com/doc/terms/" target="_blank" rel="noopener noreferrer">Условия использования</a>
                     </p>
 
                     <p>
                         Дизайн — Сергей Хильков<br>
-                        <a href="http://www.eshill.ru/" target="_blank">www.eshill.ru</a>
+                        <a href="http://www.eshill.ru/" target="_blank" rel="noopener noreferrer">www.eshill.ru</a>
                     </p>
                 </div>
             </div>

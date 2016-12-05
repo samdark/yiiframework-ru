@@ -14,11 +14,11 @@ $this->title = 'Yii 1.1';
     <p>Ниже приведены ссылки на материалы по версии 1.1.</p>
 
     <ul>
-        <li><a href="http://www.yiiframework.com/doc/guide/1.1/ru/index">Полное руководство</a></li>
-        <li><a href="http://www.yiiframework.com/doc/blog/1.1/ru/start.overview">Создание блога</a></li>
+        <li><a href="http://www.yiiframework.com/doc/guide/1.1/ru/index" target="_blank" rel="noopener noreferrer">Полное руководство</a></li>
+        <li><a href="http://www.yiiframework.com/doc/blog/1.1/ru/start.overview" target="_blank" rel="noopener noreferrer">Создание блога</a></li>
         <li><?= Html::a('Рецепты', ['cookbook/view']) ?></li>
-        <li><a href="http://www.yiiframework.com/doc/api/1.1">API</a></li>
-        <li><a href="http://www.yiiframework.com/extensions/">Расширения</a></li>
-        <li><a href="https://gitter.im/yiisoft/yii/rus">Чат</a></li>
+        <li><a href="http://www.yiiframework.com/doc/api/1.1" target="_blank" rel="noopener noreferrer">API</a></li>
+        <li><a href="http://www.yiiframework.com/extensions/" target="_blank" rel="noopener noreferrer">Расширения</a></li>
+        <li><a href="https://gitter.im/yiisoft/yii/rus" target="_blank" rel="noopener noreferrer">Чат</a></li>
     </ul>
 </div>
