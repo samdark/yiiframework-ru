@@ -6,6 +6,7 @@ $authclients = $configurator->getConfig('authclients.php');
 
 return [
     'id' => 'yiiframework.ru',
+    'name' => 'yiiframework.ru',
     'basePath' => dirname(dirname(__DIR__)),
     'bootstrap' => ['log'],
     'defaultRoute' => 'post/index',

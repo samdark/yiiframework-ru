@@ -6,6 +6,7 @@ $authclients = $configurator->getConfig('authclients.php');
 
 return [
     'id' => 'yiiframework.ru console',
+    'name' => 'yiiframework.ru console',
     'basePath' => dirname(dirname(__DIR__)),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
