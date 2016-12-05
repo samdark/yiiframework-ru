@@ -4,9 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7c10a217c2531b6d24d0b7635d1e76e0",
-    "content-hash": "6fc8c40a7da06c8fffaecb8846fee878",
+    "hash": "daa9d13d2d86ba9d1f93d824dfab9068",
+    "content-hash": "9d6ba30347a2887e70caee99dacb0b95",
     "packages": [
+        {
+            "name": "baibaratsky/yii2-rollbar",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/baibaratsky/yii2-rollbar.git",
+                "reference": "51be906bede6692f3a6f199e3a090f3635798b6b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/baibaratsky/yii2-rollbar/zipball/51be906bede6692f3a6f199e3a090f3635798b6b",
+                "reference": "51be906bede6692f3a6f199e3a090f3635798b6b",
+                "shasum": ""
+            },
+            "require": {
+                "rollbar/rollbar": "~0.15.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "baibaratsky\\yii\\rollbar\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Andrei Baibaratsky",
+                    "email": "andrei@baibaratsky.com"
+                }
+            ],
+            "description": "Rollbar for Yii2",
+            "homepage": "http://github.com/baibaratsky/yii2-rollbar",
+            "keywords": [
+                "debug",
+                "error",
+                "exception",
+                "log",
+                "monitoring",
+                "ratchet.io",
+                "ratchetio",
+                "rollbar",
+                "yii",
+                "yii2"
+            ],
+            "time": "2015-12-01 08:32:03"
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.7",
@@ -616,6 +666,55 @@
                 "yii2"
             ],
             "time": "2015-11-05 08:09:14"
+        },
+        {
+            "name": "rollbar/rollbar",
+            "version": "v0.15.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rollbar/rollbar-php.git",
+                "reference": "f4ead5be5e52443f0c9e0272a0cd5813a5b3199a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rollbar/rollbar-php/zipball/f4ead5be5e52443f0c9e0272a0cd5813a5b3199a",
+                "reference": "f4ead5be5e52443f0c9e0272a0cd5813a5b3199a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/rollbar.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rollbar, Inc.",
+                    "email": "support@rollbar.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Monitors errors and exceptions and reports them to Rollbar",
+            "homepage": "http://github.com/rollbar/rollbar-php",
+            "keywords": [
+                "debugging",
+                "errors",
+                "exceptions",
+                "logging",
+                "monitoring"
+            ],
+            "time": "2015-07-29 00:03:24"
         },
         {
             "name": "swiftmailer/swiftmailer",
