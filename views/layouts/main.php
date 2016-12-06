@@ -63,8 +63,8 @@ AppAsset::register($this);
             <?php
             $menuItems = [
                 ['label' => '1.1', 'url' => ['/site/legacy']],
-                ['label' => Yii::t('app', 'Guide'), 'url' => 'http://www.yiiframework.com/doc-2.0/guide-index.html', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
-                ['label' => 'API', 'url' => 'http://www.yiiframework.com/doc-2.0/index.html', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
+                ['label' => Yii::t('app', 'Guide'), 'url' => 'http://stuff.cebe.cc/yii2docs-ru/guide-README.html', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
+                ['label' => 'API', 'url' => 'http://stuff.cebe.cc/yii2docs-ru/index.html', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
                 ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
 //                [
 //                    'label' => Yii::t('app', 'Questions'),
