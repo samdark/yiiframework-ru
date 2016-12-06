@@ -25,7 +25,7 @@ return [
     'Change password' => 'Изменение пароля',
     'Change picture' => 'Изменить фото',
     'Change the password' => 'Изменить пароль',
-    'Check your email for further instructions.' => 'Проверьте вашу электронную почту для получения дальнейших инструкций.',
+    'Check your email for further instructions.' => 'Для получения дальнейших инструкций проверьте почту.',
     'Created At' => 'Создан',
     'Current password' => 'Текущий пароль',
     'Deleted' => 'Удалён',
