@@ -228,7 +228,6 @@ table td {
   font-size: 46px;
   font-weight: 100;
   margin: 30px 0;
-  white-space: nowrap;
   overflow: hidden;
   transition: all 0.3s ease; }
 
