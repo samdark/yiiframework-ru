@@ -33,6 +33,7 @@ return [
     'Slug' => '',
     'Status' => 'Статус',
     'The requested article does not exist.' => '',
+    'The requested user does not exist.' => 'Запрошенная страница не найдена.',
     'Title' => 'Название поста',
     'Update post' => 'Редактировать пост',
     'Updated At' => '',
