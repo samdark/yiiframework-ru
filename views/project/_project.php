@@ -12,12 +12,12 @@ if ($project->images) {
 
 <div class="project-item">
 
-    <?= Html::a('', ['/project/view', 'id' => $project->id], ['class' => "project-cover", 'style' => $stylePreviewImage]) ?>
+    <?= Html::a('', ['/project/view', 'id' => $project->id], ['class' => 'project-cover', 'style' => $stylePreviewImage]) ?>
 
     <div class="post-info">
         <?= Yii::$app->formatter->asDate($project->created_at, 'long'); ?>
         <span class="margin-line">|</span>
-        <?= Html::a(Html::encode($project->user->username), ['profile/view', 'id' => $project->user->id]); ?>
+        <?= Html::a(Html::encode($project->user->username), ['user/view', 'id' => $project->user->id, 'username' => $project->user->username]); ?>
     </div>
 
     <div class="project-title">
