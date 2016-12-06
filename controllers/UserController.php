@@ -118,7 +118,7 @@ class UserController extends Controller
         $providerPost = new ActiveDataProvider([
             'query' => $queryPost,
             'pagination' => [
-                'pageSize' => 4
+                'pageSize' => 500
             ],
         ]);
 

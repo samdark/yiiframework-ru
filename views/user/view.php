@@ -1,6 +1,6 @@
 <?php
-
 use yii\helpers\Html;
+use app\models\Post;
 
 /* @var $this yii\web\View */
 /* @var $model \app\models\User */
@@ -85,34 +85,25 @@ $this->title = Html::encode($model->username);
             </div>
 
             <div class="user-posts">
-                <h2><?= Html::a(Yii::t('user', 'Posts from {username}', [
+                <h2><?= Yii::t('user', 'Posts from {username}', [
                         'username' => Html::encode($model->username)
-                    ]), ['post/user', 'id' => $model->id]) ?> <sup>(<?= $providerPost->totalCount ?>)</sup></h2>
+                    ]) ?> <sup>(<?= $providerPost->totalCount ?>)</sup></h2>
 
                 <div class="row b-clear">
+                    <ul>
                     <?php foreach ($providerPost->getModels() as $post): ?>
-                        <div class="col-md-3">
-                            <div class="post-item">
-                                <div class="post-info"><?= Yii::$app->formatter->asDate($post->created_at, 'medium') ?> <span class="margin-line">|</span>
-                                    <?= Html::a(Html::encode($model->username), ['user/view', 'id' => $model->id])?>
-                                    <?php if (Yii::$app->user->id == $post->user_id && $post->status == $post::STATUS_INACTIVE) : ?>
-                                        <span class="margin-line">|</span> <?= Html::a(Yii::t('post', 'Edit post'), ['post/update', 'id' => $post->id]) ?>
-                                    <?php endif; ?>
-                                </div>
-                                <p><?= Html::a(Html::encode($post->title),
-                                        ['/post/view', 'id' => $post->id, 'slug' => $post->slug], ['class' => 'post-title'])?></p>
-
-                                <?php if (Yii::$app->user->id == $post->user_id): ?>
-                                    <p><small><b><?= Yii::t('post', 'Status') ?></b>: <?= $post->getStatusLabel($post->status) ?></small></p>
-                                <?php endif; ?>
-
-                                <?= \yii\helpers\StringHelper::truncate(Html::encode($post->body), 150) ?>
-
-                                <p><?= Html::a(Yii::t('post', 'read more...'),
-                                        ['/post/view', 'id' => $post->id, 'slug' => $post->slug], ['class' => 'btn btn-default btn-sm'])?></p>
-                            </div>
-                        </div>
+                        <li>
+                            <?= Html::a(Html::encode($post->title), ['/post/view', 'id' => $post->id, 'slug' => $post->slug])?>
+                            <?= Yii::$app->formatter->asDate($post->created_at, 'medium') ?>
+                            <?php if ((int)$post->status !== Post::STATUS_ACTIVE): ?>
+                                <small><?= $post->getStatusLabel($post->status) ?></small>
+                            <?php endif ?>
+                            <?php if (Yii::$app->user->id == $post->user_id && $post->status == $post::STATUS_INACTIVE) : ?>
+                                <span class="margin-line">|</span> <?= Html::a(Yii::t('post', 'Edit post'), ['post/update', 'id' => $post->id]) ?>
+                            <?php endif; ?>
+                        </li>
                     <?php endforeach ?>
+                    </ul>
                 </div>
             </div>
 
