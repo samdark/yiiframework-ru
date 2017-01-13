@@ -13,19 +13,20 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
-        "yiisoft/yii2": "~2.0.7",
-        "yiisoft/yii2-bootstrap": "~2.0.5",
-        "yiisoft/yii2-swiftmailer": "~2.0.4",
-        "yiisoft/yii2-authclient": "~2.0.5",
-        "kartik-v/yii2-widget-fileinput": "~1.0.3",
-        "ijackua/yii2-lepture-markdown-editor-widget": "~1.0.0",
+        "yiisoft/yii2": "~2.0.10",
+        "yiisoft/yii2-bootstrap": "~2.0.6",
+        "yiisoft/yii2-swiftmailer": "~2.0.6",
+        "yiisoft/yii2-authclient": "~2.0.6",
+        "kartik-v/yii2-widget-fileinput": "~1.0.5",
         "creocoder/yii2-taggable": "~2.0.0",
         "lavrentiev/yii2-toastr": "2.0.0",
-        "baibaratsky/yii2-rollbar": "1.2.*"
+        "baibaratsky/yii2-rollbar": "1.2.*",
+        "bower-asset/codemirror": "~5.9.0",
+        "bower-asset/codemirror-buttons": "~1.0.0"
     },
     "require-dev": {
-        "yiisoft/yii2-debug": "~2.0.5",
-        "yiisoft/yii2-gii": "~2.0.4"
+        "yiisoft/yii2-debug": "~2.0.7",
+        "yiisoft/yii2-gii": "~2.0.5"
     },
     "config": {
         "process-timeout": 1800

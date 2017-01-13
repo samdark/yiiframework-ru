@@ -1,12 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use ijackua\lepture\Markdowneditor;
-use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $answerForm app\models\QuestionAnswerForm */
-/* @var $form yii\widgets\ActiveForm */
 
 $this->title = Yii::t('qa', 'Update answer');
 ?>

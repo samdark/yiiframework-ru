@@ -1,19 +1,20 @@
 <?php
 
-use ijackua\lepture\Markdowneditor;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $answerForm \app\models\QuestionAnswerForm */
 /* @var $form yii\widgets\ActiveForm */
+
+\app\assets\MarkdownEditorAsset::register($this);
 ?>
 
 <?php $form = ActiveForm::begin(); ?>
 
 <?= $form->field($answerForm, 'body', [
     'template' => "{label}\n{error}\n{input}\n{hint}"
-])->widget(Markdowneditor::className())->label(false) ?>
+])->textarea(['class' => 'markdown-editor'])->label(false) ?>
 
 <div class="form-group">
     <div>

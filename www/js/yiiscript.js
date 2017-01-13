@@ -1,4 +1,8 @@
 $("document").ready(function(){
+    if ($('.markdown-editor').length) {
+        initEditor($('.markdown-editor'));
+    }
+
 	if( document.cookie.indexOf('yii-feature=close') != -1 ){
 		$(".yii-features").toggleClass('f-hidden');
 	}

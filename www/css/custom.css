@@ -10,3 +10,7 @@ div.logout a {
 div.logout a:before{
     padding-right: 8px;
 }
+
+.CodeMirror {
+    border: 1px solid #eee;
+}

@@ -1,12 +1,13 @@
 <?php
 
-use ijackua\lepture\Markdowneditor;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $questionForm \app\models\QuestionForm */
 /* @var $form yii\widgets\ActiveForm */
+
+\app\assets\MarkdownEditorAsset::register($this);
 ?>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -35,7 +36,7 @@ use yii\widgets\ActiveForm;
 
             <?= $form->field($questionForm, 'body', [
                 'template' => "{label}\n{error}\n{input}\n{hint}"
-            ])->widget(Markdowneditor::className()) ?>
+            ])->textarea(['class' => 'markdown-editor']) ?>
 
             <?= $form->field($questionForm, 'tags')->dropDownList(
                 $questionForm->listTags,

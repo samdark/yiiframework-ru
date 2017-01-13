@@ -1,6 +1,5 @@
 <?php
 
-use ijackua\lepture\Markdowneditor;
 use kartik\file\FileInput;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -8,6 +7,8 @@ use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $project \app\models\ProjectForm */
+
+\app\assets\MarkdownEditorAsset::register($this);
 
 $this->title = Yii::t('app', 'Update post');
 ?>
@@ -48,13 +49,7 @@ $this->title = Yii::t('app', 'Update post');
 
         <div class="form-group">
             <?= Html::activeLabel($project, 'body') ?>
-            <?= Markdowneditor::widget(
-                [
-                    'model' => $project,
-                    'attribute' => 'body',
-                    'options' => ['rows' => 3]
-                ]
-            ) ?>
+            <?= Html::textarea($project, 'body', ['rows' => 3, 'class' => 'markdown-editor']) ?>
             <?= Html::error($project, 'body', ['class' => 'text-danger']) ?>
         </div>
 

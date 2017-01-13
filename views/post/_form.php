@@ -6,7 +6,8 @@
 use app\models\Post;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use ijackua\lepture\Markdowneditor;
+
+\app\assets\MarkdownEditorAsset::register($this);
 
 $form = ActiveForm::begin([
     'id' => 'post-form',
@@ -16,7 +17,7 @@ $form = ActiveForm::begin([
 
 <?= $form->field($post, 'body', [
     'template' => "{label}\n{error}\n{input}\n{hint}"
-])->widget(Markdowneditor::className()) ?>
+])->textarea(['class' => 'markdown-editor']) ?>
 
 <?php if ($canEditStatus): ?>
     <?= $form->field($post, 'status')->dropDownList(Post::getStatuses(), ['class'=>'form-control input-lg']) ?>
