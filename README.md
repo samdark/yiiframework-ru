@@ -43,7 +43,7 @@ yii migrate
 ### 4. Setup webserver
 
 Point your werbserver root to `web` directory.
-There's [nginx config you can check](https://github.com/samdark/yiiframework-ru/tree/development/server/nginx).
+There's [nginx config you can check](https://github.com/samdark/yiiframework-ru/tree/master/server/nginx).
 
 Code style
 ----------
