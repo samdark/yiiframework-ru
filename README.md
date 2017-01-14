@@ -45,6 +45,14 @@ yii migrate
 Point your werbserver root to `web` directory.
 There's [nginx config you can check](https://github.com/samdark/yiiframework-ru/tree/master/server/nginx).
 
+Optional installation steps
+---------------------------
+
+### 1. Configure github application
+
+Create new GitHub OAuth application: https://github.com/settings/applications/new - authorization callback URL must lead to local site domain.
+Copy `/config/system/authclients.php` to `/config/authclients.php`. Specify your application settings there.
+
 Code style
 ----------
 
