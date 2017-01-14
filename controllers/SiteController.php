@@ -11,6 +11,7 @@ use app\forms\ResetPasswordForm;
 use app\forms\SignupForm;
 use yii\authclient\ClientInterface;
 use yii\base\InvalidParamException;
+use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -74,6 +75,7 @@ class SiteController extends Controller
             'auth' => [
                 'class' => 'yii\authclient\AuthAction',
                 'successCallback' => [$this, 'onAuthSuccess'],
+                'successUrl' => Url::toRoute('user/edit'),
             ],
         ];
     }
