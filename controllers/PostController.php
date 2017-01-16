@@ -14,7 +14,6 @@ use yii\helpers\Markdown;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
-use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -62,6 +61,15 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
+        $page = Yii::$app->request->getQueryParam('page');
+
+        if ($page > 1) {
+            $this->view->registerMetaTag([
+                'name' => 'robots',
+                'content' => 'noindex,follow'
+            ]);
+        }
+
         $query = Post::find()
             ->with(['user'])
             ->orderBy('post.created_at DESC');
@@ -76,6 +84,7 @@ class PostController extends Controller
             'query' => $query,
             'pagination' => [
                 'pageSize' => self::PAGE_SIZE,
+                'defaultPageSize' => self::PAGE_SIZE, // Hide "per-page" GET-parameter
             ],
         ]);
 

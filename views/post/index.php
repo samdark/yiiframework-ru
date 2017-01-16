@@ -32,6 +32,7 @@ $this->title = \Yii::t('post', 'News') . ' - yiiframework.ru';
     <?= LinkPager::widget([
         'options' => ['class' => 'pagination'],
         'pagination' => $provider->getPagination(),
+        'registerLinkTags' => true,
     ]) ?>
 
 </div>
