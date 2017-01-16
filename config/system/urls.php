@@ -5,7 +5,7 @@ return [
     'users/<id>/<username>' => 'user/view',
     'users' => 'user/index',
 
-    'news' => 'post/index',
+    'news/<page:\d+>' => 'post/index',
     'news/<id>/<slug>' => 'post/view',
     'news/<slug>' => 'post/view',
 
