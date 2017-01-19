@@ -1,11 +1,17 @@
 <?php
 
+use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \app\forms\PasswordResetRequestForm */
+
+(new MetaTagsRegistrar($this))
+    ->setTitle(Yii::t('app', 'Reset password'))
+    ->setNoindex()
+    ->register();
 
 $this->blocks['body-class'] = "bg-textured";
 ?>

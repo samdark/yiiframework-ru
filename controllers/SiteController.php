@@ -1,7 +1,6 @@
 <?php
 namespace app\controllers;
 
-use app\components\SeoBuilder;
 use app\components\UserMailer;
 use app\models\User;
 use app\components\AuthHandler;
@@ -106,11 +105,6 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
-            SeoBuilder::createByWebController($this)
-                ->setTitle(Yii::t('app', 'Login'))
-                ->setDescription('Вход в русскоязычное сообщество Yii')
-                ->build();
-
             return $this->render('login', [
                 'model' => $model,
             ]);
@@ -147,11 +141,6 @@ class SiteController extends Controller
             }
         }
 
-        SeoBuilder::createByWebController($this)
-            ->setTitle(Yii::t('app', 'Signup'))
-            ->setDescription('Регистрация в русскоязычном сообществе Yii')
-            ->build();
-
         return $this->render('signup', [
             'model' => $model,
         ]);
@@ -175,11 +164,6 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('error', \Yii::t('user', 'Sorry, we are unable to reset password for email provided.'));
             }
         }
-
-        SeoBuilder::createByWebController($this)
-            ->setTitle(Yii::t('app', 'Reset password'))
-            ->setNoindex()
-            ->build();
 
         return $this->render('requestPasswordResetToken', [
             'model' => $model,
@@ -247,11 +231,6 @@ class SiteController extends Controller
      */
     public function actionLegacy()
     {
-        SeoBuilder::createByWebController($this)
-            ->setTitle('Yii 1.1')
-            ->setDescription('Материалы по Yii 1.1 на русском языке на YiiFramework.ru')
-            ->build();
-
         return $this->render('legacy');
     }
 }

@@ -3,7 +3,6 @@ namespace app\controllers;
 
 use app\components\feed\Feed;
 use app\components\feed\Item;
-use app\components\SeoBuilder;
 use app\helpers\Text;
 use app\permissions\UserPermissions;
 use Yii;
@@ -81,13 +80,6 @@ class PostController extends Controller
         ]);
 
         $this->layout = 'front';
-
-        SeoBuilder::createByWebController($this)
-            ->setTitle(Yii::t('post', 'News') . ' - yiiframework.ru')
-            ->setDescription('Русскоязычное сообщество Yii - руководство, API, расширения, форум и последние новости.')
-            ->useOpenGraph()
-            ->useTwitter()
-            ->build();
 
         return $this->render('index', [
             'provider' => $provider,
@@ -185,14 +177,6 @@ class PostController extends Controller
         if ($id === null || $slug === null) {
             return $this->redirect(['/post/view', 'id' => $post->id, 'slug' => $post->slug], 301);
         }
-
-        SeoBuilder::createByWebController($this)
-            ->setTitle($post->title)
-            ->setAuthor($post->user->username)
-            ->setDescription("Пост «{$post->title}» пользователя «{$post->user->username}» на сайте YiiFramework.ru")
-            ->useOpenGraph()
-            ->useTwitter()
-            ->build();
 
         return $this->render('view', [
             'post' => $post,

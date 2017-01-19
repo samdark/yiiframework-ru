@@ -1,8 +1,16 @@
 <?php
 /* @var $this \yii\web\View */
 /* @var $provider \yii\data\ActiveDataProvider */
+use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
+
+(new MetaTagsRegistrar($this))
+    ->setTitle(Yii::t('post', 'News') . ' - yiiframework.ru')
+    ->setDescription('Русскоязычное сообщество Yii - руководство, API, расширения, форум и последние новости.')
+    ->useOpenGraphMetaTags()
+    ->useTwitterMetaTags()
+    ->register();
 ?>
 
 <div class="post-index">

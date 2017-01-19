@@ -2,7 +2,13 @@
 
 /* @var $this yii\web\View */
 
+use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
+
+(new MetaTagsRegistrar($this))
+    ->setTitle('Yii 1.1')
+    ->setDescription('Материалы по Yii 1.1 на русском языке на YiiFramework.ru')
+    ->register();
 ?>
 <div class="site-legacy">
 

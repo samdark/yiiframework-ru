@@ -3,13 +3,10 @@
 namespace app\components;
 
 use Yii;
-use yii\helpers\Html;
-use yii\web\Controller;
 use yii\web\View;
 
-class SeoBuilder
+class MetaTagsRegistrar
 {
-    /** @var View */
     private $view;
 
     private $noindex = false;
@@ -19,14 +16,9 @@ class SeoBuilder
     private $useOpenGraph = false;
     private $useTwitter = false;
 
-    private function __construct() {}
-
-    public static function createByWebController(Controller $controller)
+    public function __construct(View $view)
     {
-        $builder = new self;
-        $builder->view = $controller->view;
-
-        return $builder;
+        $this->view = $view;
     }
 
     public function setNoindex($value = true)
@@ -57,23 +49,23 @@ class SeoBuilder
         return $this;
     }
 
-    public function useOpenGraph($value = true)
+    public function useOpenGraphMetaTags($value = true)
     {
         $this->useOpenGraph = $value;
 
         return $this;
     }
 
-    public function useTwitter($value = true)
+    public function useTwitterMetaTags($value = true)
     {
         $this->useTwitter = $value;
 
         return $this;
     }
 
-    public function build()
+    public function register()
     {
-        $this->buildTitle();
+        $this->registerTitle();
 
         if ($this->noindex) {
             $this->view->registerMetaTag([
@@ -85,11 +77,16 @@ class SeoBuilder
         if ($this->author !== null) {
             $this->view->registerMetaTag([
                 'name' => 'author',
-                'content' => Html::encode($this->author),
+                'content' => $this->author,
             ]);
         }
 
         if ($this->useTwitter) {
+            $this->view->registerMetaTag([
+                'name' => 'twitter:card',
+                'content' => 'summary',
+            ]);
+
             $this->view->registerMetaTag([
                 'name' => 'twitter:site',
                 'content' => '@yiiframework_ru',
@@ -104,53 +101,50 @@ class SeoBuilder
                 'content' => 'noindex,follow'
             ]);
         } else {
-            $this->buildDescription();
+            $this->registerDescription();
         }
     }
 
-    private function buildTitle()
+    private function registerTitle()
     {
         if ($this->title !== null) {
-            $encodedTitle = Html::encode($this->title);
-            $this->view->title = $encodedTitle;
+            $this->view->title = $this->title;
 
             if ($this->useOpenGraph) {
                 $this->view->registerMetaTag([
                     'property' => 'og:title',
-                    'content' => $encodedTitle,
+                    'content' => $this->title,
                 ]);
             }
 
             if ($this->useTwitter) {
                 $this->view->registerMetaTag([
                     'name' => 'twitter:title',
-                    'content' => $encodedTitle,
+                    'content' => $this->title,
                 ]);
             }
         }
     }
 
-    private function buildDescription()
+    private function registerDescription()
     {
         if ($this->description !== null) {
-            $encodedDescription = Html::encode($this->description);
-
             $this->view->registerMetaTag([
                 'name' => 'description',
-                'content' => $encodedDescription,
+                'content' => $this->description,
             ]);
 
             if ($this->useOpenGraph) {
                 $this->view->registerMetaTag([
                     'property' => 'og:description',
-                    'content' => $encodedDescription,
+                    'content' => $this->description,
                 ]);
             }
 
             if ($this->useTwitter) {
                 $this->view->registerMetaTag([
                     'name' => 'twitter:description',
-                    'content' => $encodedDescription,
+                    'content' => $this->description,
                 ]);
             }
         }

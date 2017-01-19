@@ -1,5 +1,6 @@
 <?php
 
+use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
 use \yii\helpers\Url;
 use yii\widgets\LinkPager;
@@ -8,6 +9,10 @@ use yii\widgets\LinkPager;
 /* @var $provider yii\data\ActiveDataProvider */
 /* @var $user \app\models\User */
 
+(new MetaTagsRegistrar($this))
+    ->setTitle(Yii::t('app', 'Users'))
+    ->setDescription('Пользователи русскоязычного сообщества Yii.')
+    ->register();
 ?>
 <div class="container page-wrapper page-cont-col">
     <div class="row">

@@ -1,7 +1,6 @@
 <?php
 namespace app\controllers;
 
-use app\components\SeoBuilder;
 use yii;
 use app\models\Post;
 use yii\web\Controller;
@@ -72,11 +71,6 @@ class UserController extends Controller
             ]
         ]);
 
-        SeoBuilder::createByWebController($this)
-            ->setTitle(Yii::t('app', 'Users'))
-            ->setDescription('Пользователи русскоязычного сообщества Yii.')
-            ->build();
-
         return $this->render('index', [
             'provider' => $provider
         ]);
@@ -128,14 +122,9 @@ class UserController extends Controller
             ],
         ]);
 
-        SeoBuilder::createByWebController($this)
-            ->setTitle("Пользователь «{$user->username}»")
-            ->setDescription("Страница пользователя «{$user->username}» в русскоязычном сообществе Yii.")
-            ->build();
-
         return $this->render('view', [
             'model' => $user,
-            'providerPost' => $providerPost
+            'providerPost' => $providerPost,
         ]);
     }
 

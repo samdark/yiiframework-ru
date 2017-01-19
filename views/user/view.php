@@ -1,10 +1,16 @@
 <?php
+use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
 use app\models\Post;
 
 /* @var $this yii\web\View */
 /* @var $model \app\models\User */
 /* @var $providerPost \yii\data\ActiveDataProvider */
+
+(new MetaTagsRegistrar($this))
+    ->setTitle("Пользователь «{$model->username}»")
+    ->setDescription("Страница пользователя «{$model->username}» в русскоязычном сообществе Yii.")
+    ->register();
 ?>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

@@ -3,9 +3,15 @@
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \app\forms\SignupForm */
 
+use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\authclient\widgets\AuthChoice;
+
+(new MetaTagsRegistrar($this))
+    ->setTitle(Yii::t('app', 'Signup'))
+    ->setDescription('Регистрация в русскоязычном сообществе Yii')
+    ->register();
 
 $this->blocks['body-class'] = 'bg-textured';
 ?>

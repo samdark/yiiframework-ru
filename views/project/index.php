@@ -1,11 +1,18 @@
 <?php
 
+use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+(new MetaTagsRegistrar($this))
+    ->setTitle(Yii::t('app', 'Projects based on Yii framework'))
+    ->setDescription('Список проектов, которые были созданы с помощью фреймворка Yii')
+    ->useOpenGraphMetaTags()
+    ->useTwitterMetaTags()
+    ->register();
 ?>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
