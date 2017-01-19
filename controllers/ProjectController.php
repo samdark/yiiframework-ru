@@ -91,6 +91,7 @@ class ProjectController extends Controller
      */
     public function actionView($id)
     {
+        /** @var Project $project */
         $project = Project::find()
             ->with(['user', 'images'])
             ->where([

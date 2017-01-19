@@ -4,12 +4,19 @@
 /* @var $post \app\models\Post */
 /* @var $canEditPost bool */
 
+use app\components\MetaTagsRegistrar;
 use app\helpers\Text;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
 
-$this->title = Html::encode($post->title);
+(new MetaTagsRegistrar($this))
+    ->setTitle($post->title)
+    ->setAuthor($post->user->username)
+    ->setDescription("Пост «{$post->title}» пользователя «{$post->user->username}» на сайте YiiFramework.ru")
+    ->useOpenGraphMetaTags()
+    ->useTwitterMetaTags()
+    ->register();
 ?>
 <article class="post-item">
     <div class="post-info">

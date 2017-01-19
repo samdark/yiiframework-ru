@@ -32,7 +32,7 @@ return [
     'Forum' => 'Форум',
     'Guide' => 'Руководство',
     'ID' => 'ID',
-    'If you forgot your password you can <a href="{link}">reset it</a>.' => 'Если забыли пароль, то можете <a href="{link}">его сбросить</a>.',
+    'If you forgot your password you can <a href="{link}" rel="nofollow">reset it</a>.' => 'Если забыли пароль, то можете <a href="{link}">его сбросить</a>.',
     'Image files' => 'Файлы изображений',
     'It\'s not the correct current password.' => 'Введённый текущий пароль не совпадает.',
     'Link' => 'Ссылка',

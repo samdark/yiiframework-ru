@@ -124,7 +124,7 @@ class UserController extends Controller
 
         return $this->render('view', [
             'model' => $user,
-            'providerPost' => $providerPost
+            'providerPost' => $providerPost,
         ]);
     }
 

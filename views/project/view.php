@@ -1,13 +1,19 @@
 <?php
 
 /* @var $this yii\web\View */
+use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
 
 /* @var $project app\models\Project */
 
-$this->title = Yii::t('app', 'Projects');
+(new MetaTagsRegistrar($this))
+    ->setTitle("Проект «{$project->title}»")
+    ->setDescription("Страница проекта «{$project->title}» на сайте YiiFramework.ru")
+    ->useOpenGraphMetaTags()
+    ->useTwitterMetaTags()
+    ->register();
 ?>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

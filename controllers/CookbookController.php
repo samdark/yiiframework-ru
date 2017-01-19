@@ -49,11 +49,6 @@ class CookbookController extends Controller
             [$this, 'replaceDocLink'], $content);
         $content = preg_replace('/href="(\/doc\/api\/.*?)"/', 'href="http://www.yiiframework.com$1"', $content);
 
-        Yii::$app->view->title = 'Рецепты';
-        if ($topic !== 'index' && preg_match('/<h1[^>]*>(.*?)</', $content, $matches)) {
-            Yii::$app->view->title = $matches[1] . ' - ' . Yii::$app->view->title;
-        }
-
         return $this->render('view', [
             'content' => $content,
             'toc' => $this->getTOC(),

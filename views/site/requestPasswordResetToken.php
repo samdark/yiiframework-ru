@@ -1,5 +1,6 @@
 <?php
 
+use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -7,7 +8,11 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \app\forms\PasswordResetRequestForm */
 
-$this->title = Yii::t('app', 'Reset password');
+(new MetaTagsRegistrar($this))
+    ->setTitle(Yii::t('app', 'Reset password'))
+    ->setNoindex()
+    ->register();
+
 $this->blocks['body-class'] = "bg-textured";
 ?>
 <div class="container-fluid login-reg">
