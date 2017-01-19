@@ -7,7 +7,6 @@ use yii\helpers\Markdown;
 
 /* @var $project app\models\Project */
 
-$this->title = Yii::t('app', 'Projects');
 ?>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

@@ -8,8 +8,6 @@ use app\helpers\Text;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
-
-$this->title = Html::encode($post->title);
 ?>
 <article class="post-item">
     <div class="post-info">

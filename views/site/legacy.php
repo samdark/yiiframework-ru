@@ -3,8 +3,6 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
-
-$this->title = 'Yii 1.1';
 ?>
 <div class="site-legacy">
 

@@ -7,7 +7,6 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\authclient\widgets\AuthChoice;
 
-$this->title = Yii::t('app', 'Signup');
 $this->blocks['body-class'] = 'bg-textured';
 ?>
 

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\SeoBuilder;
 use app\models\Project;
 use app\models\ProjectImage;
 use app\models\ProjectForm;
@@ -75,6 +76,13 @@ class ProjectController extends Controller
             ]
         );
 
+        SeoBuilder::createByWebController($this)
+            ->setTitle(Yii::t('app', 'Projects based on Yii framework'))
+            ->setDescription('Список проектов, которые были созданы с помощью фреймворка Yii')
+            ->useOpenGraph()
+            ->useTwitter()
+            ->build();
+
         return $this->render(
             'index',
             [
@@ -91,6 +99,7 @@ class ProjectController extends Controller
      */
     public function actionView($id)
     {
+        /** @var Project $project */
         $project = Project::find()
             ->with(['user', 'images'])
             ->where([
@@ -102,6 +111,13 @@ class ProjectController extends Controller
         if ($project === null) {
             throw new NotFoundHttpException();
         }
+
+        SeoBuilder::createByWebController($this)
+            ->setTitle("Проект «{$project->title}»")
+            ->setDescription("Страница проекта «{$project->title}» на сайте YiiFramework.ru")
+            ->useOpenGraph()
+            ->useTwitter()
+            ->build();
 
         return $this->render('view', ['project' => $project]);
     }

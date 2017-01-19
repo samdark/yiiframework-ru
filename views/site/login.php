@@ -8,7 +8,6 @@ use yii\authclient\widgets\AuthChoice;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = Yii::t('app', 'Login');
 $this->blocks['body-class'] = "bg-textured";
 ?>
 <div class="container-fluid login-reg">
@@ -48,7 +47,7 @@ $this->blocks['body-class'] = "bg-textured";
 
                     <div style="color:#999;margin:1em 0">
                         <?= Yii::t('app',
-                            'If you forgot your password you can <a href="{link}">reset it</a>.',
+                            'If you forgot your password you can <a href="{link}" rel="nofollow">reset it</a>.',
                             ['link' => \yii\helpers\Url::to(['site/request-password-reset'])])
                         ?>
                     </div>

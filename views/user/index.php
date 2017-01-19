@@ -8,7 +8,6 @@ use yii\widgets\LinkPager;
 /* @var $provider yii\data\ActiveDataProvider */
 /* @var $user \app\models\User */
 
-$this->title = Yii::t('app', 'Users');
 ?>
 <div class="container page-wrapper page-cont-col">
     <div class="row">

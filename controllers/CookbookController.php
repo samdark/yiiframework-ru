@@ -4,6 +4,7 @@
 namespace app\controllers;
 
 
+use app\components\SeoBuilder;
 use Yii;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
@@ -49,10 +50,22 @@ class CookbookController extends Controller
             [$this, 'replaceDocLink'], $content);
         $content = preg_replace('/href="(\/doc\/api\/.*?)"/', 'href="http://www.yiiframework.com$1"', $content);
 
-        Yii::$app->view->title = 'Рецепты';
         if ($topic !== 'index' && preg_match('/<h1[^>]*>(.*?)</', $content, $matches)) {
-            Yii::$app->view->title = $matches[1] . ' - ' . Yii::$app->view->title;
+            $recipeTitle = $matches[1];
+
+            $metaTitle = "{$recipeTitle} - рецепт Yii 1.1";
+            $metaDescription = "Рецепт для фреймворка Yii 1.1: «{$recipeTitle}»";
+        } else {
+            $metaTitle = 'Рецепты Yii 1.1';
+            $metaDescription = 'Рецепты для фреймворка Yii 1.1 (cookbook) на сайте русскоязычного сообщества Yii';
         }
+
+        SeoBuilder::createByWebController($this)
+            ->setTitle($metaTitle)
+            ->setDescription($metaDescription)
+            ->useOpenGraph()
+            ->useTwitter()
+            ->build();
 
         return $this->render('view', [
             'content' => $content,

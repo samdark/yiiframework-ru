@@ -6,7 +6,6 @@ use yii\widgets\LinkPager;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Projects based on Yii framework');
 ?>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

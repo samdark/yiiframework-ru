@@ -3,8 +3,6 @@
 /* @var $provider \yii\data\ActiveDataProvider */
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
-
-$this->title = \Yii::t('post', 'News') . ' - yiiframework.ru';
 ?>
 
 <div class="post-index">

@@ -5,8 +5,6 @@ use app\models\Post;
 /* @var $this yii\web\View */
 /* @var $model \app\models\User */
 /* @var $providerPost \yii\data\ActiveDataProvider */
-
-$this->title = Html::encode($model->username);
 ?>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
