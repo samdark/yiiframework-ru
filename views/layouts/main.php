@@ -75,11 +75,11 @@ AppAsset::register($this);
                 ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
                 ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
                 ['label' => Yii::t('app', 'Users'), 'url' => ['/user/index']],
-                [
-                    'label' => Yii::t('app', 'Projects'),
-                    'url' => ['/project/'],
-                    'active' => Yii::$app->controller->id === 'project'
-                ],
+//                [
+//                    'label' => Yii::t('app', 'Projects'),
+//                    'url' => ['/project/'],
+//                    'active' => Yii::$app->controller->id === 'project'
+//                ],
             ];
 
             echo Nav::widget(
