@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use app\components\feed\Feed;

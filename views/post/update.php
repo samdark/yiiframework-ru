@@ -1,4 +1,5 @@
 <?php
+
 /* @var $this \yii\web\View */
 /* @var $post \app\models\Post */
 /* @var $canEditStatus bool */

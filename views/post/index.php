@@ -1,9 +1,11 @@
 <?php
-/* @var $this \yii\web\View */
-/* @var $provider \yii\data\ActiveDataProvider */
+
 use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
+
+/* @var $this \yii\web\View */
+/* @var $provider \yii\data\ActiveDataProvider */
 
 (new MetaTagsRegistrar($this))
     ->setTitle(Yii::t('post', 'News') . ' - yiiframework.ru')

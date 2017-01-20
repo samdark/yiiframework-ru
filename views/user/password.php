@@ -7,7 +7,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \app\forms\ChangePasswordForm */
 
-$formatter = \Yii::$app->formatter;
+$formatter = Yii::$app->formatter;
 $this->title = Yii::t('user', 'Change password');
 ?>
 

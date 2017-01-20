@@ -8,7 +8,7 @@ use yii\base\Widget;
 
 /**
  * Class TagsWidget
-  */
+ */
 class TagsWidget extends Widget
 {
     /**

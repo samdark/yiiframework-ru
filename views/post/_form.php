@@ -1,16 +1,18 @@
 <?php
-/** @var $this \yii\web\View */
-/** @var $post \app\models\Post */
-/** @var $canEditStatus bool */
 
 use app\models\Post;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-\app\assets\MarkdownEditorAsset::register($this);
+/** @var $this \yii\web\View */
+/** @var $post \app\models\Post */
+/** @var $canEditStatus bool */
 
-$form = ActiveForm::begin([
-    'id' => 'post-form',
+\app\assets\MarkdownEditorAsset::register($this);
+?>
+
+<?php $form = ActiveForm::begin([
+        'id' => 'post-form',
 ]) ?>
 
 <?= $form->field($post, 'title')->textInput(['class'=>'form-control input-lg']) ?>

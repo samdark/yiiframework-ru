@@ -1,12 +1,12 @@
 <?php
 
-/* @var $this yii\web\View */
 use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
 
 /* @var $project app\models\Project */
+/* @var $this yii\web\View */
 
 (new MetaTagsRegistrar($this))
     ->setTitle("Проект «{$project->title}»")

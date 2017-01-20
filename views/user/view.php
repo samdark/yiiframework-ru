@@ -1,4 +1,5 @@
 <?php
+
 use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
 use app\models\Post;

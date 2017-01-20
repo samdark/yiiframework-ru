@@ -1,8 +1,9 @@
 <?php
+
 namespace app\controllers;
 
-use yii;
 use app\models\Post;
+use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\User;
@@ -14,7 +15,7 @@ use app\forms\ChangePasswordForm;
 
 /**
  * Class UserController
-  */
+ */
 class UserController extends Controller
 {
     /**

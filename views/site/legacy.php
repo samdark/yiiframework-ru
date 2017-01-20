@@ -1,9 +1,9 @@
 <?php
 
-/* @var $this yii\web\View */
-
 use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
+
+/* @var $this yii\web\View */
 
 (new MetaTagsRegistrar($this))
     ->setTitle('Yii 1.1')

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\controllers;
-
 
 use Yii;
 use yii\helpers\HtmlPurifier;
@@ -13,7 +11,7 @@ use yii\web\NotFoundHttpException;
 
 /**
  * CookbookController handlers rendering of the old 1.1 unofficial cookbook articles
-  */
+ */
 class CookbookController extends Controller
 {
     private $_toc;
@@ -45,8 +43,12 @@ class CookbookController extends Controller
             $content
         );
 
-        $content = preg_replace_callback('/href="\/doc\/cookbook\/(.*?)\/?"/',
-            [$this, 'replaceDocLink'], $content);
+        $content = preg_replace_callback(
+            '/href="\/doc\/cookbook\/(.*?)\/?"/',
+            [$this, 'replaceDocLink'],
+            $content
+        );
+
         $content = preg_replace('/href="(\/doc\/api\/.*?)"/', 'href="http://www.yiiframework.com$1"', $content);
 
         return $this->render('view', [

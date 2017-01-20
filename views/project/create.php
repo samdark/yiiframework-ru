@@ -4,13 +4,13 @@ use kartik\file\FileInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-\app\assets\MarkdownEditorAsset::register($this);
-
 /* @var $this yii\web\View */
 /* @var $project \app\models\ProjectForm */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $this yii\web\View */
 /* @var $project app\models\Project */
+
+\app\assets\MarkdownEditorAsset::register($this);
 
 $this->title = Yii::t('app', 'Add Project');
 ?>
