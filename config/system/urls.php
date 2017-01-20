@@ -10,6 +10,7 @@ return [
     'news/<slug>' => 'post/view',
 
     'auth' => 'site/auth',
+    'terms' => 'site/terms',
     'doc/cookbook/ru/<page>' => 'cookbook/view',
     '1.1' => 'site/legacy',
     'doc/cookbook/ru/index' => 'cookbook/view',

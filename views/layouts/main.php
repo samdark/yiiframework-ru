@@ -161,12 +161,9 @@ AppAsset::register($this);
             <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                 <div class="footer-copyright">
                     <p>
-                        © 2009 — <?= date('Y') ?>, <?= Yii::t('app', 'Yii community') ?> и Александр Макаров
-                    </p>
-
-                    <p>
-                        © 2008 — <?= date('Y') ?>, Yii Software LLC<br>
-                        <a href="http://www.yiiframework.com/doc/terms/" target="_blank" rel="noopener noreferrer">Условия использования</a>
+                        © 2009 — <?= date('Y') ?>, <?= Yii::t('app', 'Yii community') ?>
+                        <br>и Александр Макаров
+                        <br><?= Html::a('Условия и конфиденциальность', ['site/terms']) ?>
                     </p>
 
                     <p>

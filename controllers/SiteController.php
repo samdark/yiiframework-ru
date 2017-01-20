@@ -233,4 +233,12 @@ class SiteController extends Controller
     {
         return $this->render('legacy');
     }
+
+    /**
+     * @return mixed
+     */
+    public function actionTerms()
+    {
+        return $this->render('terms');
+    }
 }
