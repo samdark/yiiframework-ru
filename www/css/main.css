@@ -930,12 +930,9 @@ table td {
 }
 
 .ico-rss-section {
-    display: block;
+    display: inline-block;
     width: 18px;
     height: 18px;
-    overflow: hidden;
-    margin: 72px 0 0 10px;
-    float: left;
     fill: #616161;
     transition: all 0.1s ease;
 }
