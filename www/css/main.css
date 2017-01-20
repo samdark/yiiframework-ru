@@ -730,7 +730,7 @@ table td {
 }
 
 .promo {
-    background-image: url(../i/pttrn_dark.jpg);
+    background: #2f3d51 url(../i/pttrn_dark.jpg);
     color: #fff;
 }
 
