@@ -288,7 +288,7 @@ table td {
 }
 
 .sect-title {
-    background-image: url(../i/pttrn_light.jpg);
+    background: #2f3d51 url(../i/pttrn_light.jpg);
     color: #fff;
     position: relative;
     z-index: 98;
@@ -635,7 +635,7 @@ table td {
 }
 
 .navbar-default {
-    background-image: url(../i/pttrn_dark.jpg);
+    background: #2f3d51 url(../i/pttrn_dark.jpg);
     border: none;
     font-size: 15px;
     text-transform: uppercase;
@@ -2098,7 +2098,7 @@ table td {
 }
 
 .bg-textured {
-    background-image: url("../i/pttrn_dark.jpg");
+    background: #2f3d51 url("../i/pttrn_dark.jpg");
     color: #fff;
 }
 
@@ -2229,7 +2229,7 @@ table td {
 }
 
 .footer {
-    background-image: url(../i/pttrn_dark.jpg);
+    background: #2f3d51 url(../i/pttrn_dark.jpg);
     padding: 50px 0 25px 0;
     color: #fff;
     line-height: 25px;
