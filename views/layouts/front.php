@@ -1,8 +1,8 @@
 <?php
 
-/* @var $this \yii\web\View */
 use yii\helpers\Html;
 
+/* @var $this \yii\web\View */
 /* @var $content string */
 ?>
 <?php $this->beginContent('@app/views/layouts/main.php') ?>

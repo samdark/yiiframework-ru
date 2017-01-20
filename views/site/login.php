@@ -1,13 +1,13 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \app\forms\LoginForm */
-
 use app\components\MetaTagsRegistrar;
 use yii\authclient\widgets\AuthChoice;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $form yii\bootstrap\ActiveForm */
+/* @var $model \app\forms\LoginForm */
 
 (new MetaTagsRegistrar($this))
     ->setTitle(Yii::t('app', 'Login'))

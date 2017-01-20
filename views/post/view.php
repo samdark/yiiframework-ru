@@ -1,14 +1,14 @@
 <?php
 
-/* @var $this \yii\web\View */
-/* @var $post \app\models\Post */
-/* @var $canEditPost bool */
-
 use app\components\MetaTagsRegistrar;
 use app\helpers\Text;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
+
+/* @var $this \yii\web\View */
+/* @var $post \app\models\Post */
+/* @var $canEditPost bool */
 
 (new MetaTagsRegistrar($this))
     ->setTitle($post->title)

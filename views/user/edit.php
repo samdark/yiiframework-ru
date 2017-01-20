@@ -8,7 +8,7 @@ use yii\authclient\widgets\AuthChoice;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \app\models\User */
 
-$formatter = \Yii::$app->formatter;
+$formatter = Yii::$app->formatter;
 $this->title = Yii::t('app', 'Edit profile');
 ?>
 

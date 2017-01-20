@@ -1,12 +1,12 @@
 <?php
 
-/* @var $this \yii\web\View */
-/* @var $post \app\models\Post */
-
 use app\helpers\Text;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
+
+/* @var $this \yii\web\View */
+/* @var $post \app\models\Post */
 ?>
 
 <article class="post-item">

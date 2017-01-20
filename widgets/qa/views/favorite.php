@@ -1,4 +1,5 @@
 <?php
+
 /** @var boolean $isActive */
 /** @var integer $favoriteCount */
 /** @var null|integer $questionID */
