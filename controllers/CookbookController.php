@@ -35,7 +35,11 @@ class CookbookController extends Controller
         }
 
         $content = file_get_contents($file);
-        $content = HtmlPurifier::process(CookbookMarkdown::process($content, 'gfm-comment'));
+
+        $content = HtmlPurifier::process(CookbookMarkdown::process($content, 'gfm-comment'), [
+            'HTML.Nofollow' => true,
+            'HTML.TargetBlank' => true,
+        ]);
 
         $content = preg_replace_callback(
             '~<p>\s*<img(.*?)src="(.*?)"\s+alt="(.*?)"\s*/>\s*</p>~',
