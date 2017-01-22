@@ -251,6 +251,12 @@ table td {
     padding-bottom: 50px;
 }
 
+@media screen and (max-width: 767px) {
+    .page-wrapper {
+        padding-top: 20px;
+    }
+}
+
 .page-wrapper .row div {
     z-index: 1;
 }
@@ -925,6 +931,7 @@ table td {
 .post-section, .tweet-section {
     font-size: 38px;
     font-weight: 100;
+    line-height: normal;
     margin: 50px 0 25px 0;
     float: left;
 }
