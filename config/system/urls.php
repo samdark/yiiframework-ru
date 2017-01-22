@@ -2,6 +2,7 @@
 return [
     'rss' => 'post/rss',
 
+    'users/<page:\d+>' => 'user/index',
     'users/<id>/<username>' => 'user/view',
     'users' => 'user/index',
 

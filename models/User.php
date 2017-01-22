@@ -53,9 +53,6 @@ class User extends ActiveRecord implements IdentityInterface
     /** Scenario edit profile */
     const SCENARIO_PROFILE = 'update';
 
-    /** Number of users per page */
-    const PAGE_SIZE = 24;
-
     /**
      * @inheritdoc
      */

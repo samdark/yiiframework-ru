@@ -18,6 +18,8 @@ use app\forms\ChangePasswordForm;
  */
 class UserController extends Controller
 {
+    const PAGE_SIZE = 24;
+
     /**
      * @inheritdoc
      */
@@ -68,7 +70,8 @@ class UserController extends Controller
         $provider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => User::PAGE_SIZE
+                'pageSize' => self::PAGE_SIZE,
+                'defaultPageSize' => self::PAGE_SIZE, // Hide "per-page" GET-parameter
             ]
         ]);
 
