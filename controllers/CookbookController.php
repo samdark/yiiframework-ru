@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
+use app\components\CookbookMarkdown;
 use Yii;
 use yii\helpers\HtmlPurifier;
-use yii\helpers\Markdown;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -35,7 +35,7 @@ class CookbookController extends Controller
         }
 
         $content = file_get_contents($file);
-        $content = HtmlPurifier::process(Markdown::process($content, 'gfm-comment'));
+        $content = HtmlPurifier::process(CookbookMarkdown::process($content, 'gfm-comment'));
 
         $content = preg_replace_callback(
             '~<p>\s*<img(.*?)src="(.*?)"\s+alt="(.*?)"\s*/>\s*</p>~',
