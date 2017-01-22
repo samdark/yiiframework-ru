@@ -1,5 +1,6 @@
 <?php
 
+use app\assets\HighlightJSAsset;
 use app\components\MetaTagsRegistrar;
 use yii\helpers\Html;
 
@@ -17,6 +18,8 @@ if ($topic !== 'index' && preg_match('/<h1[^>]*>(.*?)</', $content, $matches)) {
     $metaTitle = 'Рецепты Yii 1.1';
     $metaDescription = 'Рецепты для фреймворка Yii 1.1 (cookbook) на сайте русскоязычного сообщества Yii';
 }
+
+HighlightJSAsset::register($this);
 
 (new MetaTagsRegistrar($this))
     ->setTitle($metaTitle)
