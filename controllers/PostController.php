@@ -80,7 +80,9 @@ class PostController extends Controller
             ],
         ]);
 
-        $this->layout = 'front';
+        if (Yii::$app->request->getQueryParam('page') < 2) {
+            $this->layout = 'front';
+        }
 
         return $this->render('index', [
             'provider' => $provider,
