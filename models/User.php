@@ -31,7 +31,6 @@ use yii\behaviors\TimestampBehavior;
  *
  * @property Auth[] $auths
  * @property Post[] $posts
- * @property Project[] $projects
  * @property Question[] $questions
  * @property QuestionAnswer[] $questionAnswers
  * @property QuestionFavorite[] $questionFavorites
@@ -177,14 +176,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function getPosts()
     {
         return $this->hasMany(Post::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProjects()
-    {
-        return $this->hasMany(Project::className(), ['user_id' => 'id']);
     }
 
     /**
