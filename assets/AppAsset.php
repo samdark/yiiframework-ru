@@ -14,7 +14,6 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/qa.js',
         'js/jquery.sticky.js',
-        'js/jquery.ThreeDots.min.js',
         'js/yiiscript.js',
     ];
     public $depends = [

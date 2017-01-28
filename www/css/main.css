@@ -1685,96 +1685,6 @@ table td {
     fill: #ff8c00;
 }
 
-.project-item {
-    margin-bottom: 50px;
-}
-
-.project-item .project-cover {
-    display: block;
-    min-height: 150px;
-    background-color: #e6e6e6;
-    background-size: cover;
-    transition: all 0.1s ease;
-}
-
-.project-item .project-cover:hover {
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 20px 0px;
-}
-
-.project-item .project-title {
-    height: 43px;
-}
-
-.project-item .project-title-text {
-    line-height: 20px;
-    display: block;
-    word-wrap: break-word;
-    overflow: hidden;
-}
-
-.project-info {
-    margin-top: 15px;
-    display: flex;
-    flex-direction: row;
-    font-size: 12px;
-    color: #505050;
-    line-height: 18px;
-}
-
-.project-info span {
-    margin-left: 10px;
-}
-
-.project-info .p-info-like svg {
-    width: 20px;
-    height: 18px;
-    fill: #fff;
-    stroke-width: 2px;
-    stroke: #505050;
-    float: left;
-    cursor: pointer;
-    transition: all .1s ease;
-}
-
-.project-info .p-info-like svg:hover {
-    stroke: #f84823;
-}
-
-.project-info .p-info-like svg:active, .project-info .p-info-like svg:focus {
-    stroke: #f84823;
-    fill: #f84823;
-}
-
-.project-info .active svg {
-    fill: #f84823;
-    stroke: #f84823;
-}
-
-.project-info .active svg:hover {
-    fill: #fb9a86;
-}
-
-.project-info .active svg:active, .project-info .active svg:focus {
-    fill: #fff;
-    stroke: #505050;
-}
-
-.project-info .p-info-view svg {
-    width: 20px;
-    height: 18px;
-    fill: #505050;
-    float: left;
-    margin-left: 20px;
-}
-
-.project-info .p-info-comment svg {
-    width: 20px;
-    height: 18px;
-    fill: #505050;
-    float: left;
-    margin-left: 20px;
-}
-
 .p-description {
     border-bottom: 1px solid #f2f2f2;
     padding-bottom: 25px;
@@ -1808,14 +1718,6 @@ table td {
 
 .p-info .q-tags {
     margin-left: 0 !important;
-}
-
-.p-similar .project-item {
-    margin-bottom: 25px;
-}
-
-.p-similar .project-item .project-title {
-    height: auto;
 }
 
 .hint-tech svg,
@@ -2004,36 +1906,26 @@ table td {
     padding-left: 10px;
 }
 
-.user-projects,
 .user-questions,
 .user-posts {
     border-bottom: 1px solid #f2f2f2;
     margin-bottom: 25px;
 }
 
-.user-projects h2,
 .user-questions h2,
 .user-posts h2 {
     float: left;
 }
 
-.user-projects sup,
 .user-questions sup,
 .user-posts sup {
     font-size: 16px;
     color: #888;
 }
 
-.user-projects .q-info,
 .user-questions .q-info,
 .user-posts .q-info {
     margin-top: 25px;
-}
-
-@media screen and (max-width: 500px) {
-    .user-projects .q-info {
-        display: none;
-    }
 }
 
 .user-posts {
