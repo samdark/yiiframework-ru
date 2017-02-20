@@ -17,14 +17,14 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Active' => 'Опубликовано',
+    'Active' => 'Опубликован',
     'Author:' => 'Автор:',
     'Content' => 'Содержимое',
     'Create' => 'Опубликовать',
     'Create post' => 'Создать пост',
     'Created At' => '',
     'Date publication:' => 'Дата публикации:',
-    'Deleted' => 'Удаленно',
+    'Deleted' => 'Удалён',
     'Edit post' => 'Изменить',
     'ID' => '',
     'Inactive' => 'Проверяется модератором',
