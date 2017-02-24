@@ -98,14 +98,14 @@ class Post extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('post', 'ID'),
-            'title' => Yii::t('post', 'Title'),
-            'body' => Yii::t('post', 'Content'),
-            'slug' => Yii::t('post', 'Slug'),
-            'user_id' => Yii::t('post', 'User ID'),
-            'status' => Yii::t('post', 'Status'),
-            'created_at' => Yii::t('post', 'Created At'),
-            'updated_at' => Yii::t('post', 'Updated At'),
+            'id' => 'ID',
+            'title' => 'Заголовок',
+            'body' => 'Текст',
+            'slug' => 'Slug',
+            'user_id' => 'ID пользователя',
+            'status' => 'Статус',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 
@@ -131,9 +131,9 @@ class Post extends ActiveRecord
     public static function getStatuses()
     {
         return [
-            self::STATUS_INACTIVE => Yii::t('post', 'Inactive'),
-            self::STATUS_ACTIVE => Yii::t('post', 'Active'),
-            self::STATUS_DELETED => Yii::t('post', 'Deleted'),
+            self::STATUS_INACTIVE => 'Проверяется модератором',
+            self::STATUS_ACTIVE => 'Опубликован',
+            self::STATUS_DELETED => 'Удалён',
         ];
     }
 }

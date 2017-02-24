@@ -64,18 +64,18 @@ AppAsset::register($this);
             <?php
             $menuItems = [
                 ['label' => '1.1', 'url' => ['/site/legacy']],
-                ['label' => Yii::t('app', 'Guide'), 'url' => 'http://stuff.cebe.cc/yii2docs-ru/guide-README.html', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
+                ['label' => 'Руководство', 'url' => 'http://stuff.cebe.cc/yii2docs-ru/guide-README.html', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
                 ['label' => 'API', 'url' => 'http://stuff.cebe.cc/yii2docs-ru/index.html', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
-                ['label' => Yii::t('app', 'Extensions'), 'url' => 'https://yiigist.com/', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
+                ['label' => 'Расширения', 'url' => 'https://yiigist.com/', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
 //                [
-//                    'label' => Yii::t('app', 'Questions'),
+//                    'label' => 'Вопросы',
 //                    'url' => ['/qa'],
 //                    'active' => Yii::$app->controller->id === 'qa'
 //                ],
-                ['label' => Yii::t('app', 'Chat'), 'url' => 'https://gitter.im/yiisoft/yii2/rus', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
-                ['label' => Yii::t('app', 'Forum'), 'url' => '/forum/', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
+                ['label' => 'Чат', 'url' => 'https://gitter.im/yiisoft/yii2/rus', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
+                ['label' => 'Форум', 'url' => '/forum/', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
                 ['label' => 'Проекты', 'url' => 'http://yiipowered.com/ru/'],
-                ['label' => Yii::t('app', 'Users'), 'url' => ['/user/index']],
+                ['label' => 'Пользователи', 'url' => ['/user/index']],
             ];
 
             echo Nav::widget(
@@ -119,10 +119,7 @@ AppAsset::register($this);
                 </div>
 
                 <div class="fiiter-yii-info">
-                    <?= Yii::t(
-                        'app',
-                        'Yii is a high-performance PHP framework best for developing Web 2.0 applications.'
-                    ) ?>
+                    Yii — это высокопроизводительный PHP фреймворк, отлично подходящий для Web 2.0 приложений.
                 </div>
 
                 <div class="footer-social">
@@ -157,7 +154,7 @@ AppAsset::register($this);
             <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                 <div class="footer-copyright">
                     <p>
-                        © 2009 — <?= date('Y') ?>, <?= Yii::t('app', 'Yii community') ?>
+                        © 2009 — <?= date('Y') ?>, Сообщество Yii
                         <br>и Александр Макаров
                         <br><?= Html::a('Условия и конфиденциальность', ['site/terms']) ?>
                     </p>
