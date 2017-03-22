@@ -1,6 +1,7 @@
 <?php
 
 use app\assets\AppAsset;
+use app\helpers\GoogleAnalytics;
 use yii\bootstrap\Nav;
 use yii\helpers\Html;
 
@@ -168,6 +169,8 @@ AppAsset::register($this);
         </div>
     </div>
 </div>
+
+<?php GoogleAnalytics::track('UA-11885794-1') ?>
 
 <?php $this->endBody() ?>
 </body>
