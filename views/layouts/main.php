@@ -75,7 +75,7 @@ AppAsset::register($this);
 //                ],
                 ['label' => 'Чат', 'url' => 'https://gitter.im/yiisoft/yii2/rus', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
                 ['label' => 'Форум', 'url' => '/forum/', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
-                ['label' => 'Проекты', 'url' => 'http://yiipowered.com/'],
+                ['label' => 'Проекты', 'url' => 'http://yiipowered.com/ru/'],
                 ['label' => 'Пользователи', 'url' => ['/user/index']],
             ];
 
