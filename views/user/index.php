@@ -30,7 +30,7 @@ use yii\widgets\LinkPager;
                         ]) ?>
                     </a>
                     <?= Html::encode($user->fullname) ?><br />
-                    <a href="<?= Url::to(['/user/view', 'id' => $user->id]) ?>" class="c-user-name"><?= Html::encode($user->username) ?></a>
+                    <a href="<?= Url::to(['/user/view', 'id' => $user->id, 'username' => $user->username]) ?>" class="c-user-name"><?= Html::encode($user->username) ?></a>
                 </div>
             </div>
         <?php endforeach ?>
