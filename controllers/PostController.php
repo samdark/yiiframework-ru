@@ -5,6 +5,8 @@ namespace app\controllers;
 use app\components\feed\Feed;
 use app\components\feed\Item;
 use app\helpers\Text;
+use app\notifier\NewPostNotification;
+use app\notifier\Notifier;
 use app\permissions\UserPermissions;
 use Yii;
 use app\models\Post;
@@ -98,6 +100,9 @@ class PostController extends Controller
     {
         $post = new Post();
         if ($post->load(Yii::$app->request->post()) && $post->save()) {
+            $notifier = new Notifier(new NewPostNotification($post));
+            $notifier->sendEmails();
+
             Yii::$app->session->setFlash('success', Yii::t('post', 'Your post was successfully added. Therefore your post will be published as it will be verified by the Administrator.'));
             return $this->redirect(['/']);
         }
