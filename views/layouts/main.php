@@ -23,6 +23,8 @@ AppAsset::register($this);
 <body class="<?= $this->blocks['body-class'] ?>">
 <?php $this->beginBody() ?>
 
+<div class="important-message"><a href="/news/149/yiiconf-2017">YiiConf 2017 всё ближе! Не забудьте купить билет.</a></div>
+
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">

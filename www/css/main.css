@@ -2319,3 +2319,10 @@ table td {
 .cookbook-view .topics ul li {
     margin-bottom: .4em;
 }
+
+.important-message {
+    border-bottom: 2px solid #ed803b;
+    text-align: center;
+    padding: 1rem;
+    font-size: 120%;
+}
