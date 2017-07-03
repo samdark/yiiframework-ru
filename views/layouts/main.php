@@ -168,6 +168,8 @@ AppAsset::register($this);
                         Дизайн — Сергей Хильков<br>
                         <a href="http://www.eshill.ru/" target="_blank" rel="noopener noreferrer">www.eshill.ru</a>
                     </p>
+
+                    <p><a href="https://ru.icons8.com/icon">При поддержке Icons8</a></p>
                 </div>
             </div>
         </div>
