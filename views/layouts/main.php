@@ -77,7 +77,7 @@ AppAsset::register($this);
 //                    'url' => ['/qa'],
 //                    'active' => Yii::$app->controller->id === 'qa'
 //                ],
-                ['label' => 'Чат', 'url' => 'https://gitter.im/yiisoft/yii2/rus', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
+                ['label' => 'Чат', 'url' => 'https://join.slack.com/t/yii/shared_invite/MjIxMjMxMTk5MTU1LTE1MDE3MDAwMzMtM2VkMTMyMjY1Ng', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
                 ['label' => 'Форум', 'url' => '/forum/', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
                 ['label' => 'Проекты', 'url' => 'http://yiipowered.com/ru/'],
                 ['label' => 'Пользователи', 'url' => ['/user/index']],
@@ -151,7 +151,7 @@ AppAsset::register($this);
                     <div class="footer-title">Поддержка</div>
                     <ul class="footer-nav">
                         <li><a href="http://yiiframework.ru/forum/viewforum.php?f=5" target="_blank" rel="noopener noreferrer">Оставить пожелание</a></li>
-                        <li><a href="https://gitter.im/samdark/yiiframework-ru" target="_blank" rel="noopener noreferrer">Открытый чат</a></li>
+                        <li><a href="https://join.slack.com/t/yii/shared_invite/MjIxMjMxMTk5MTU1LTE1MDE3MDAwMzMtM2VkMTMyMjY1Ng" target="_blank" rel="noopener noreferrer">Чат</a></li>
                         <li><a href="https://github.com/samdark/yiiframework-ru/issues" target="_blank" rel="noopener noreferrer">Сообщить об ошибке</a></li>
                     </ul>
                 </div>
