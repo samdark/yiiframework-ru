@@ -917,14 +917,21 @@ table td {
 }
 
 .btn-post {
-    position: absolute;
-    right: 25px;
     margin-top: 52px;
+    display: inline-table;
 }
 
-@media screen and (max-width: 390px) {
+.post-index-out {
+    justify-content: space-between;
+    display: flex;
+}
+
+@media screen and (max-width: 710px) {
+    .post-index-out {
+        flex-direction: column;
+    }
     .btn-post {
-        display: none;
+        margin: 0 0 25px 0 !important;
     }
 }
 
