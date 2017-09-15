@@ -25,7 +25,6 @@ use yii\behaviors\TimestampBehavior;
  * @property string $fullname
  * @property string $site
  * @property integer $status
- * @property integer $resend_at
  * @property integer $created_at
  * @property integer $updated_at
  *
@@ -98,7 +97,6 @@ class User extends ActiveRecord implements IdentityInterface
             ['site', 'filter', 'filter' => 'trim'],
             ['site', 'url', 'defaultScheme' => 'http', 'validSchemes' => ['http', 'https']],
 
-            ['resend_at', 'integer'],
 
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => array_keys(self::getStatuses())]
@@ -125,7 +123,6 @@ class User extends ActiveRecord implements IdentityInterface
             'fullname' => Yii::t('user', 'Full name'),
             'site' => Yii::t('user', 'Site'),
             'status' => Yii::t('user', 'Status'),
-            'resend_at' => Yii::t('user', 'Resend At'),
             'created_at' => Yii::t('user', 'Created At'),
             'updated_at' => Yii::t('user', 'Updated At'),
         ];
@@ -334,42 +331,107 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Removes verified token
+     */
+    public function removeVerifiedToken()
+    {
+        $this->email_verified = true;
+        $this->email_token = null;
+    }
+
+    /**
+     * Check for the ability to send new email token
+     * @return bool
+     */
+    public function isResendTimeVerified()
+    {
+        if ($timestamp = $this->getEmailLastRequestVerified()) {
+            return $timestamp + Yii::$app->params['user.resendVerified'] <= time();
+        }
+
+        return false;
+    }
+
+    /**
+     * Next time request change email
+     * @return string
+     */
+    public function getResendTimeNextAttempt()
+    {
+        if ($timestamp = $this->getEmailLastRequestVerified()) {
+            return Yii::$app->formatter->asDatetime($timestamp + Yii::$app->params['user.resendVerified'], 'short');
+        }
+
+        return $timestamp;
+    }
+
+    /**
+     * Time of the last mail change request
+     * @return int|null
+     */
+    private function getEmailLastRequestVerified()
+    {
+        if (empty($this->email_token)) {
+            return null;
+        }
+
+        $parts = explode('_', $this->email_token);
+        if (!is_array($parts)) {
+            return null;
+        }
+
+        return (int)end($parts);
+    }
+
+
+    /**
      * Finds user by email verification token
      * @param string $token
      * @return self
      */
     public static function findByEmailToken($token)
     {
-        return static::findOne(['email_token' => $token, 'email_verified' => false, 'status' => self::STATUS_ACTIVE]);
+        $user = static::findOne([
+            'email_token' => $token,
+            'email_verified' => false,
+            'status' => self::STATUS_ACTIVE,
+        ]);
+
+        if (!$user) {
+            return null;
+        }
+
+        if (!static::isEmailTokenValid($token)) {
+            return null;
+        }
+
+        return $user;
     }
 
     /**
-     * Generates new verified token
+     * Generates new email verification token
      */
     public function generateEmailToken()
     {
-        $this->email_token = Yii::$app->security->generateRandomString();
+        $this->email_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
+
 
     /**
-     * Removes verified token
+     * Finds out if email verification token is valid
+     *
+     * @param string $token email verification token
+     * @return boolean
      */
-    public function removeVerifiedToken()
+    public static function isEmailTokenValid($token)
     {
-        $this->email_token = null;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function isResendTimeVerified()
-    {
-        return $this->resend_at + Yii::$app->params['user.resendVerified'] < time();
-    }
-
-    public function getResendTimeNextAttempt()
-    {
-        return Yii::$app->formatter->asDatetime($this->resend_at + Yii::$app->params['user.resendVerified'], 'short');
+        if (empty($token)) {
+            return false;
+        }
+        $expire = Yii::$app->params['user.resendVerified'];
+        $parts = explode('_', $token);
+        $timestamp = (int)end($parts);
+        return $timestamp + $expire >= time();
     }
 
     /**
@@ -379,8 +441,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         if (parent::beforeSave($insert)) {
 
-            if ($this->scenario === self::SCENARIO_PROFILE && $this->isAttributeChanged('email')){
-                $this->resend_at = time();
+            if ($this->isAttributeChanged('email')) {
                 $this->email_verified = false;
                 $this->generateEmailToken();
             }

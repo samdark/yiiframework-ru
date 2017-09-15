@@ -210,8 +210,6 @@ class SiteController extends Controller
         $model = User::findByEmailToken($token);
 
         if ($model) {
-            $model->resend_at = null;
-            $model->email_verified = true;
             $model->removeVerifiedToken();
 
             if ($model->save()) {
