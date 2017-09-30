@@ -152,6 +152,7 @@ class UserController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             \Yii::$app->session->setFlash('success', Yii::t('user', 'The profile was successfully changed.'));
+
             return $this->redirect(['edit']);
         }
 
@@ -182,29 +183,20 @@ class UserController extends Controller
      */
     public function actionResend()
     {
-        /** @var $model User */
-        $model = User::find()
-            ->where([
-                'id' => Yii::$app->user->identity->getId(),
-                'email_verified' => false,
-                'status' => User::STATUS_ACTIVE
-            ])
-            ->one();
+        $user = Yii::$app->user->identity;
 
-        if ($model === null) {
-            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-        }
+        if ($user->email_verified) {
+            Yii::$app->getSession()->setFlash('error', 'Ваша почта подтверждена.');
+        } elseif ($user->isResendTimeVerified() === false) {
+            Yii::$app->getSession()->setFlash('error', 'Повторно отправить письмо возможно будет ' . $user->getResendTimeNextAttempt());
+        } else {
+            if (!User::isEmailTokenValid($user->email_token)) {
+                $user->generateEmailToken();
+            }
 
-        if ($model->isResendTimeVerified()) {
-
-            $model->resend_at = time();
-            $model->generateEmailToken();
-
-            if ($model->save()) {
-                (new UserMailer($model))->sendConfirmationEmail();
-                \Yii::$app->session->setFlash('success', Yii::t('user', 'A reminder letter with instructions was sent.'));
-
-                $this->redirect(['edit']);
+            if ($user->save()) {
+                (new UserMailer($user))->sendConfirmationEmail();
+                Yii::$app->session->setFlash('success', 'Вам было отправлено письмо с напоминанием с инструкциями.');
             }
         }
 

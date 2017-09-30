@@ -24,7 +24,7 @@ class UserMailer
         return \Yii::$app->mailer->compose(['html' => 'passwordResetSuccess-html'], ['user' => $this->user])
             ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
             ->setTo($this->user->email)
-            ->setSubject(\Yii::t('user', 'Password for {appname} was reset', ['appname' => \Yii::$app->name]))
+            ->setSubject('Восстановление пароля для ' . \Yii::$app->name)
             ->send();
     }
 
@@ -33,7 +33,7 @@ class UserMailer
         return \Yii::$app->mailer->compose(['html' => 'newRegister-html'], ['user' => $this->user])
             ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
             ->setTo($this->user->email)
-            ->setSubject(\Yii::t('user', 'Welcome to {appname}', ['appname' => \Yii::$app->name]))
+            ->setSubject('Добро пожаловать на ' . \Yii::$app->name)
             ->send();
     }
 
@@ -42,7 +42,7 @@ class UserMailer
         return \Yii::$app->mailer->compose(['html' => 'confirmEmail-html'], ['user' => $this->user])
             ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
             ->setTo($this->user->email)
-            ->setSubject(\Yii::t('user', 'Please confirm your email for {appname}', ['appname' => \Yii::$app->name]))
+            ->setSubject('Подтвердите адрес электронной почты для ' . \Yii::$app->name)
             ->send();
     }
 }
