@@ -150,16 +150,10 @@ class UserController extends Controller
             throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
         }
 
-        if ($model->load(Yii::$app->request->post())) {
-            $sendEmail = $model->isAttributeChanged('email');
-            if ($model->save()) {
-                if ($sendEmail) {
-                    (new UserMailer($model))->sendConfirmationEmail();
-                }
-                \Yii::$app->session->setFlash('success', Yii::t('user', 'The profile was successfully changed.'));
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            \Yii::$app->session->setFlash('success', Yii::t('user', 'The profile was successfully changed.'));
 
-                return $this->redirect(['edit']);
-            }
+            return $this->redirect(['edit']);
         }
 
         return $this->render('edit', [
@@ -192,11 +186,9 @@ class UserController extends Controller
         $user = Yii::$app->user->identity;
 
         if ($user->email_verified) {
-            Yii::$app->getSession()->setFlash('error', \Yii::t('user', 'The email address is confirmed.'));
+            Yii::$app->getSession()->setFlash('error', 'Ваша почта подтверждена.');
         } elseif ($user->isResendTimeVerified() === false) {
-            Yii::$app->getSession()->setFlash('error', \Yii::t('user', 'Resend letters will be possible {time}.', [
-                'time' => $user->getResendTimeNextAttempt()
-            ]));
+            Yii::$app->getSession()->setFlash('error', 'Повторно отправить письмо возможно будет ' . $user->getResendTimeNextAttempt());
         } else {
             if (!User::isEmailTokenValid($user->email_token)) {
                 $user->generateEmailToken();
@@ -204,7 +196,7 @@ class UserController extends Controller
 
             if ($user->save()) {
                 (new UserMailer($user))->sendConfirmationEmail();
-                Yii::$app->session->setFlash('success', Yii::t('user', 'A reminder letter with instructions was sent.'));
+                Yii::$app->session->setFlash('success', 'Вам было отправлено письмо с напоминанием с инструкциями.');
             }
         }
 

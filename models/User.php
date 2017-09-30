@@ -7,6 +7,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
+use app\components\UserMailer;
 
 /**
  * User model
@@ -444,6 +445,8 @@ class User extends ActiveRecord implements IdentityInterface
             if ($this->isAttributeChanged('email')) {
                 $this->email_verified = false;
                 $this->generateEmailToken();
+
+                (new UserMailer($this))->sendConfirmationEmail();
             }
 
             return true;
