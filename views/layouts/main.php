@@ -152,6 +152,7 @@ AppAsset::register($this);
                     <ul class="footer-nav">
                         <li><a href="http://yiiframework.ru/forum/viewforum.php?f=5" target="_blank" rel="noopener noreferrer">Оставить пожелание</a></li>
                         <li><a href="https://join.slack.com/t/yii/shared_invite/MjIxMjMxMTk5MTU1LTE1MDE3MDAwMzMtM2VkMTMyMjY1Ng" target="_blank" rel="noopener noreferrer">Чат</a></li>
+                        <li><a href="https://github.com/samdark/yiiframework-ru" target="_blank" rel="noopener noreferrer">Исходный код сайта</a></li>
                         <li><a href="https://github.com/samdark/yiiframework-ru/issues" target="_blank" rel="noopener noreferrer">Сообщить об ошибке</a></li>
                     </ul>
                 </div>
