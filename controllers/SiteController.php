@@ -77,6 +77,10 @@ class SiteController extends Controller
                 'successCallback' => [$this, 'onAuthSuccess'],
                 'successUrl' => Url::toRoute('user/edit'),
             ],
+            'hooks' => [
+                'class' => \app\actions\GitHubHookAction::class,
+                'fileName' => '@app/config/system/versions.php',
+            ]
         ];
     }
 
