@@ -29,7 +29,7 @@ use yii\web\MethodNotAllowedHttpException;
  *
  * In Webhooks/Manage on Github you should configure:
  *
- *      Payload URL - https://yiiframework.ru/site/hooks&version=yii2 or https://yiiframework.ru/site/hooks&version=yii1
+ *      Payload URL - https://yiiframework.ru/site/hooks?version=yii2 or https://yiiframework.ru/site/hooks?version=yii1
  *      Content type - application/json
  *      Secret - configure in /config/params.php as "hook-hub-secret"
  *      Which events would you like to trigger this webhook? - only "Release"
