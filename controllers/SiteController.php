@@ -22,11 +22,22 @@ use yii\filters\AccessControl;
  */
 class SiteController extends Controller
 {
+    const REMEMBER_ME_DURATION = 3600 * 24 * 30;
     /**
      * @inheritdoc
      */
-    public $layout = "common";
+    public $layout = 'common';
 
+    /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if ($action->id === 'hooks') {
+            $this->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
 
     /**
      * @inheritdoc
@@ -108,11 +119,11 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
         }
+
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -139,7 +150,7 @@ class SiteController extends Controller
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user, 3600 * 24 * 30)) {
+                if (Yii::$app->getUser()->login($user, self::REMEMBER_ME_DURATION)) {
                     return $this->goHome();
                 }
             }
@@ -164,9 +175,8 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('success', \Yii::t('user', 'Check your email for further instructions.'));
 
                 return $this->goHome();
-            } else {
-                Yii::$app->session->setFlash('error', \Yii::t('user', 'Sorry, we are unable to reset password for email provided.'));
             }
+            Yii::$app->session->setFlash('error', \Yii::t('user', 'Sorry, we are unable to reset password for email provided.'));
         }
 
         return $this->render('requestPasswordResetToken', [
@@ -204,6 +214,11 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @param string $token
+     * @return mixed
+     * @throws BadRequestHttpException
+     */
     public function actionConfirmed($token)
     {
         if (empty($token) || !is_string($token)) {
