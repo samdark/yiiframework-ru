@@ -172,11 +172,11 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', \Yii::t('user', 'Check your email for further instructions.'));
+                Yii::$app->session->setFlash('success', 'Для получения дальнейших инструкций проверьте почту.');
 
                 return $this->goHome();
             }
-            Yii::$app->session->setFlash('error', \Yii::t('user', 'Sorry, we are unable to reset password for email provided.'));
+            Yii::$app->session->setFlash('error', 'К сожалению, мы не можем сбросить пароль для указанного адреса почты.');
         }
 
         return $this->render('requestPasswordResetToken', [
@@ -204,7 +204,7 @@ class SiteController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             (new UserMailer($user))->sendPasswordResetSuccessEmail();
-            Yii::$app->session->setFlash('success', \Yii::t('user', 'New password was saved.'));
+            Yii::$app->session->setFlash('success', 'Новый пароль успешно установлен.');
 
             return $this->goHome();
         }
@@ -222,7 +222,7 @@ class SiteController extends Controller
     public function actionConfirmed($token)
     {
         if (empty($token) || !is_string($token)) {
-            throw new BadRequestHttpException(Yii::t('user', 'Wrong confirmed token.'));
+            throw new BadRequestHttpException('Неправильный токен.');
         }
 
         /** @var $model User */
@@ -232,12 +232,12 @@ class SiteController extends Controller
             $model->removeVerifiedToken();
 
             if ($model->save()) {
-                \Yii::$app->session->setFlash('success', Yii::t('user', 'Thank you, Your e-mail address was successfully confirmed.'));
+                \Yii::$app->session->setFlash('success', 'Спасибо, ваша почта успешно подтверждена.');
                 return $this->goHome();
             }
         }
 
-        \Yii::$app->session->setFlash('error', Yii::t('user', 'Wrong confirmed token.'));
+        \Yii::$app->session->setFlash('error', 'Неправильный токен.');
 
         return $this->goHome();
     }

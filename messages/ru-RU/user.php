@@ -17,7 +17,6 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'A reminder letter with instructions was sent.' => 'Письмо с инструкциями отослано.',
     'Activated' => 'Активирован',
     'Auth Key' => 'Ключ аутентификации',
     'Blocked' => 'Заблокирован',
@@ -25,7 +24,6 @@ return [
     'Change password' => 'Изменение пароля',
     'Change picture' => 'Изменить фото',
     'Change the password' => 'Изменить пароль',
-    'Check your email for further instructions.' => 'Для получения дальнейших инструкций проверьте почту.',
     'Created At' => 'Создан',
     'Current password' => 'Текущий пароль',
     'Deleted' => 'Удалён',
@@ -40,7 +38,6 @@ return [
     'Inactivated' => 'Деактивирован',
     'Incorrect username or password.' => 'Неверное имя пользователя или пароль.',
     'New password' => 'Новый пароль',
-    'New password was saved.' => 'Новый пароль успешно установлен.',
     'No Facebook' => 'Нет аккаунта Facebook',
     'No Github' => 'Нет аккаунта Github',
     'No Twitter' => 'Нет аккаунта Twitter',
@@ -48,9 +45,7 @@ return [
     'Password' => 'Пароль',
     'Password Hash' => 'Хеш пароля',
     'Password Reset Token' => 'Токен восстановления пароля',
-    'Password for {appname} was reset' => '',
     'Password reset token cannot be blank.' => 'Токен восстановления пароля не может быть пустым',
-    'Please confirm your email for {appname}' => '',
     'Posts from {username}' => 'Посты от {username}',
     'Remember me' => 'Запомнить',
     'Repeat password' => 'Повторите пароль',
@@ -58,9 +53,9 @@ return [
     'Resend letters will be possible {time}.' => 'Повторно отправить письмо с подтверждением, возможно будет с {time}.',
     'Send' => 'Отправить',
     'Site' => 'Сайт',
-    'Sorry, we are unable to reset password for email provided.' => 'К сожалению, мы не можем сбросить пароль для указанного адреса почты.',
+
     'Status' => 'Статус',
-    'Thank you, Your e-mail address was successfully confirmed.' => 'Спасибо, ваша почта успешно подтверждена.',
+
     'The email address is confirmed.' => 'Ваша почта подтверждена.',
     'The email address is not confirmed, {resend}' => 'Адрес почты не подтверждён, {resend}',
     'The email address is not confirmed.' => 'Адрес почты не подтверждён.',
@@ -73,8 +68,6 @@ return [
     'Update' => 'Изменить',
     'Updated At' => 'Обновлён',
     'Username' => 'Имя пользователя',
-    'Welcome to {appname}' => 'Добро пожаловать в {appname}',
-    'Wrong confirmed token.' => 'Неправильный токен.',
     'Wrong password reset token.' => 'Неправильный токен восстановления пароля.',
     'resend the confirmation.' => 'повторно отправить подтверждение?',
 ];
