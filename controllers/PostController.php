@@ -72,6 +72,10 @@ class PostController extends Controller
             $query->andWhere([
                 'post.status' => Post::STATUS_ACTIVE,
             ]);
+        } else {
+            $query->andWhere([
+                'post.status' => [Post::STATUS_INACTIVE, Post::STATUS_ACTIVE],
+            ]);
         }
 
         $provider = new ActiveDataProvider([
@@ -125,7 +129,7 @@ class PostController extends Controller
         /** @var Post $post */
         $post = Post::find()->where(['id' => $id])->one();
 
-        if (!$post) {
+        if (!$post || !$this->getPermissions()->canEditPost($post)) {
             throw new NotFoundHttpException(Yii::t('post', 'The requested article does not exist.'));
         }
 
@@ -141,6 +145,11 @@ class PostController extends Controller
         }
 
         if ($post->load(Yii::$app->request->post()) && $post->save()) {
+            if ((int) $post->status === Post::STATUS_DELETED) {
+                Yii::$app->session->setFlash('success', Yii::t('post', 'Your post was successfully deleted.'));
+                return $this->redirect(['index']);
+            }
+            
             Yii::$app->session->setFlash('success', Yii::t('post', 'Your post was successfully updated.'));
             return $this->redirect(['view', 'id' => $post->id, 'slug' => $post->slug]);
         }

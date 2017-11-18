@@ -30,5 +30,6 @@ return [
     'You are not allowed to perform this action.' => 'Вам не разрешено выполнять это действие.',
     'Your post was successfully added. Therefore your post will be published as it will be verified by the Administrator.' => 'Ваш пос был успешно добавлен. Ваш пост будет опубликован только после проверки администратором сайта.',
     'Your post was successfully updated.' => 'Ваше сообщение было успешно обновлено.',
+    'Your post was successfully deleted.' => 'Ваше сообщение было успешно удалено.',
     'read more...' => 'читать далее...',
 ];

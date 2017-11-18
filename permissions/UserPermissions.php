@@ -25,7 +25,8 @@ class UserPermissions
 
     public function canEditPost(Post $post)
     {
-        return ($this->isPostOwner($post) && (int)$post->status === Post::STATUS_INACTIVE) || $this->canManagePosts();
+        return ($this->isPostOwner($post) && (int) $post->status === Post::STATUS_INACTIVE) || 
+            ($this->canManagePosts() && in_array((int) $post->status, [Post::STATUS_INACTIVE, Post::STATUS_ACTIVE], true));
     }
 
     public function isPostOwner(Post $post)
