@@ -11,6 +11,10 @@ return [
     'bootstrap' => ['log'],
     'defaultRoute' => 'post/index',
     'language' => 'ru-RU',
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset',
+    ],
     'components' => [
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
