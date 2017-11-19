@@ -27,6 +27,14 @@ use yii\widgets\ActiveForm;
 
 <div class="form-group">
     <div>
+        <?php if ($canEditStatus): ?>
+            <?= Html::a(Yii::t('post', 'Delete'), ['delete', 'id' => $post->id], [
+                'class' => 'btn btn-danger btn-lg',
+                'data-method' => 'post',
+                'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?')
+            ]) ?>&nbsp;&nbsp;
+        <?php endif ?>
+        
         <?= Html::submitButton(
             $post->isNewRecord ? Yii::t('post', 'Create') : Yii::t('post', 'Edit post'),
             ['class' => $post->isNewRecord ? 'btn btn-success btn-lg' : 'btn btn-primary btn-lg']

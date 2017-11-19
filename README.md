@@ -45,12 +45,6 @@ yii migrate
 Point your werbserver root to `web` directory.
 There's [nginx config you can check](https://github.com/samdark/yiiframework-ru/tree/master/server/nginx).
 
-### 5. Cron
-
-```
-01 * * * * php yii post/delete > /dev/null 2>&1 #Delete posts marked as deleted.
-```
-
 Optional installation steps
 ---------------------------
 

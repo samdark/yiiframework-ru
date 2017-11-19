@@ -111,8 +111,7 @@ class UserController extends Controller
 
         $queryPost = Post::find()
             ->where([
-                'user_id' => $id,
-                'status' => [Post::STATUS_INACTIVE, Post::STATUS_ACTIVE]
+                'user_id' => $id
             ])
             ->orderBy(['created_at' => SORT_DESC]);
 
