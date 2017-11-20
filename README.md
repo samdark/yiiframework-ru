@@ -45,6 +45,63 @@ yii migrate
 Point your werbserver root to `web` directory.
 There's [nginx config you can check](https://github.com/samdark/yiiframework-ru/tree/master/server/nginx).
 
+Alternative installation (Vagrant)
+----------------------------------
+
+#### Manual for Linux/Unix users
+
+1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+2. Install [Vagrant](https://www.vagrantup.com/downloads.html)
+3. Create GitHub [personal API token](https://github.com/blog/1509-personal-api-tokens)
+3. Prepare project:
+   
+   ```bash
+   git clone https://github.com/samdark/yiiframework-ru.git
+   cd yiiframework-ru/vagrant/config
+   cp vagrant-local.example.yml vagrant-local.yml
+   ```
+   
+4. Place your GitHub personal API token to `vagrant-local.yml`
+5. Change directory to project root:
+
+   ```bash
+   cd yiiframework-ru
+   ```
+
+5. Run command:
+
+   ```bash
+   vagrant up
+   ```
+   
+That's all. You just need to wait for completion!
+After that you can access project locally by URL: http://l.yiiframework.ru
+   
+#### Manual for Windows users
+
+1. Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+2. Install [Vagrant](https://www.vagrantup.com/downloads.html)
+3. Reboot
+4. Create GitHub [personal API token](https://github.com/blog/1509-personal-api-tokens)
+5. Prepare project:
+   * download repo [yiiframework-ru](https://github.com/samdark/yiiframework-ru/archive/master.zip)
+   * unzip it
+   * go into directory `yiiframework-ru-master/vagrant/config`
+   * copy `vagrant-local.example.yml` to `vagrant-local.yml`
+
+6. Place your GitHub personal API token to `vagrant-local.yml`
+
+7. Open terminal (`cmd.exe`), **change directory to project root** and run command:
+
+   ```bash
+   vagrant up
+   ```
+   
+   (You can read [here](http://www.wikihow.com/Change-Directories-in-Command-Prompt) how to change directories in command prompt) 
+
+That's all. You just need to wait for completion!
+After that you can access project locally by URL: http://l.yiiframework.ru
+
 Optional installation steps
 ---------------------------
 
