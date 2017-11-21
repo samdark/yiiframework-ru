@@ -157,6 +157,7 @@ class PostController extends Controller
         return $this->render('update', [
             'post' => $post,
             'canEditStatus' => $canEditStatus,
+            'canEditPost' => $this->getPermissions()->canEditPost($post)
         ]);
     }
 
@@ -237,13 +238,19 @@ class PostController extends Controller
      * @param int $id
      *
      * @return Response
+     * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
      */
     public function actionDelete($id)
     {
         $post = Post::findOne($id);
+        
         if (!$post) {
             throw new NotFoundHttpException(Yii::t('post', 'The requested article does not exist.'));
+        }
+        
+        if (!$this->getPermissions()->canEditPost($post)) {
+            throw new ForbiddenHttpException(Yii::t('post', 'You are not allowed to perform this action.'));
         }
         
         if ($post->delete()) {

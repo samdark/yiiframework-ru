@@ -26,7 +26,7 @@ use yii\helpers\Markdown;
         <?php if ($canEditPost) : ?>
             <span class="margin-line">|</span> <?= Html::a(Yii::t('post', 'Update post'), ['post/update', 'id' => $post->id]) ?>
             <span class="margin-line">|</span> 
-            <?= Html::a(Yii::t('post', 'Delete'), ['delete', 'id' => $post->id], [
+            <?= Html::a(Yii::t('post', 'Delete'), ['post/delete', 'id' => $post->id], [
                 'class' => 'text-danger',
                 'data-method' => 'post',
                 'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?')

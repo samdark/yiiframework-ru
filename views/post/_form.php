@@ -7,6 +7,7 @@ use yii\widgets\ActiveForm;
 /** @var $this \yii\web\View */
 /** @var $post \app\models\Post */
 /** @var $canEditStatus bool */
+/** @var $canEditPost bool */
 
 \app\assets\MarkdownEditorAsset::register($this);
 ?>
@@ -27,8 +28,8 @@ use yii\widgets\ActiveForm;
 
 <div class="form-group">
     <div>
-        <?php if ($canEditStatus): ?>
-            <?= Html::a(Yii::t('post', 'Delete'), ['delete', 'id' => $post->id], [
+        <?php if (!$post->isNewRecord && $canEditPost): ?>
+            <?= Html::a(Yii::t('post', 'Delete'), ['post/delete', 'id' => $post->id], [
                 'class' => 'btn btn-danger btn-lg',
                 'data-method' => 'post',
                 'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?')
