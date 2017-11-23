@@ -1,12 +1,14 @@
 <?php
 
 use app\components\MetaTagsRegistrar;
+use app\permissions\UserPermissions;
 use yii\helpers\Html;
 use app\models\Post;
 
 /* @var $this yii\web\View */
 /* @var $model \app\models\User */
 /* @var $providerPost \yii\data\ActiveDataProvider */
+/* @var UserPermissions $userPermissions */
 
 (new MetaTagsRegistrar($this))
     ->setTitle("Пользователь «{$model->username}»")
@@ -103,8 +105,14 @@ use app\models\Post;
                             <?php if ((int)$post->status !== Post::STATUS_ACTIVE): ?>
                                 <small><?= $post->getStatusLabel($post->status) ?></small>
                             <?php endif ?>
-                            <?php if (Yii::$app->user->id == $post->user_id && $post->status == $post::STATUS_INACTIVE) : ?>
+                            <?php if ($userPermissions->canEditPost($post)) : ?>
                                 <span class="margin-line">|</span> <?= Html::a(Yii::t('post', 'Edit post'), ['post/update', 'id' => $post->id]) ?>
+                                <span class="margin-line">|</span>
+                                <?= Html::a(Yii::t('post', 'Delete'), ['post/delete', 'id' => $post->id], [
+                                    'class' => 'text-danger',
+                                    'data-method' => 'post',
+                                    'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?')
+                                ]) ?>
                             <?php endif; ?>
                         </li>
                     <?php endforeach ?>

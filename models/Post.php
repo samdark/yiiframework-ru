@@ -31,9 +31,6 @@ class Post extends ActiveRecord
     /** Active status */
     const STATUS_ACTIVE = 10;
 
-    /** Deleted status */
-    const STATUS_DELETED = 20;
-
     const SCENARIO_UPDATE_BY_MANAGER = 'update_by_manager';
 
     /**
@@ -133,7 +130,6 @@ class Post extends ActiveRecord
         return [
             self::STATUS_INACTIVE => 'Проверяется модератором',
             self::STATUS_ACTIVE => 'Опубликован',
-            self::STATUS_DELETED => 'Удалён',
         ];
     }
 }

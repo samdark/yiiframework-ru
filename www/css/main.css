@@ -2333,3 +2333,7 @@ table td {
     padding: 1rem;
     font-size: 120%;
 }
+
+.post-button-delete {
+    margin-right: 10px;
+}

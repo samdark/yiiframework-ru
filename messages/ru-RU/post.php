@@ -20,6 +20,7 @@ return [
     'Author:' => 'Автор:',
     'Create' => 'Опубликовать',
     'Create post' => 'Создать пост',
+    'Delete' => 'Удалить',
     'Date publication:' => 'Дата публикации:',
     'Edit post' => 'Изменить',
     'News' => 'Новости',
@@ -30,5 +31,7 @@ return [
     'You are not allowed to perform this action.' => 'Вам не разрешено выполнять это действие.',
     'Your post was successfully added. Therefore your post will be published as it will be verified by the Administrator.' => 'Ваш пос был успешно добавлен. Ваш пост будет опубликован только после проверки администратором сайта.',
     'Your post was successfully updated.' => 'Ваше сообщение было успешно обновлено.',
+    'Your post was successfully deleted.' => 'Ваше сообщение было успешно удалено.',
+    'Failed to delete project.' => 'Ошибка при удалении сообщения.',
     'read more...' => 'читать далее...',
 ];

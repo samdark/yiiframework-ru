@@ -12,12 +12,14 @@ use Yii;
 use app\models\Post;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * PostController handles news
@@ -45,15 +47,21 @@ class PostController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update'],
+                'only' => ['create', 'update', 'delete'],
                 'rules' => [
                     [
-                        'actions' => ['create', 'update'],
+                        'actions' => ['create', 'update', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                 ],
             ],
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
+                ]
+            ]
         ];
     }
 
@@ -94,7 +102,7 @@ class PostController extends Controller
     /**
      * Create post
      *
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionCreate()
     {
@@ -116,7 +124,8 @@ class PostController extends Controller
      * Update post
      *
      * @param int $id
-     * @return string|\yii\web\Response
+     *
+     * @return string|Response
      * @throws ForbiddenHttpException
      * @throws NotFoundHttpException
      */
@@ -148,6 +157,7 @@ class PostController extends Controller
         return $this->render('update', [
             'post' => $post,
             'canEditStatus' => $canEditStatus,
+            'canEditPost' => $this->getPermissions()->canEditPost($post)
         ]);
     }
 
@@ -156,7 +166,7 @@ class PostController extends Controller
      *
      * @param int $id
      * @param string $slug
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws NotFoundHttpException
      */
     public function actionView($id = null, $slug = null)
@@ -222,5 +232,33 @@ class PostController extends Controller
         }
 
         $feed->render();
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
+    public function actionDelete($id)
+    {
+        $post = Post::findOne($id);
+        
+        if (!$post) {
+            throw new NotFoundHttpException(Yii::t('post', 'The requested article does not exist.'));
+        }
+        
+        if (!$this->getPermissions()->canEditPost($post)) {
+            throw new ForbiddenHttpException(Yii::t('post', 'You are not allowed to perform this action.'));
+        }
+        
+        if ($post->delete()) {
+            \Yii::$app->session->setFlash('success', Yii::t('post', 'Your post was successfully deleted.'));
+        } else {
+            \Yii::$app->session->setFlash('error', Yii::t('post', 'Failed to delete project.'));
+        }
+
+        return $this->redirect(['index']);
     }
 }

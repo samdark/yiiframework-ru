@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Post;
+use app\permissions\UserPermissions;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -129,6 +130,7 @@ class UserController extends Controller
         return $this->render('view', [
             'model' => $user,
             'providerPost' => $providerPost,
+            'userPermissions' => new UserPermissions(Yii::$app->user)
         ]);
     }
 
