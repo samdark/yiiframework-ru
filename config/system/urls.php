@@ -9,6 +9,7 @@ return [
     'news/<page:\d+>' => 'post/index',
     'news/<id>/<slug>' => 'post/view',
     'news/<slug>' => 'post/view',
+    'news' => 'post/index',
 
     'auth' => 'site/auth',
     'terms' => 'site/terms',
