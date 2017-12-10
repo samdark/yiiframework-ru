@@ -39,6 +39,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => $urls,
+            'normalizer' => [
+                'class' => \yii\web\UrlNormalizer::class,
+            ],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
