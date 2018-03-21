@@ -75,7 +75,7 @@ use yii\helpers\Html;
 
 <div class="container-fluid index-search">
     <div class="container">
-        <form action="http://www.google.com/cse" id="cse-search-box" target="_blank" rel="noopener noreferrer">
+        <form action="https://www.google.com/cse" id="cse-search-box" target="_blank" rel="noopener noreferrer">
             <input type="hidden" name="cx" value="006237035567373325440:sm9smqhhp9u" />
             <input type="hidden" name="ie" value="UTF-8" />
             <input type="text" class="form-control input-lg" name="q" size="14" placeholder="<?= Yii::t('app', 'Search') ?>" />

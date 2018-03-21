@@ -54,5 +54,4 @@ HighlightJSAsset::register($this);
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="http://www.google.com/cse/brand?form=cse-search-box&lang=ru"></script>
 </div>

@@ -15,7 +15,7 @@ use yii\helpers\Html;
                 <div class="sect-title-text"><?= Html::encode($this->title) ?></div>
             </div>
             <div class="col-xs-2 col-sm-1 col-md-3 col-lg-3">
-                <form action="http://www.google.com/cse" id="cse-search-box" target="_blank" rel="noopener noreferrer">
+                <form action="https://www.google.com/cse" id="cse-search-box" target="_blank" rel="noopener noreferrer">
                     <input type="hidden" name="cx" value="006237035567373325440:sm9smqhhp9u" />
                     <input type="hidden" name="ie" value="UTF-8" />
                     <input type="text" class="form-control input-lg page-search" name="q" size="14" placeholder="<?= Yii::t('app', 'Search') ?>" />
