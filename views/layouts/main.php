@@ -71,7 +71,7 @@ AppAsset::register($this);
                 ['label' => '1.1', 'url' => ['/site/legacy']],
                 ['label' => 'Руководство', 'url' => 'https://www.yiiframework.com/doc/guide/2.0/ru', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
                 ['label' => 'API', 'url' => 'https://www.yiiframework.com/doc/api/2.0', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
-                ['label' => 'Расширения', 'url' => 'https://yiigist.com/', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
+                ['label' => 'Расширения', 'url' => 'https://www.yiiframework.com/extensions', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
 //                [
 //                    'label' => 'Вопросы',
 //                    'url' => ['/qa'],
