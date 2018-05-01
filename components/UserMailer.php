@@ -21,6 +21,10 @@ class UserMailer
 
     public function sendPasswordResetSuccessEmail()
     {
+        if (empty($this->user->email)) {
+            return false;
+        }
+
         return \Yii::$app->mailer->compose(['html' => 'passwordResetSuccess-html'], ['user' => $this->user])
             ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
             ->setTo($this->user->email)
@@ -30,6 +34,10 @@ class UserMailer
 
     public function sendNewSignupEmail()
     {
+        if (empty($this->user->email)) {
+            return false;
+        }
+
         return \Yii::$app->mailer->compose(['html' => 'newRegister-html'], ['user' => $this->user])
             ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
             ->setTo($this->user->email)
@@ -39,6 +47,10 @@ class UserMailer
 
     public function sendConfirmationEmail()
     {
+        if (empty($this->user->email)) {
+            return false;
+        }
+
         return \Yii::$app->mailer->compose(['html' => 'confirmEmail-html'], ['user' => $this->user])
             ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
             ->setTo($this->user->email)

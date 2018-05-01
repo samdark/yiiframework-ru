@@ -197,8 +197,12 @@ class UserController extends Controller
             }
 
             if ($user->save()) {
-                (new UserMailer($user))->sendConfirmationEmail();
-                Yii::$app->session->setFlash('success', 'Вам было отправлено письмо с напоминанием с инструкциями.');
+                if ((new UserMailer($user))->sendConfirmationEmail()) {
+                    Yii::$app->session->setFlash('success', 'Вам было отправлено письмо с напоминанием с инструкциями.');
+                } else {
+                    Yii::$app->session->setFlash('warning', 'Не удалось отправить письмо.');
+                }
+
             }
         }
 
