@@ -55,9 +55,9 @@ $this->title = Yii::t('app', 'Edit profile');
                     <tbody>
                     <?php foreach ($authAuthChoice->getClients() as $client): ?>
                         <tr>
-                            <th scope="row"><?php $authAuthChoice->clientLink($client, Html::tag('span', '', ['class' => 'auth-icon ' . $client->getName()])) ?></th>
+                            <th scope="row"><?= $authAuthChoice->clientLink($client, Html::tag('span', '', ['class' => 'auth-icon ' . $client->getName()])) ?></th>
                             <td>Чтобы привязать или отвязать свой профиль <?= $client->getTitle() ?>, кликните на иконку или на кнопку.</td>
-                            <td><?php $authAuthChoice->clientLink($client, Html::tag('span', $model->{$client->getId()} ? 'Отключить' : 'Подключить',
+                            <td><?= $authAuthChoice->clientLink($client, Html::tag('span', $model->{$client->getId()} ? 'Отключить' : 'Подключить',
                                     ['class' => $model->{$client->getId()} ? 'btn btn-xs btn-danger btn-block' : 'btn btn-xs btn-success btn-block'])) ?></td>
                         </tr>
                     <?php endforeach; ?>

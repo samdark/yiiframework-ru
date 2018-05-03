@@ -67,7 +67,7 @@ $this->blocks['body-class'] = "bg-textured";
                         ]); ?>
 
                         <?php foreach ($authAuthChoice->getClients() as $client): ?>
-                            <?php $authAuthChoice->clientLink($client, '') ?>
+                            <?= $authAuthChoice->clientLink($client, '') ?>
                         <?php endforeach; ?>
 
                         <?php AuthChoice::end(); ?>
