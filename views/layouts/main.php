@@ -23,9 +23,7 @@ AppAsset::register($this);
 <body class="<?= $this->blocks['body-class'] ?>">
 <?php $this->beginBody() ?>
 
-<?php /*
-<div class="important-message"></div>
-*/ ?>
+<div class="important-message"><a href="https://phprussia.ru/2019">Конференция PHP Russia</a>. 17 мая, Москва.</div>
 
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
