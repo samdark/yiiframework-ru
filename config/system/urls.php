@@ -11,6 +11,7 @@ return [
     'news/<slug>' => 'post/view',
     'news' => 'post/index',
 
+    'chat' => 'site/chat',
     'auth' => 'site/auth',
     'terms' => 'site/terms',
     'doc/cookbook/ru/<page>' => 'cookbook/view',
