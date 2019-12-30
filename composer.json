@@ -1,7 +1,10 @@
 {
     "name": "samdark/yiiframework-ru",
     "description": "yiiframework.ru",
-    "keywords": ["yii", "yiiframework.ru"],
+    "keywords": [
+        "yii",
+        "yiiframework.ru"
+    ],
     "homepage": "http://www.yiiframework.ru/",
     "type": "project",
     "license": "BSD-3-Clause",
@@ -12,7 +15,7 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.0",
         "yiisoft/yii2": "~2.0.15",
         "yiisoft/yii2-bootstrap": "~2.0.8",
         "yiisoft/yii2-swiftmailer": "~2.1.1",
@@ -29,12 +32,21 @@
         "yiisoft/yii2-gii": "~2.0.5"
     },
     "config": {
-        "process-timeout": 1800
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        }
     },
     "extra": {
         "asset-installer-paths": {
             "npm-asset-library": "vendor/npm",
             "bower-asset-library": "vendor/bower"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }

@@ -258,4 +258,12 @@ class SiteController extends Controller
     {
         return $this->render('terms');
     }
+
+    /**
+     * @return string
+     */
+    public function actionChat()
+    {
+        return $this->render('chat');
+    }
 }

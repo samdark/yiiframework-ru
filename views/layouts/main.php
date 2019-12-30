@@ -20,7 +20,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="<?= $this->blocks['body-class'] ?>">
+<body class="<?= $this->blocks['body-class'] ?? '' ?>">
 <?php $this->beginBody() ?>
 
 <?php /*<div class="important-message"><a href="https://...">Important message here!</div> */ ?>
@@ -75,7 +75,7 @@ AppAsset::register($this);
 //                    'url' => ['/qa'],
 //                    'active' => Yii::$app->controller->id === 'qa'
 //                ],
-                ['label' => 'Чат', 'url' => 'https://join.slack.com/t/yii/shared_invite/enQtMzQ4MDExMDcyNTk2LWUzN2RlZmJiMDdiZDIwOWI4M2U3ODYwOTRjZDk5MTY1ZWM3YTY5MTVkNzRiN2RlMWQxODA5N2ZmY2E5NWI2YTM', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
+                ['label' => 'Чаты', 'url' => ['/site/chat']],
                 ['label' => 'Форум', 'url' => '/forum/', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
                 ['label' => 'Проекты', 'url' => 'https://yiipowered.com/ru/'],
                 ['label' => 'Пользователи', 'url' => ['/user/index']],
@@ -149,7 +149,8 @@ AppAsset::register($this);
                     <div class="footer-title">Поддержка</div>
                     <ul class="footer-nav">
                         <li><a href="https://yiiframework.ru/forum/viewforum.php?f=5" target="_blank" rel="noopener noreferrer">Оставить пожелание</a></li>
-                        <li><a href="https://join.slack.com/t/yii/shared_invite/MjIxMjMxMTk5MTU1LTE1MDE3MDAwMzMtM2VkMTMyMjY1Ng" target="_blank" rel="noopener noreferrer">Чат</a></li>
+
+                        <li><?= Html::a('Чаты', ['/site/chat']) ?></li>
                         <li><a href="https://github.com/samdark/yiiframework-ru" target="_blank" rel="noopener noreferrer">Исходный код сайта</a></li>
                         <li><a href="https://github.com/samdark/yiiframework-ru/issues" target="_blank" rel="noopener noreferrer">Сообщить об ошибке</a></li>
                     </ul>
