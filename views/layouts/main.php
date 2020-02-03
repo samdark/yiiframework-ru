@@ -23,7 +23,7 @@ AppAsset::register($this);
 <body class="<?= $this->blocks['body-class'] ?? '' ?>">
 <?php $this->beginBody() ?>
 
-<?php /*<div class="important-message"><a href="https://...">Important message here!</div> */ ?>
+<div class="important-message"><a href="https://phprussia.ru/moscow/2020/">Конференция PHP Russia</a>. 13 мая, Москва. Подать доклад можно до 21 февраля.</div>
 
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
