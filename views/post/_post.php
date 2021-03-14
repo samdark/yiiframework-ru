@@ -18,7 +18,7 @@ use yii\helpers\Markdown;
     </div>
 
     <div class="post-info">
-        <?= Yii::t('post', 'Date publication:') ?> <?= Yii::$app->formatter->asDatetime($post->updated_at, 'short'); ?><span class="margin-line">|</span>
+        <?= Yii::t('post', 'Date publication:') ?> <?= Yii::$app->formatter->asDatetime($post->created_at, 'short'); ?><span class="margin-line">|</span>
         <?= Yii::t('post', 'Author:') ?> <?= Html::a(Html::encode($post->user->username), ['/user/view', 'id' => $post->user->id, 'username' => $post->user->username]); ?>
     </div>
 
