@@ -212,7 +212,7 @@ class PostController extends Controller
 
         $feed = new Feed();
         $feed->title = 'yiiframework.ru';
-        $feed->link = Url::to('');
+        $feed->link = Url::home(true);
         $feed->selfLink = Url::to(['post/rss'], true);
         $feed->description = 'Новости Yii';
         $feed->language = 'ru';
