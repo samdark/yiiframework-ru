@@ -80,8 +80,11 @@ AppAsset::register($this);
                 ['label' => 'Чаты', 'url' => ['/site/chat']],
                 ['label' => 'Форум', 'url' => '/forum/', 'linkOptions' => ['target' => '_blank', 'rel' => 'noopener noreferrer']],
                 ['label' => 'Проекты', 'url' => 'https://yiipowered.com/ru/'],
-                ['label' => 'Пользователи', 'url' => ['/user/index']],
             ];
+
+            if (!Yii::$app->user->isGuest) {
+                $menuItems[] = ['label' => 'Пользователи', 'url' => ['/user/index']];
+            }
 
             echo Nav::widget(
                 ['options' => ['class' => 'nav navbar-nav'], 'items' => $menuItems, 'activateParents' => true]

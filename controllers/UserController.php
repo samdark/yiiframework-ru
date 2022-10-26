@@ -39,7 +39,7 @@ class UserController extends Controller
                     [
                         'actions' => ['index', 'view'],
                         'allow' => true,
-                        'roles' => ['?']
+                        'roles' => ['@']
                     ],
                     [
                         'actions' => ['edit', 'password', 'resend'],
