@@ -1,7 +1,6 @@
 <?php
 
 use app\assets\AppAsset;
-use app\helpers\GoogleAnalytics;
 use yii\bootstrap\Nav;
 use yii\helpers\Html;
 
@@ -14,6 +13,16 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LZCJ94GQMB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-LZCJ94GQMB');
+    </script>
+
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
@@ -180,8 +189,6 @@ AppAsset::register($this);
         </div>
     </div>
 </div>
-
-<?php GoogleAnalytics::track('UA-11885794-1') ?>
 
 <?php $this->endBody() ?>
 </body>
