@@ -1,0 +1,37 @@
+services:
+  app:
+    build:
+      dockerfile: docker/Dockerfile
+      context: ..
+      target: prod
+    env_file:
+      - ./prod/.env
+      - path: ./prod/override.env
+        required: false
+    ports:
+      - "${PROD_PORT:-8081}:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+
+  db:
+    image: mysql:5.7
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -proot --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: yiiframework
+      MYSQL_USER: yiiframework
+      MYSQL_PASSWORD: yiiframework
+    volumes:
+      - prod_db_data:/var/lib/mysql
+
+volumes:
+  prod_db_data:

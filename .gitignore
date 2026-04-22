@@ -32,4 +32,8 @@ phpunit.phar
 # vagrant runtime
 /.vagrant
 
+# docker
+/docker/dev/override.env
+/docker/prod/override.env
+
 /config/system/versions.php

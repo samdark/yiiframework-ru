@@ -1,0 +1,15 @@
+{
+    auto_https off
+
+    frankenphp {
+        {$FRANKENPHP_CONFIG}
+    }
+}
+
+{$SERVER_NAME} {
+    root {$SERVER_ROOT}
+    encode zstd br gzip
+
+    php_server {
+    }
+}

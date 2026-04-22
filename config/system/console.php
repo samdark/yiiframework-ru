@@ -13,6 +13,9 @@ return [
     'components' => [
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
+            'itemFile' => '@runtime/rbac/items.php',
+            'assignmentFile' => '@runtime/rbac/assignments.php',
+            'ruleFile' => '@runtime/rbac/rules.php',
         ],
         'db' => $db,
         'log' => [

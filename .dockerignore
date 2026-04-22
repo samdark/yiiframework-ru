@@ -1,0 +1,32 @@
+# Ignore everything
+*
+
+# except:
+
+!/config
+!/www
+!/commands
+!/components
+!/controllers
+!/assets
+!/forms
+!/helpers
+!/mail
+!/messages
+!/migrations
+!/models
+!/notifier
+!/permissions
+!/rbac
+!/views
+!/widgets
+!/util
+!/vendor
+!/autoload.php
+!/environments
+!/docker
+!/init
+!/yii
+!/composer.json
+!/composer.lock
+!/.env*
